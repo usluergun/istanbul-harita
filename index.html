@@ -50,6 +50,8 @@ h1{font-family:var(--f-display);font-size:22px;line-height:1.05;margin:0}
 .tag span{display:inline-block;transform:translate(-50%,-100%);white-space:nowrap;font:500 12px var(--f-mono);color:#fff;background:var(--pin);padding:3px 7px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.25);position:relative;cursor:pointer}
 .tag span::after{content:"";position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:var(--pin)}
 .tag.x span{background:var(--other)} .tag.x span::after{border-top-color:var(--other)}
+.tag.y span{background:#3f9585} .tag.y span::after{border-top-color:#3f9585}
+.tag.s span{background:#7a66b8} .tag.s span::after{border-top-color:#7a66b8}
 .tag.on span{background:var(--ink);outline:2px solid #fff} .tag.on span::after{border-top-color:var(--ink)}
 .dotm{background:none;border:0}
 .dotm i{display:block;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--other);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.35);cursor:pointer}
@@ -145,7 +147,7 @@ h1{font-family:var(--f-display);font-size:22px;line-height:1.05;margin:0}
     <div class="price-f"><label for="pmin">Fiyat</label>
       <select id="pmin"></select><span>–</span><select id="pmax" aria-label="En yüksek fiyat"></select>
     </div>
-    <div class="leg"><span><i style="background:var(--pin);border-radius:3px"></i>Yeni + site (fiyat etiketi)</span><span><i style="background:#4fa596"></i>Yeni bina</span><span><i style="background:#8c79c4"></i>Site içi</span><span><i style="background:var(--other)"></i>Diğer</span>
+    <div class="leg"><span><i style="background:var(--pin);border-radius:3px"></i>Yeni + site (fiyat etiketi; filtre açıkken uyanların hepsi etiketli)</span><span><i style="background:#4fa596"></i>Yeni bina</span><span><i style="background:#8c79c4"></i>Site içi</span><span><i style="background:var(--other)"></i>Diğer</span>
     </div>
     <button class="hide-list" id="hide">Listeyi gizle</button>
   </div>
@@ -254,9 +256,11 @@ ILAN.forEach(x => {
   m.on('popupopen', () => select(x.id)).on('popupclose', () => { if (selId === x.id) select(null); });
   markers[x.id] = m;
 });
+// Fiyat etiketi: yeni+site her zaman; "Sadece yeni bina" / "Sadece site içi" açıkken o filtreye uyan tüm ilanlar
+function tagged(x){ return (x.yeni && x.site) || (fYeni && x.yeni) || (fSite && x.site); }
 function icon(x, on){
-  if (x.yeni && x.site) {
-    const cls = 'tag' + (on ? ' on' : '');
+  if (tagged(x)) {
+    const cls = 'tag' + (x.yeni && x.site ? '' : x.yeni ? ' y' : ' s') + (on ? ' on' : '');
     return L.divIcon({className: cls, html: `<span>${(x.p/1e6).toLocaleString('tr-TR',{maximumFractionDigits:2})} M</span>`, iconSize:[0,0]});
   }
   return L.divIcon({className: 'dotm' + (x.yeni ? ' y' : x.site ? ' s' : '') + (on ? ' on' : ''), html: '<i></i>', iconSize:[0,0]});
@@ -295,7 +299,7 @@ function render(){
   document.getElementById('n').textContent = v.length;
   document.getElementById('menu-n').textContent = v.length + ' ilan';
   document.getElementById('t').textContent = bolge === 'Tümü' ? ILAN.length : ILAN.filter(x => x.b === bolge).length;
-  ILAN.forEach(x => { const m = markers[x.id]; if (ids.has(x.id)) m.addTo(map); else m.remove(); });
+  ILAN.forEach(x => { const m = markers[x.id]; if (ids.has(x.id)) { m.setIcon(icon(x, x.id === selId)); m.setZIndexOffset(tagged(x) ? 1000 : 0); m.addTo(map); } else m.remove(); });
   listEl.innerHTML = v.map(x => `<button class="lrow${x.id === selId ? ' on' : ''}" data-id="${x.id}"><span class="dot ${x.yeni && x.site ? '' : x.yeni ? 'y' : x.site ? 's' : 'x'}"></span>
     <span class="meta"><b>${esc(x.oda || '?')}</b> · ${esc(x.brut || x.m2 || '')} · ${esc(x.mh.replace(' Mahallesi',''))}${bolge === 'Tümü' ? ', ' + esc(x.b) : ''}<br>${esc(x.yas || 'yaş ?')}${x.site ? ' · site' : ''}</span>
     <span class="pr">${mtl(x.p)}</span></button>`).join('') || '<p class="foot">Bu filtrelerle ilan yok. Filtrelerden birini kapat.</p>';

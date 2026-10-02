@@ -269,7 +269,7 @@ function row(k, v){ return v ? `<div><span>${k}</span><b>${esc(v)}</b></div>` : 
 function popup(x){
   const m2 = parseInt(String(x.brut || x.m2 || '').replace(/\D/g,'')) || 0;
   return `<div class="pp">
-    ${x.img ? `<img src="f/${x.id}.jpg" alt="" loading="lazy" onerror="this.remove()">` : ''}
+    ${x.img ? `<img src="https://cdn.jsdelivr.net/gh/usluergun/istanbul-harita@main/f/${x.id}.jpg" alt="" loading="lazy" onerror="if(!this.dataset.r){this.dataset.r=1;this.src='f/${x.id}.jpg'}else this.remove()">` : ''}
     <div class="b">
       <div class="price">${tl(x.p)}${m2 ? `<small>${Math.round(x.p/m2).toLocaleString('tr-TR')} TL/m²</small>` : ''}</div>
       <div class="t">${esc(x.t)}</div>

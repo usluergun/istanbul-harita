@@ -323,13 +323,16 @@ const bases = {
   sokak: L.tileLayer(esri('World_Street_Map'), {maxZoom:19, attribution:'Harita © Esri, HERE, Garmin, © OpenStreetMap katkıcıları'}),
   uydu: L.tileLayer(esri('World_Imagery'), {maxZoom:19, attribution:'Görüntü © Esri'})
 };
-let curBase = 'sade'; bases.sade.addTo(map);
+// Claude sayfası mı? (orada dış harita karoları ve yazdırma engelli)
+const inClaude = /claude/i.test(location.hostname);
+let curBase = inClaude ? 'sade' : 'sokak'; bases[curBase].addTo(map);
+document.querySelectorAll('.b-base').forEach(x => x.setAttribute('aria-pressed', x.dataset.b === curBase));
 let tileOK = false, tileErr = 0;
 map.createPane('land').style.zIndex = 250;
 const landR = L.svg({padding:.3, pane:'land'});
 const landLayer = L.geoJSON(ILCE, {pane:'land', renderer: landR, interactive:false, style: {stroke:false, fillColor:'#eef1ef', fillOpacity:1}});
-bases.sade.on('tileload', () => { tileOK = true; });
-const inFrame = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+Object.values(bases).forEach(b => b.on('tileload', () => { tileOK = true; }));
+const inFrame = inClaude;
 function noTiles(){
   if (tileOK || map.hasLayer(landLayer)) return;
   landLayer.addTo(map);
@@ -339,7 +342,7 @@ function noTiles(){
 }
 // Claude sayfasında altlık hiç yüklenemez: hemen vektör altlığa geç.
 // Normal tarayıcıda yavaş bağlantıda yanlışlıkla geçmesin: 12 sn içinde hiç karo yüklenmezse geç.
-bases.sade.on('tileerror', () => { if (inFrame && ++tileErr >= 3) noTiles(); });
+Object.values(bases).forEach(b => b.on('tileerror', () => { if (inFrame && ++tileErr >= 3) noTiles(); }));
 if (!inFrame) setTimeout(noTiles, 12000);
 document.querySelectorAll('.b-base').forEach(b => b.onclick = () => {
   map.removeLayer(bases[curBase]); curBase = b.dataset.b; bases[curBase].addTo(map); bases[curBase].bringToBack();
@@ -507,7 +510,7 @@ function heatStyle(){
     const few = s.n < HEAT_MIN || !heatBreaks.length;
     l.setStyle(few
       ? {fillColor:'#b9bdbf', fillOpacity: sat ? .45 : .32, color:'#8a9295', weight:1, opacity:.8, dashArray:'2 3'}
-      : {fillColor: HEAT_COL[heatClass(s.m2)], fillOpacity: sat ? .72 : .62, color:'#ffffff', weight:1.2, opacity:.9, dashArray:null});
+      : {fillColor: HEAT_COL[heatClass(s.m2)], fillOpacity: sat ? .7 : (map.getContainer().classList.contains('no-tiles') ? .62 : .5), color:'#ffffff', weight:1.2, opacity:.9, dashArray:null});
   });
 }
 const heatLeg = L.control({position:'bottomright'});
@@ -634,10 +637,11 @@ function valResult(R){
     <span class="rng">${mtl(r5(R.lo))} – ${mtl(r5(R.hi))}</span>
     <span class="mid">Orta değer ${mtl(r5(R.mid))} · ${Math.round(R.m2).toLocaleString('tr-TR')} TL/m² · ${R.comps.length} emsal</span></div>
     ${warn.map(w => `<div class="warn">${esc(w)}</div>`).join('')}
-    <div class="vact"><button class="btn" type="button" id="v-rep">Değerleme raporunu aç</button></div>
+    <div class="vact"><button class="btn" type="button" id="v-rep">Değerleme raporunu aç</button>${canPrint ? '<button class="btn sec" type="button" id="v-pdf">PDF olarak kaydet</button>' : ''}</div>
     <div><div class="lbl2" style="font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:4px 0">Emsal ilanlar · dokun: haritada göster</div>
     <div class="comps">${R.comps.map(x => `<button class="comp" type="button" data-id="${x.id}"><span><b>${esc(x.oda || '?')}</b> · ${brutM2(x)} m² · ${esc(yasT(x))}${x.site ? ' · site' : ''}<br><small>${esc(short(x.mh))} · ${Math.round(x.p / brutM2(x)).toLocaleString('tr-TR')} TL/m²</small></span><span class="pr2">${mtl(x.p)}</span></button>`).join('')}</div></div>`;
   $('v-rep').onclick = () => openReport(R);
+  if ($('v-pdf')) $('v-pdf').onclick = () => { openReport(R); setTimeout(() => window.print(), 300); };
 }
 $('vform').onsubmit = e => {
   e.preventDefault();
@@ -655,7 +659,7 @@ $('vres').addEventListener('click', e => {
 });
 
 // --- 2) değerleme raporu
-const canPrint = (() => { try { return window.self === window.top; } catch (e) { return false; } })();
+const canPrint = !inClaude && typeof window.print === 'function';
 let office = 'Ofis adınız';
 function openReport(R){
   const t = R.t, S = R.stats, d = S && S.ilce ? (S.m2 / S.ilce - 1) * 100 : 0;

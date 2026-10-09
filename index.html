@@ -103,7 +103,8 @@
 @media (max-width:900px){.panel.t-val .foot,.panel.t-mah .foot{display:none}}
 @media print{
   body>*:not(.rep){display:none!important}
-  html,body{background:#fff!important;height:auto!important}
+  html,body{background:#fff!important;height:auto!important;overflow:visible!important}
+  body{position:static!important}
   .rep{position:static;background:none;padding:0;overflow:visible}
   .rbar{display:none!important}
   .sheet{box-shadow:none;border-radius:0;max-width:none;padding:0}
@@ -117,6 +118,20 @@
 .pfban{background:#fdf1d8;color:#5e4200;font:600 12px var(--f-body);padding:6px 10px;border-radius:8px;margin-bottom:6px}
 #loading{position:absolute;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font:500 15px var(--f-body,system-ui);color:#1c2830;background:#e9eef0;line-height:1.5}
 .crm-link{font:600 13px var(--f-body);color:var(--pin);text-decoration:none}.crm-link:hover{text-decoration:underline}
+/* telefon: sayfa hiç kaymasın; form alanları 16px (iPhone otomatik yakınlaştırmasın) */
+html,body{overflow:hidden;overscroll-behavior:none}
+body{position:fixed;inset:0;width:100%}
+@media (max-width:900px){
+  .panel .price-f select,.panel .vf select,.panel .vf input,.rep .sheet .who [contenteditable]{font-size:16px}
+  .tog{min-height:34px}
+  /* menü başlığı kısalsın, liste daha çok yer alsın */
+  .panel .ph{gap:5px;padding:12px 14px 8px}
+  .panel #bolgeler{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;margin-right:-14px;scrollbar-width:none}
+  .panel #bolgeler .tog{flex:none}
+  .panel .leg{display:none}
+  .panel .foot{font-size:10.5px;max-height:3.2em;overflow:hidden;padding:6px 14px}
+  .pp .price small{display:block;margin:4px 0 0}
+}
 .heat-tt{font:600 12px var(--f-body,system-ui)}
 @media (max-width:900px){.heat-leg{min-width:0;padding:6px 8px;font-size:10.5px}.heat-leg small{display:none}}
 </style>
@@ -787,6 +802,12 @@ if (myPF.length) { const tb = document.getElementById('t-pf'); tb.lastChild.text
 const pfIlce = myPF.length ? null : 'Avcılar';
 tog('t-pf', v => { if (v) { pfLayer.addTo(map); if (pfIlce && bolge !== pfIlce) { const btn = [...bEl.querySelectorAll('.bolge')].find(b => b.dataset.b === pfIlce); if (btn) btn.click(); } else if (myPF.length) map.fitBounds(L.latLngBounds(myPF.map(p => [p.lat, p.lng])).pad(.4), {maxZoom: 14}); } else map.removeLayer(pfLayer); });
 
+// telefon: klavye ya da adres çubuğu değişince sayfayı başa al ve haritayı yeniden boyutla
+const fixVP = () => { if (window.scrollX || window.scrollY) window.scrollTo(0, 0); map.invalidateSize({pan: false}); };
+window.addEventListener('resize', fixVP);
+if (window.visualViewport) visualViewport.addEventListener('resize', () => setTimeout(fixVP, 60));
+document.addEventListener('focusout', () => setTimeout(fixVP, 200));
+window.addEventListener('orientationchange', () => setTimeout(fixVP, 300));
 // demo açılışı: #avcilar gibi bir bağlantı o ilçeyi seçer; ısı haritası açık başlar
 const slug = t => t.toLocaleLowerCase('tr').replace(/[çğıöşüâîû]/g, c => ({'ç':'c','ğ':'g','ı':'i','ö':'o','ş':'s','ü':'u','â':'a','î':'i','û':'u'})[c]).replace(/[^a-z0-9]+/g, '-');
 const h = decodeURIComponent((location.hash || '').slice(1));

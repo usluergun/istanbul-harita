@@ -25,6 +25,14 @@
 .hp .note{margin-top:6px;font-size:10.5px;color:#5c6a72}
 .heat-on .dotm,.heat-on .tag{opacity:.28;transition:opacity .15s}.heat-on .dotm:hover,.heat-on .tag:hover,.heat-on .tag.on,.heat-on .dotm.on{opacity:1}
 @media (min-width:901px){.leaflet-bottom.leaflet-right .heat-leg{margin-bottom:96px}}
+.heat-fab{display:none}
+@media (max-width:900px){
+  .heat-fab{display:inline-flex;align-items:center;gap:6px;position:absolute;z-index:1100;top:calc(10px + env(safe-area-inset-top,0px));right:58px;font:600 14px var(--f-body);padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.16);cursor:pointer}
+  .heat-fab i{width:18px;height:10px;border-radius:3px;background:linear-gradient(90deg,#cde2fb,#3987e5,#0d366b)}
+  .heat-fab[aria-pressed="true"]{background:#0d366b;color:#fff;border-color:#0d366b}
+  .leaflet-bottom.leaflet-right .heat-leg{margin-bottom:8px}
+}
+.bar .tog{white-space:nowrap}
 .heat-tt{font:600 12px var(--f-body,system-ui)}
 @media (max-width:900px){.heat-leg{min-width:0;padding:6px 8px;font-size:10.5px}.heat-leg small{display:none}}
 </style>
@@ -153,6 +161,7 @@ h1{font-family:var(--f-display);font-size:22px;line-height:1.05;margin:0}
 <body>
 <div id="map"></div>
 <button class="menu-btn" id="menu-btn" aria-controls="panel" aria-expanded="false">☰ Menü · <b id="menu-n">0</b></button>
+<button class="heat-fab" id="heat-fab" aria-pressed="false" aria-label="m² fiyat ısı haritası"><i></i>m² Isı</button>
 <div class="scrim" id="scrim"></div>
 <div class="panel" id="panel">
   <button class="close-menu" id="close-menu" aria-label="Menüyü kapat">×</button>
@@ -184,7 +193,7 @@ h1{font-family:var(--f-display);font-size:22px;line-height:1.05;margin:0}
   </div>
   <span class="sep"></span>
   <div class="grp"><span class="lbl">Katmanlar</span>
-    <button class="tog" id="t-heat" aria-pressed="false"><span class="sw" style="background:linear-gradient(90deg,#cde2fb,#3987e5,#0d366b);border:0;height:8px"></span>m² fiyat ısı haritası</button>
+    <button class="tog" id="t-heat" aria-pressed="false"><span class="sw" style="background:linear-gradient(90deg,#cde2fb,#3987e5,#0d366b);border:0;height:8px"></span>m² ısı haritası</button>
     <button class="tog" id="t-ilce" aria-pressed="true"><span class="sw" style="border-color:#c0162e"></span>İlçe sınırları</button>
     <button class="tog" id="t-mah" aria-pressed="true"><span class="sw dash" style="border-color:#2f6db5"></span>Mahalle sınırları</button>
     <button class="tog" id="t-yol" aria-pressed="true"><span class="sw" style="border-color:#e0702a"></span>Yollar</button>
@@ -415,9 +424,11 @@ heatFeat.forEach((l, k) => {
 function heatRefresh(){ if (!heatOn) return; heatCompute(); heatStyle(); heatLegend(); }
 tog('t-heat', v => {
   heatOn = v; map.getContainer().classList.toggle('heat-on', v);
-  if (v) { heatLayer.addTo(map); heatLeg.addTo(map); heatRefresh(); map.removeLayer(mahLayer); }
+  document.getElementById('heat-fab').setAttribute('aria-pressed', v);
+  if (v) { heatLayer.addTo(map); heatLeg.addTo(map); heatRefresh(); map.removeLayer(mahLayer); if (map.getZoom() < 12) { const d = vis(); if (d.length) map.setView(L.latLngBounds(d.map(x => [x.lat, x.lng])).getCenter(), 12); } }
   else { map.removeLayer(heatLayer); heatLeg.remove(); if (document.getElementById('t-mah').getAttribute('aria-pressed') === 'true') mahLayer.addTo(map); }
 });
+document.getElementById('heat-fab').onclick = () => document.getElementById('t-heat').click();
 const _render = render; render = function(){ _render(); heatRefresh(); };
 document.querySelectorAll('.b-base').forEach(b => { const o = b.onclick; b.onclick = () => { o(); if (heatOn) heatStyle(); }; });
 tog('f-yeni', v => { fYeni = v; render(); });

@@ -329,13 +329,18 @@ map.createPane('land').style.zIndex = 250;
 const landR = L.svg({padding:.3, pane:'land'});
 const landLayer = L.geoJSON(ILCE, {pane:'land', renderer: landR, interactive:false, style: {stroke:false, fillColor:'#eef1ef', fillOpacity:1}});
 bases.sade.on('tileload', () => { tileOK = true; });
-bases.sade.on('tileerror', () => {
-  if (tileOK || ++tileErr < 3 || map.hasLayer(landLayer)) return;
+const inFrame = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+function noTiles(){
+  if (tileOK || map.hasLayer(landLayer)) return;
   landLayer.addTo(map);
   map.getContainer().classList.add('no-tiles');
   document.querySelectorAll('.b-base').forEach(b => b.closest('.grp').classList.add('no-tiles-hide'));
   const sep = document.querySelector('.bar .sep'); if (sep) sep.classList.add('no-tiles-hide');
-});
+}
+// Claude sayfasında altlık hiç yüklenemez: hemen vektör altlığa geç.
+// Normal tarayıcıda yavaş bağlantıda yanlışlıkla geçmesin: 12 sn içinde hiç karo yüklenmezse geç.
+bases.sade.on('tileerror', () => { if (inFrame && ++tileErr >= 3) noTiles(); });
+if (!inFrame) setTimeout(noTiles, 12000);
 document.querySelectorAll('.b-base').forEach(b => b.onclick = () => {
   map.removeLayer(bases[curBase]); curBase = b.dataset.b; bases[curBase].addTo(map); bases[curBase].bringToBack();
   document.querySelectorAll('.b-base').forEach(x => x.setAttribute('aria-pressed', x === b));

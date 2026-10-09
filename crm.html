@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ofis Paneli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Ofis paneli: telefonda alt sekme çubuğu, masaüstünde üst sekmeler; kartlar tek sütun, ayrıntı alttan açılan sayfada */
+:root{
+  --ink:#1c2830; --ink-2:#4f5f68; --ink-3:#7c8a91;
+  --bg:#eef2f3; --panel:#fbfcfc; --card:#ffffff; --line:#dfe6e9; --chip:#eef3f5;
+  --pin:#0f7a6c; --pin-soft:#e1f1ee; --gold:#f2b84b; --gold-soft:#fdf1d8;
+  --warn:#7a5410; --warn-soft:#fbf3e1; --bad:#8f2525; --bad-soft:#f7dede; --wa:#1f9d55;
+  --f-display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans","Helvetica Neue",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font:14px/1.45 var(--f-body);color:var(--ink);background:var(--bg);padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--pin)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.top h1{font:700 20px/1.1 var(--f-display);margin:0;flex:1;min-width:0}
+.top .ey{display:block;font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.top a.map{font-size:13px;text-decoration:none;border:1px solid var(--line);border-radius:9px;padding:7px 10px;background:#fff}
+.top .more{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 10px;cursor:pointer;font-size:13px}
+.wrap{max-width:860px;margin:0 auto;padding:14px 16px 24px;display:grid;gap:14px}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--panel);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:env(safe-area-inset-bottom,0px)}
+.nav button{border:0;background:none;padding:9px 4px 10px;font-size:12px;font-weight:600;color:var(--ink-3);cursor:pointer;display:grid;justify-items:center;gap:3px}
+.nav button i{display:block;width:22px;height:4px;border-radius:2px;background:transparent}
+.nav button[aria-selected="true"]{color:var(--ink)}
+.nav button[aria-selected="true"] i{background:var(--pin)}
+.nav .badge{font:600 10px var(--f-mono);background:var(--pin);color:#fff;border-radius:99px;padding:0 6px;margin-left:3px}
+@media (min-width:900px){
+  body{padding-bottom:0}
+  .nav{position:sticky;top:calc(53px + env(safe-area-inset-top,0px));bottom:auto;border-top:0;border-bottom:1px solid var(--line);max-width:none;grid-template-columns:repeat(4,max-content);justify-content:center;gap:8px}
+  .nav button{padding:10px 16px;font-size:13.5px}
+}
+.banner{border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.45}
+.banner.info{background:var(--pin-soft);color:#0b4f46}
+.banner.warn{background:var(--warn-soft);color:var(--warn)}
+.banner b{font-weight:600}
+.sec h2{font:600 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin:6px 2px 8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sec h2 span{font-family:var(--f-body);text-transform:none;letter-spacing:0;color:var(--ink-3)}
+.list{display:grid;gap:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:6px;text-align:left;width:100%;cursor:pointer}
+.card:hover{border-color:#c6d3d8}
+.card:focus-visible,.btn:focus-visible,.chip:focus-visible{outline:2px solid var(--pin);outline-offset:2px}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;min-width:0}
+.row b{font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sub{color:var(--ink-2);font-size:12.5px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font:500 11px var(--f-body);padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--ink-2)}
+.tag.alici{background:#e6eefb;color:#1c4f94}.tag.kiraci{background:#efe9f8;color:#5b3f99}.tag.sahip{background:var(--gold-soft);color:#5e4200}
+.tag.ok{background:var(--pin-soft);color:#0b5c51}.tag.warn{background:var(--warn-soft);color:var(--warn)}.tag.bad{background:var(--bad-soft);color:var(--bad)}
+.tag.ex{background:#fff;border:1px dashed #b9c4c9;color:var(--ink-3)}
+.empty{background:var(--card);border:1px dashed #c6d3d8;border-radius:12px;padding:18px;text-align:center;color:var(--ink-2);display:grid;gap:10px;justify-items:center}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer;background:var(--pin);color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;justify-content:center}
+.btn.sec{background:var(--chip);color:var(--ink)}
+.btn.wa{background:var(--wa)}
+.btn.sm{padding:7px 10px;font-size:13px;border-radius:8px}
+.btn.danger{background:var(--bad-soft);color:var(--bad)}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer;color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.search{flex:1;min-width:160px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:#fff}
+/* alttan açılan sayfa */
+.sheet{position:fixed;inset:0;z-index:50;background:rgba(15,25,30,.45);display:flex;align-items:flex-end;justify-content:center}
+.sheet[hidden]{display:none!important}
+.sheet .in{background:var(--panel);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:16px 16px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom,0px));display:grid;gap:12px}
+@media (min-width:700px){.sheet{align-items:center}.sheet .in{border-radius:16px}}
+.sheet h3{font:700 20px/1.15 var(--f-display);margin:0}
+.sheet .hd{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.x{border:0;background:var(--chip);border-radius:9px;width:36px;height:36px;font-size:20px;cursor:pointer;flex:none}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.kv div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-width:0}
+.kv span{display:block;font-size:11.5px;color:var(--ink-3)}
+.kv b{font-weight:600;font-variant-numeric:tabular-nums}
+.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:8px}
+.box h4{margin:0;font:600 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.tl{display:grid;gap:8px}
+.tl div{border-left:2px solid var(--line);padding-left:10px;font-size:13px}
+.tl small{display:block;color:var(--ink-3);font-family:var(--f-mono);font-size:11px}
+form.f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+form.f label{display:grid;gap:4px;font-size:12px;color:var(--ink-2);min-width:0}
+form.f .full{grid-column:1/-1}
+form.f input,form.f select,form.f textarea{border:1px solid var(--line);border-radius:9px;padding:9px 10px;background:#fff;width:100%;min-width:0;font-size:14px}
+form.f textarea{min-height:70px;resize:vertical}
+form.f .chk{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink)}
+form.f .chk input{width:auto}
+.multi{display:flex;flex-wrap:wrap;gap:6px}
+.multi label{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:12.5px;color:var(--ink);background:#fff}
+.multi input{width:auto}
+.err{color:var(--bad);font-size:12.5px}
+.box.mkt{display:block;font-size:13.5px;line-height:1.55}.box.mkt h4{margin-bottom:8px}
+.mkt .up{color:var(--bad);font-weight:600}.mkt .dn{color:#1c5cab;font-weight:600}
+/* mesajlar */
+.chat{display:grid;gap:6px;max-height:46vh;overflow:auto;padding:4px}
+.msg{max-width:82%;padding:8px 11px;border-radius:12px;font-size:13.5px;line-height:1.4}
+.msg.in{background:#fff;border:1px solid var(--line);justify-self:start;border-bottom-left-radius:4px}
+.msg.out{background:#dcf5e3;justify-self:end;border-bottom-right-radius:4px}
+.msg small{display:block;font:11px var(--f-mono);color:var(--ink-3);margin-top:3px}
+.reply{display:flex;gap:8px}
+.reply textarea{flex:1;border:1px solid var(--line);border-radius:10px;padding:9px 10px;min-height:44px;resize:vertical;background:#fff}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 14px;border-radius:10px;font-size:13px;z-index:60;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.toast[hidden]{display:none}
+@media (prefers-reduced-motion:no-preference){.sheet .in{animation:up .18s ease-out}@keyframes up{from{transform:translateY(16px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1><span class="ey">Mahalle Fiyat Haritası</span>Ofis Paneli</h1>
+  <a class="map" href="index.html">← Harita</a>
+  <button class="more" id="b-more" type="button">Yedek / Ayarlar</button>
+</header>
+<nav class="nav" role="tablist" aria-label="Bölümler">
+  <button role="tab" data-t="bugun" aria-selected="true"><i></i>Bugün<span class="badge" id="nb-bugun" hidden></span></button>
+  <button role="tab" data-t="kisiler" aria-selected="false"><i></i>Kişiler</button>
+  <button role="tab" data-t="portfoy" aria-selected="false"><i></i>Portföy</button>
+  <button role="tab" data-t="mesaj" aria-selected="false"><i></i>Mesajlar</button>
+</nav>
+<main class="wrap" id="main"></main>
+<div class="sheet" id="sheet" hidden><div class="in" id="sheet-in" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+// ================= veri katmanı (bu cihazda saklanır) =================
+const KEY = 'mfh_crm_v1';
+const today = () => new Date().toISOString().slice(0, 10);
+const addDays = (d, n) => { const t = new Date(d + 'T12:00:00'); t.setDate(t.getDate() + n); return t.toISOString().slice(0, 10); };
+const uid = () => Math.random().toString(36).slice(2, 9);
+const blank = () => ({kisiler: [], portfoy: [], aktivite: [], mesajlar: [], ayar: {ofis: '', ad: ''}});
+let DB = blank(), storeOK = true;
+function load(){ try { const s = localStorage.getItem(KEY); if (s) DB = Object.assign(blank(), JSON.parse(s)); } catch (e) { storeOK = false; } }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch (e) { storeOK = false; } }
+load();
+
+// piyasa verisi (haritayla aynı dosya)
+let ILAN = null, MAHSTAT = {}, ILCESTAT = {}, MAHS = {}, MAHPOS = {};
+const brut = x => { const n = parseInt(String(x.brut || x.m2 || '').replace(/\D/g, '')) || 0; return n >= 30 && n <= 1000 ? n : 0; };
+const med = a => { if (!a.length) return 0; const b = a.slice().sort((p, q) => p - q), h = b.length >> 1; return b.length % 2 ? b[h] : (b[h - 1] + b[h]) / 2; };
+fetch('data/ilan.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => {
+  ILAN = d;
+  const g = {}, gi = {}, pos = {};
+  d.forEach(x => {
+    (MAHS[x.b] = MAHS[x.b] || new Set()).add(x.mh);
+    const k = x.b + '|' + x.mh;
+    (pos[k] = pos[k] || []).push([x.lat, x.lng]);
+    if (brut(x)) { (g[k] = g[k] || []).push(x.p / brut(x)); (gi[x.b] = gi[x.b] || []).push(x.p / brut(x)); }
+  });
+  Object.entries(g).forEach(([k, v]) => MAHSTAT[k] = {m2: med(v), n: v.length});
+  Object.entries(gi).forEach(([k, v]) => ILCESTAT[k] = med(v));
+  Object.entries(pos).forEach(([k, v]) => MAHPOS[k] = [med(v.map(p => p[0])), med(v.map(p => p[1]))]);
+  render();
+}).catch(() => {});
+const ILCELER = ['Avcılar', 'Bağcılar', 'Başakşehir', 'Beylikdüzü', 'Esenyurt', 'Güngören', 'Küçükçekmece'];
+const ODALAR = ['1+1', '2+1', '3+1', '3+2', '4+1', '4+2', '5+2'];
+
+// ================= yardımcılar =================
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mtl = n => n ? (n / 1e6).toLocaleString('tr-TR', {maximumFractionDigits: 2}) + ' M₺' : '—';
+const ktl = n => n ? Math.round(n).toLocaleString('tr-TR') + ' TL' : '—';
+const short = s => String(s || '').replace(' Mahallesi', '');
+const fmtD = d => d ? new Date(d + 'T12:00:00').toLocaleDateString('tr-TR', {day: 'numeric', month: 'short'}) : '';
+const daysTo = d => Math.round((new Date(d + 'T12:00:00') - new Date(today() + 'T12:00:00')) / 864e5);
+const tip = {alici: 'Alıcı', kiraci: 'Kiracı', sahip: 'Mülk sahibi'};
+const kisi = id => DB.kisiler.find(k => k.id === id);
+const pf = id => DB.portfoy.find(p => p.id === id);
+function toast(t){ const el = $('toast'); el.textContent = t; el.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(() => el.hidden = true, 2200); }
+function telWa(t){ let d = String(t || '').replace(/\D/g, ''); if (d.startsWith('0')) d = d.slice(1); if (d.length === 10) d = '90' + d; return d.length >= 11 ? d : ''; }
+function waLink(k, text){ const n = telWa(k && k.tel); return n ? `https://wa.me/${n}?text=${encodeURIComponent(text)}` : ''; }
+function log(kisiId, tur, metin, extra){ DB.aktivite.unshift(Object.assign({id: uid(), kisiId, tur, metin, tarih: today()}, extra || {})); }
+const imza = () => DB.ayar.ad ? `\n\n${DB.ayar.ad}${DB.ayar.ofis ? ' · ' + DB.ayar.ofis : ''}` : (DB.ayar.ofis ? `\n\n${DB.ayar.ofis}` : '');
+
+// ================= eşleştirme =================
+function eslesir(k, p){
+  const t = k.talep || {};
+  if (p.durum !== 'aktif') return null;
+  if ((k.tip === 'alici' && p.tur !== 'satilik') || (k.tip === 'kiraci' && p.tur !== 'kiralik')) return null;
+  if (t.ilceler && t.ilceler.length && !t.ilceler.includes(p.ilce)) return null;
+  if (t.mahalle && t.mahalle !== p.mahalle) return null;
+  if (t.max && p.fiyat > t.max * 1.05) return null;
+  if (t.min && p.fiyat < t.min * 0.9) return null;
+  if (t.odalar && t.odalar.length && !t.odalar.includes(p.oda)) return null;
+  if (t.m2 && p.m2 && p.m2 < t.m2 * 0.9) return null;
+  if (t.site && !p.site) return null;
+  let s = 60; if (t.mahalle) s += 15; if (t.odalar && t.odalar.includes(p.oda)) s += 10; if (t.max && p.fiyat <= t.max) s += 10; if (t.site && p.site) s += 5;
+  return Math.min(s, 100);
+}
+const gonderildi = (kId, pId) => DB.aktivite.some(a => a.kisiId === kId && a.portfoyId === pId && a.tur === 'eslesme');
+function eslesmeler(){
+  const out = [];
+  DB.kisiler.filter(k => k.tip !== 'sahip' && k.aktif !== false).forEach(k => DB.portfoy.forEach(p => { const s = eslesir(k, p); if (s) out.push({k, p, s, sent: gonderildi(k.id, p.id)}); }));
+  return out.sort((a, b) => b.s - a.s);
+}
+function piyasa(p){
+  const ms = MAHSTAT[p.ilce + '|' + p.mahalle], is = ILCESTAT[p.ilce];
+  if (!ms || !p.m2 || p.tur !== 'satilik') return null;
+  const v = p.fiyat / p.m2; return {v, m: ms.m2, n: ms.n, d: (v / ms.m2 - 1) * 100, ilce: is};
+}
+
+// ================= mesaj şablonları =================
+const msgEslesme = (k, p) => `Merhaba ${k.ad.split(' ')[0]} ${k.hitap || ''},\n\nAradığınız kriterlere uygun bir ${p.tur === 'kiralik' ? 'kiralık' : 'satılık'} daire portföyümüze girdi:\n${p.oda} · ${p.m2} m² · ${short(p.mahalle)}, ${p.ilce}${p.site ? ' · site içi' : ''}\nFiyat: ${p.tur === 'kiralik' ? ktl(p.fiyat) + '/ay' : mtl(p.fiyat)}\n\nGörmek ister misiniz? Uygun olduğunuz bir gün ve saat yazarsanız randevu ayarlayayım.` + imza();
+const msgTakip = k => `Merhaba ${k.ad.split(' ')[0]} ${k.hitap || ''}, nasılsınız? Aradığınız daire için takipteyim. Kriterlerinizde bir değişiklik var mı? Yeni çıkan uygun ilanları size iletmeye devam edeceğim.` + imza();
+function msgSahip(k){
+  const ps = DB.portfoy.filter(p => p.sahipId === k.id);
+  const lines = ps.map(p => { const m = piyasa(p); const al = DB.kisiler.filter(x => x.tip !== 'sahip' && eslesir(x, p)).length;
+    return `• ${p.oda} ${p.m2} m², ${short(p.mahalle)}: ${mtl(p.fiyat)}${m ? ` (mahalle ortalaması m² ${ktl(m.m)}, sizin ilanınız ${ktl(m.v)})` : ''} · uygun alıcı adayı: ${al}`; }).join('\n');
+  return `Merhaba ${k.ad.split(' ')[0]} ${k.hitap || ''},\n\nMülkünüzle ilgili güncel durum:\n${lines || '• Kayıtlı portföy yok'}\n\nPiyasa verisine göre fiyatı birlikte değerlendirmek isterseniz detaylı mahalle raporunu da gönderebilirim.` + imza();
+}
+
+// ================= ekranlar =================
+let TAB = 'bugun', FILT = 'hepsi', Q = '';
+document.querySelectorAll('.nav [role=tab]').forEach(b => b.onclick = () => { TAB = b.dataset.t; render(); window.scrollTo(0, 0); });
+function render(){
+  document.querySelectorAll('.nav [role=tab]').forEach(b => b.setAttribute('aria-selected', b.dataset.t === TAB));
+  const B = bugunListe(); const nb = $('nb-bugun'); nb.hidden = !B.toplam; nb.textContent = B.toplam;
+  const M = $('main');
+  const warn = storeOK ? '' : '<div class="banner warn"><b>Bu tarayıcı veriyi saklamıyor.</b> Gizli sekmede olabilirsiniz; sayfa kapanınca girdiğiniz kayıtlar silinir.</div>';
+  const ex = DB.kisiler.some(k => k.ornek) ? '<div class="banner info"><b>Örnek veriler yüklü.</b> Kendi kayıtlarınıza geçmek için Yedek / Ayarlar → "Örnekleri sil".</div>' : '';
+  M.innerHTML = warn + ex + ({bugun: vBugun, kisiler: vKisiler, portfoy: vPortfoy, mesaj: vMesaj}[TAB])(B);
+}
+function bugunListe(){
+  const t = today();
+  const takip = DB.kisiler.filter(k => k.takip && k.takip <= t).sort((a, b) => a.takip.localeCompare(b.takip));
+  const yetki = DB.portfoy.filter(p => p.durum === 'aktif' && p.yetki && daysTo(p.yetki) <= 30).sort((a, b) => a.yetki.localeCompare(b.yetki));
+  const yeni = eslesmeler().filter(e => !e.sent);
+  const pahali = DB.portfoy.filter(p => p.durum === 'aktif').map(p => ({p, m: piyasa(p)})).filter(o => o.m && o.m.d >= 10);
+  return {takip, yetki, yeni, pahali, toplam: takip.length + yetki.length + yeni.length};
+}
+function vBugun(B){
+  if (!DB.kisiler.length && !DB.portfoy.length) return `<div class="empty"><b>Henüz kayıt yok</b><span>İlk müşterinizi ya da portföyünüzü ekleyin. Sistemi görmek için örnek verilerle de başlayabilirsiniz.</span>
+    <div class="acts"><button class="btn" data-a="yeni-kisi">+ Kişi ekle</button><button class="btn sec" data-a="yeni-pf">+ Portföy ekle</button><button class="btn sec" data-a="ornek">Örnek verileri yükle</button></div></div>`;
+  const sec = (title, note, items) => `<section class="sec"><h2>${title}<span>${note}</span></h2><div class="list">${items || '<div class="sub" style="padding:4px 2px">Bugün için bir şey yok.</div>'}</div></section>`;
+  return sec('Takip zamanı gelenler', `${B.takip.length} kişi`, B.takip.map(k => kartKisi(k, `<span class="tag ${daysTo(k.takip) < 0 ? 'bad' : 'warn'}">${daysTo(k.takip) < 0 ? -daysTo(k.takip) + ' gün gecikti' : 'bugün'}</span>`)).join(''))
+    + sec('Yeni eşleşmeler', `${B.yeni.length} öneri`, B.yeni.slice(0, 12).map(e => `<div class="card" data-a="ac-kisi" data-id="${e.k.id}"><div class="row"><b>${esc(e.k.ad)} ↔ ${esc(e.p.oda)} ${short(e.p.mahalle)}</b><span class="mono">%${e.s}</span></div>
+      <div class="sub">${tip[e.k.tip]} · ${e.p.tur === 'kiralik' ? ktl(e.p.fiyat) + '/ay' : mtl(e.p.fiyat)} · ${esc(e.p.ilce)}</div>
+      <div class="acts">${waLink(e.k, '') ? `<a class="btn wa sm" href="${esc(waLink(e.k, msgEslesme(e.k, e.p)))}" target="_blank" rel="noopener" data-a="wa-eslesme" data-k="${e.k.id}" data-p="${e.p.id}">WhatsApp ile öner</a>` : '<span class="tag warn">Telefon yok</span>'}</div></div>`).join(''))
+    + sec('Yetkisi bitmek üzere', '30 gün içinde', B.yetki.map(p => kartPf(p, `<span class="tag ${daysTo(p.yetki) < 0 ? 'bad' : 'warn'}">${daysTo(p.yetki) < 0 ? 'yetki bitti' : daysTo(p.yetki) + ' gün kaldı'}</span>`)).join(''))
+    + sec('Fiyatı piyasanın üstünde', 'mahalle medyanından %10+', B.pahali.map(o => kartPf(o.p, `<span class="tag bad">m² %${o.m.d.toFixed(0)} üstte</span>`)).join(''));
+}
+function kartKisi(k, extra){
+  const t = k.talep || {};
+  const ozet = k.tip === 'sahip' ? `${DB.portfoy.filter(p => p.sahipId === k.id).length} portföy` : [t.ilceler && t.ilceler.join(', '), t.odalar && t.odalar.join('/'), t.max ? (k.tip === 'kiraci' ? '≤ ' + ktl(t.max) : '≤ ' + mtl(t.max)) : ''].filter(Boolean).join(' · ');
+  return `<button class="card" data-a="ac-kisi" data-id="${k.id}"><div class="row"><b>${esc(k.ad)}</b><span class="tags"><span class="tag ${k.tip}">${tip[k.tip]}</span>${k.ornek ? '<span class="tag ex">örnek</span>' : ''}${extra || ''}</span></div>
+    <div class="sub">${esc(ozet || 'Talep girilmedi')}${k.takip ? ' · takip ' + fmtD(k.takip) : ''}</div></button>`;
+}
+function kartPf(p, extra){
+  const s = kisi(p.sahipId);
+  return `<button class="card" data-a="ac-pf" data-id="${p.id}"><div class="row"><b>${esc(p.oda)} · ${p.m2 || '?'} m² · ${short(p.mahalle)}</b><span class="mono">${p.tur === 'kiralik' ? ktl(p.fiyat) + '/ay' : mtl(p.fiyat)}</span></div>
+    <div class="sub">${esc(p.ilce)} · ${p.tur === 'kiralik' ? 'Kiralık' : 'Satılık'}${p.site ? ' · site' : ''}${s ? ' · ' + esc(s.ad) : ''}</div>
+    <div class="tags"><span class="tag ${p.durum === 'aktif' ? 'ok' : ''}">${{aktif: 'Aktif', opsiyon: 'Opsiyonlu', kapandi: 'Kapandı'}[p.durum]}</span>${p.ornek ? '<span class="tag ex">örnek</span>' : ''}${extra || ''}</div></button>`;
+}
+function vKisiler(){
+  const list = DB.kisiler.filter(k => (FILT === 'hepsi' || k.tip === FILT) && (!Q || (k.ad + ' ' + (k.tel || '')).toLocaleLowerCase('tr').includes(Q))).sort((a, b) => a.ad.localeCompare(b.ad, 'tr'));
+  return `<div class="bar"><input class="search" id="q" type="search" placeholder="İsim ya da telefon ara" value="${esc(Q)}"><button class="btn" data-a="yeni-kisi">+ Kişi</button></div>
+  <div class="bar">${['hepsi', 'alici', 'kiraci', 'sahip'].map(f => `<button class="chip" data-a="filt" data-f="${f}" aria-pressed="${FILT === f}">${f === 'hepsi' ? 'Hepsi' : tip[f]} ${f === 'hepsi' ? DB.kisiler.length : DB.kisiler.filter(k => k.tip === f).length}</button>`).join('')}</div>
+  <div class="list">${list.map(k => kartKisi(k)).join('') || '<div class="empty">Bu filtrede kişi yok.</div>'}</div>`;
+}
+function vPortfoy(){
+  const list = DB.portfoy.slice().sort((a, b) => (a.durum === 'aktif' ? 0 : 1) - (b.durum === 'aktif' ? 0 : 1) || a.ilce.localeCompare(b.ilce, 'tr'));
+  return `<div class="bar" style="justify-content:space-between"><span class="sub">${DB.portfoy.filter(p => p.durum === 'aktif').length} aktif portföy · haritada "Ofis portföyü" katmanında görünür</span><button class="btn" data-a="yeni-pf">+ Portföy</button></div>
+  <div class="list">${list.map(p => { const m = piyasa(p); return kartPf(p, m ? `<span class="tag ${m.d >= 10 ? 'bad' : m.d <= -10 ? 'ok' : ''}">m² ${m.d >= 0 ? '+' : '−'}%${Math.abs(m.d).toFixed(0)} mahalleye göre</span>` : ''); }).join('') || '<div class="empty">Henüz portföy yok.<button class="btn" data-a="yeni-pf">+ Portföy ekle</button></div>'}</div>`;
+}
+// ---- mesajlar (WhatsApp bağlantısı hazır olduğunda gerçek veriyle dolacak)
+let THREAD = null;
+function vMesaj(){
+  const threads = {};
+  DB.mesajlar.forEach(m => (threads[m.kisiId] = threads[m.kisiId] || []).push(m));
+  const ids = Object.keys(threads).sort((a, b) => threads[b].slice(-1)[0].ts.localeCompare(threads[a].slice(-1)[0].ts));
+  return `<div class="banner warn"><b>WhatsApp henüz bağlı değil.</b> İşletme numaranız bağlandığında (YCloud) gelen mesajlar burada kişi kartlarıyla eşleşerek görünecek ve buradan yazdığınız cevaplar WhatsApp'tan gidecek. Şimdilik "Gönder" mesajı WhatsApp'ta hazır açar.</div>
+  ${ids.length ? `<div class="list">${ids.map(id => { const k = kisi(id), last = threads[id].slice(-1)[0], un = threads[id].filter(m => m.yon === 'in' && !m.okundu).length;
+    return `<button class="card" data-a="ac-thread" data-id="${id}"><div class="row"><b>${esc(k ? k.ad : 'Bilinmeyen numara')}</b><span class="tags">${un ? `<span class="tag ok">${un} yeni</span>` : ''}${last.ornek ? '<span class="tag ex">örnek</span>' : ''}</span></div><div class="sub">${last.yon === 'out' ? 'Siz: ' : ''}${esc(last.metin.slice(0, 80))}</div></button>`; }).join('')}</div>`
+  : '<div class="empty">Henüz mesaj yok. Örnek verileri yüklerseniz nasıl görüneceğini görebilirsiniz.</div>'}`;
+}
+function openThread(id){
+  THREAD = id; const k = kisi(id);
+  DB.mesajlar.filter(m => m.kisiId === id).forEach(m => m.okundu = true); save();
+  const ms = DB.mesajlar.filter(m => m.kisiId === id);
+  sheet(`<div class="hd"><div><h3>${esc(k ? k.ad : 'Bilinmeyen numara')}</h3><div class="sub">${k ? tip[k.tip] + ' · ' + esc(k.tel || '') : ''}</div></div><button class="x" data-a="kapat" aria-label="Kapat">×</button></div>
+    <div class="chat" id="chat">${ms.map(m => `<div class="msg ${m.yon}">${esc(m.metin).replace(/\n/g, '<br>')}<small>${m.ts.slice(5, 16).replace('T', ' ')}</small></div>`).join('')}</div>
+    <div class="reply"><textarea id="rep-t" placeholder="Cevap yazın"></textarea><button class="btn wa" data-a="gonder">Gönder</button></div>
+    ${k ? `<button class="btn sec sm" data-a="ac-kisi" data-id="${k.id}">Kişi kartını aç</button>` : ''}`);
+  const c = $('chat'); c.scrollTop = c.scrollHeight; render();
+}
+
+// ================= ayrıntı sayfaları =================
+function sheet(html){ $('sheet-in').innerHTML = html; $('sheet').hidden = false; document.body.style.overflow = 'hidden'; const x = $('sheet-in').querySelector('.x'); if (x) x.focus(); }
+function close(){ $('sheet').hidden = true; document.body.style.overflow = ''; }
+$('sheet').addEventListener('click', e => { if (e.target.id === 'sheet') close(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('sheet').hidden) close(); });
+
+function openKisi(id){
+  const k = kisi(id); if (!k) return;
+  const t = k.talep || {};
+  const acts = DB.aktivite.filter(a => a.kisiId === id).slice(0, 12);
+  let body = '';
+  if (k.tip === 'sahip') {
+    const ps = DB.portfoy.filter(p => p.sahipId === id);
+    body = `<div class="box"><h4>Portföyleri</h4><div class="list">${ps.map(p => kartPf(p)).join('') || '<div class="sub">Portföy yok.</div>'}</div>
+      <div class="acts"><button class="btn sec sm" data-a="yeni-pf" data-sahip="${id}">+ Bu sahibe portföy ekle</button></div></div>
+      ${ps.length ? `<div class="box"><h4>Sahibe durum raporu</h4><div class="sub">Portföylerin fiyatı, mahalle ortalaması ve uygun alıcı sayısı hazır mesaj olarak gider.</div>
+      <div class="acts">${waLink(k, '') ? `<a class="btn wa sm" href="${esc(waLink(k, msgSahip(k)))}" target="_blank" rel="noopener" data-a="wa-log" data-k="${id}" data-m="Sahibe durum raporu gönderildi">WhatsApp ile gönder</a>` : '<span class="tag warn">Telefon yok</span>'}<a class="btn sec sm" href="index.html#${esc(slug(ps[0].ilce))}">Mahalle raporu için haritayı aç</a></div></div>` : ''}`;
+  } else {
+    const es = DB.portfoy.map(p => ({p, s: eslesir(k, p)})).filter(o => o.s).sort((a, b) => b.s - a.s);
+    body = `<div class="box"><h4>Talep</h4><div class="kv">
+      <div><span>İlçe</span><b>${esc((t.ilceler || []).join(', ') || 'Fark etmez')}</b></div>
+      <div><span>Mahalle</span><b>${esc(short(t.mahalle) || 'Fark etmez')}</b></div>
+      <div><span>Bütçe</span><b>${k.tip === 'kiraci' ? (t.min ? ktl(t.min) : '') + ' – ' + (t.max ? ktl(t.max) : '') : (t.min ? mtl(t.min) : '') + ' – ' + (t.max ? mtl(t.max) : '')}</b></div>
+      <div><span>Oda</span><b>${esc((t.odalar || []).join(', ') || 'Fark etmez')}</b></div>
+      <div><span>En az m²</span><b>${t.m2 || '—'}</b></div><div><span>Site içi</span><b>${t.site ? 'Şart' : 'Fark etmez'}</b></div></div></div>
+      <div class="box"><h4>Eşleşen portföyler (${es.length})</h4><div class="list">${es.map(o => `<div class="card" data-a="ac-pf" data-id="${o.p.id}"><div class="row"><b>${esc(o.p.oda)} · ${o.p.m2} m² · ${short(o.p.mahalle)}</b><span class="mono">%${o.s}</span></div>
+        <div class="sub">${o.p.tur === 'kiralik' ? ktl(o.p.fiyat) + '/ay' : mtl(o.p.fiyat)} · ${esc(o.p.ilce)}${gonderildi(id, o.p.id) ? ' · önerildi' : ''}</div>
+        <div class="acts">${waLink(k, '') ? `<a class="btn wa sm" href="${esc(waLink(k, msgEslesme(k, o.p)))}" target="_blank" rel="noopener" data-a="wa-eslesme" data-k="${id}" data-p="${o.p.id}">WhatsApp ile öner</a>` : ''}</div></div>`).join('') || '<div class="sub">Şu an uygun portföy yok. Yeni portföy girildiğinde Bugün ekranında görünür.</div>'}</div></div>`;
+  }
+  sheet(`<div class="hd"><div><h3>${esc(k.ad)}</h3><div class="tags"><span class="tag ${k.tip}">${tip[k.tip]}</span>${k.kvkk ? '<span class="tag ok">İletişim onayı var</span>' : '<span class="tag warn">İletişim onayı yok</span>'}${k.ornek ? '<span class="tag ex">örnek</span>' : ''}</div></div><button class="x" data-a="kapat" aria-label="Kapat">×</button></div>
+    <div class="kv"><div><span>Telefon</span><b>${esc(k.tel || '—')}</b></div><div><span>Kaynak</span><b>${esc(k.kaynak || '—')}</b></div><div><span>Sonraki takip</span><b>${k.takip ? fmtD(k.takip) : '—'}</b></div></div>
+    ${k.not ? `<div class="sub">${esc(k.not)}</div>` : ''}
+    <div class="acts">${waLink(k, '') ? `<a class="btn wa" href="${esc(waLink(k, k.tip === 'sahip' ? '' : msgTakip(k)))}" target="_blank" rel="noopener" data-a="wa-log" data-k="${id}" data-m="WhatsApp ile yazıldı">WhatsApp</a>` : ''}
+      <button class="btn sec" data-a="takip" data-id="${id}" data-g="3">Takip: 3 gün sonra</button><button class="btn sec" data-a="takip" data-id="${id}" data-g="7">7 gün</button><button class="btn sec" data-a="duzen-kisi" data-id="${id}">Düzenle</button></div>
+    ${body}
+    <div class="box"><h4>Not ekle</h4><div class="reply"><textarea id="not-t" placeholder="Görüşme notu, istek, itiraz…"></textarea><button class="btn sec" data-a="not" data-id="${id}">Ekle</button></div>
+      <div class="tl">${acts.map(a => `<div>${esc(a.metin)}<small>${fmtD(a.tarih)} · ${esc(a.tur)}</small></div>`).join('') || '<div class="sub" style="border:0;padding:0">Henüz kayıt yok.</div>'}</div></div>`);
+}
+const slug = t => String(t).toLocaleLowerCase('tr').replace(/[çğıöşüâîû]/g, c => ({'ç':'c','ğ':'g','ı':'i','ö':'o','ş':'s','ü':'u','â':'a','î':'i','û':'u'})[c]).replace(/[^a-z0-9]+/g, '-');
+function openPf(id){
+  const p = pf(id); if (!p) return;
+  const s = kisi(p.sahipId), m = piyasa(p);
+  const al = DB.kisiler.filter(k => k.tip !== 'sahip').map(k => ({k, s: eslesir(k, p)})).filter(o => o.s).sort((a, b) => b.s - a.s);
+  const mk = m ? `<div class="box mkt"><h4>Piyasa karşılaştırması</h4>
+    İlanınız m² başına <b>${ktl(m.v)}</b>. ${short(p.mahalle)} medyanı <b>${ktl(m.m)}</b> (${m.n} ilan); ${p.ilce} medyanı ${ktl(m.ilce)}.<br>
+    Fiyat mahalle medyanının <span class="${m.d >= 0 ? 'up' : 'dn'}">%${Math.abs(m.d).toFixed(0)} ${m.d >= 0 ? 'üstünde' : 'altında'}</span>.
+    ${m.d >= 10 ? `<br>Mahalle medyanına göre fiyat yaklaşık <b>${mtl(Math.round(m.m * p.m2 / 5e4) * 5e4)}</b>. Sahiple fiyat konuşmasında mahalle raporunu kullanabilirsiniz.` : ''}</div>`
+    : (p.tur === 'satilik' ? '<div class="box sub">Piyasa karşılaştırması için mahalle ve m² gerekli (veri yükleniyorsa birkaç saniye bekleyin).</div>' : '');
+  sheet(`<div class="hd"><div><h3>${esc(p.oda)} · ${p.m2 || '?'} m² · ${short(p.mahalle)}</h3><div class="sub">${esc(p.ilce)} · ${p.tur === 'kiralik' ? 'Kiralık' : 'Satılık'}${p.site ? ' · site içi' : ''}${p.yas !== '' && p.yas != null ? ' · ' + esc(p.yas) + ' yaş' : ''}</div></div><button class="x" data-a="kapat" aria-label="Kapat">×</button></div>
+    <div class="kv"><div><span>Fiyat</span><b>${p.tur === 'kiralik' ? ktl(p.fiyat) + '/ay' : mtl(p.fiyat)}</b></div><div><span>Durum</span><b>${{aktif: 'Aktif', opsiyon: 'Opsiyonlu', kapandi: 'Kapandı'}[p.durum]}</b></div>
+      <div><span>Yetki bitişi</span><b>${p.yetki ? fmtD(p.yetki) + (daysTo(p.yetki) <= 30 ? ` (${daysTo(p.yetki)} gün)` : '') : '—'}</b></div><div><span>Mülk sahibi</span><b>${s ? esc(s.ad) : '—'}</b></div></div>
+    ${mk}
+    <div class="box"><h4>Uygun alıcı / kiracılar (${al.length})</h4><div class="list">${al.map(o => `<div class="card" data-a="ac-kisi" data-id="${o.k.id}"><div class="row"><b>${esc(o.k.ad)}</b><span class="mono">%${o.s}</span></div><div class="sub">${tip[o.k.tip]}${gonderildi(o.k.id, p.id) ? ' · önerildi' : ''}</div>
+      <div class="acts">${waLink(o.k, '') ? `<a class="btn wa sm" href="${esc(waLink(o.k, msgEslesme(o.k, p)))}" target="_blank" rel="noopener" data-a="wa-eslesme" data-k="${o.k.id}" data-p="${p.id}">WhatsApp ile öner</a>` : ''}</div></div>`).join('') || '<div class="sub">Kayıtlı talep içinde uygun kişi yok.</div>'}</div></div>
+    <div class="acts">${s ? `<button class="btn sec" data-a="ac-kisi" data-id="${s.id}">Sahibi aç</button>` : ''}<button class="btn sec" data-a="duzen-pf" data-id="${id}">Düzenle</button><a class="btn sec" href="index.html#${esc(slug(p.ilce))}">Haritada bölge</a></div>`);
+}
+
+// ================= formlar =================
+const opts = (arr, sel) => arr.map(v => `<option${v === sel ? ' selected' : ''}>${esc(v)}</option>`).join('');
+const mahOpts = (ilce, sel) => '<option value="">Seçin</option>' + [...(MAHS[ilce] || [])].sort((a, b) => a.localeCompare(b, 'tr')).map(m => `<option value="${esc(m)}"${m === sel ? ' selected' : ''}>${esc(short(m))}</option>`).join('');
+function formKisi(id){
+  const k = id ? kisi(id) : {tip: 'alici', talep: {}}; const t = k.talep || {};
+  sheet(`<div class="hd"><h3>${id ? 'Kişiyi düzenle' : 'Yeni kişi'}</h3><button class="x" data-a="kapat" aria-label="Kapat">×</button></div>
+  <form class="f" id="fk" novalidate>
+    <label class="full">Ad soyad<input id="k-ad" value="${esc(k.ad || '')}" autocomplete="off"></label>
+    <label>Telefon<input id="k-tel" inputmode="tel" placeholder="05xx xxx xx xx" value="${esc(k.tel || '')}"></label>
+    <label>Tür<select id="k-tip"><option value="alici"${k.tip === 'alici' ? ' selected' : ''}>Alıcı</option><option value="kiraci"${k.tip === 'kiraci' ? ' selected' : ''}>Kiracı</option><option value="sahip"${k.tip === 'sahip' ? ' selected' : ''}>Mülk sahibi</option></select></label>
+    <label>Hitap<select id="k-hitap"><option value="">—</option><option${k.hitap === 'Bey' ? ' selected' : ''}>Bey</option><option${k.hitap === 'Hanım' ? ' selected' : ''}>Hanım</option></select></label>
+    <label>Kaynak<input id="k-kaynak" placeholder="Sahibinden, tabela, referans…" value="${esc(k.kaynak || '')}"></label>
+    <div class="full talep" ${k.tip === 'sahip' ? 'hidden' : ''}><div class="sub" style="margin-bottom:6px">Talep</div>
+      <div class="multi" id="k-ilce">${ILCELER.map(i => `<label><input type="checkbox" value="${esc(i)}"${(t.ilceler || []).includes(i) ? ' checked' : ''}>${esc(i)}</label>`).join('')}</div></div>
+    <label class="talep" ${k.tip === 'sahip' ? 'hidden' : ''}>Bütçe en az<input id="k-min" inputmode="numeric" placeholder="TL" value="${t.min || ''}"></label>
+    <label class="talep" ${k.tip === 'sahip' ? 'hidden' : ''}>Bütçe en çok<input id="k-max" inputmode="numeric" placeholder="TL" value="${t.max || ''}"></label>
+    <div class="full talep" ${k.tip === 'sahip' ? 'hidden' : ''}><div class="multi" id="k-oda">${ODALAR.map(o => `<label><input type="checkbox" value="${o}"${(t.odalar || []).includes(o) ? ' checked' : ''}>${o}</label>`).join('')}</div></div>
+    <label class="talep" ${k.tip === 'sahip' ? 'hidden' : ''}>En az m²<input id="k-m2" inputmode="numeric" value="${t.m2 || ''}"></label>
+    <label class="chk talep" ${k.tip === 'sahip' ? 'hidden' : ''}><input type="checkbox" id="k-site"${t.site ? ' checked' : ''}>Site içi şart</label>
+    <label class="full">Not<textarea id="k-not">${esc(k.not || '')}</textarea></label>
+    <label class="chk full"><input type="checkbox" id="k-kvkk"${k.kvkk ? ' checked' : ''}>Aydınlatma metni okundu, WhatsApp ile iletişime onay verdi</label>
+    <div class="err full" id="k-err"></div>
+    <div class="acts full"><button class="btn" type="submit">Kaydet</button>${id ? `<button class="btn danger" type="button" data-a="sil-kisi" data-id="${id}">Sil</button>` : ''}</div>
+  </form>`);
+  $('k-tip').onchange = e => document.querySelectorAll('#fk .talep').forEach(el => el.hidden = e.target.value === 'sahip');
+  $('fk').onsubmit = e => {
+    e.preventDefault();
+    const ad = $('k-ad').value.trim(); if (!ad) { $('k-err').textContent = 'Ad soyad gerekli.'; $('k-ad').focus(); return; }
+    const num = v => +String(v).replace(/\D/g, '') || 0;
+    const o = Object.assign(id ? kisi(id) : {id: uid(), olus: today(), takip: addDays(today(), 3)}, {
+      ad, tel: $('k-tel').value.trim(), tip: $('k-tip').value, hitap: $('k-hitap').value, kaynak: $('k-kaynak').value.trim(), not: $('k-not').value.trim(), kvkk: $('k-kvkk').checked,
+      talep: $('k-tip').value === 'sahip' ? {} : {ilceler: [...document.querySelectorAll('#k-ilce input:checked')].map(i => i.value), min: num($('k-min').value), max: num($('k-max').value),
+        odalar: [...document.querySelectorAll('#k-oda input:checked')].map(i => i.value), m2: num($('k-m2').value), site: $('k-site').checked}});
+    if (!id) { DB.kisiler.push(o); log(o.id, 'kayıt', 'Kişi eklendi'); }
+    save(); close(); render(); toast(id ? 'Kaydedildi' : 'Kişi eklendi'); openKisi(o.id);
+  };
+  $('k-ad').focus();
+}
+function formPf(id, sahipId){
+  const p = id ? pf(id) : {tur: 'satilik', ilce: 'Avcılar', durum: 'aktif', sahipId, yetki: addDays(today(), 90)};
+  const sahipler = DB.kisiler.filter(k => k.tip === 'sahip');
+  sheet(`<div class="hd"><h3>${id ? 'Portföyü düzenle' : 'Yeni portföy'}</h3><button class="x" data-a="kapat" aria-label="Kapat">×</button></div>
+  <form class="f" id="fp" novalidate>
+    <label>Tür<select id="p-tur"><option value="satilik"${p.tur === 'satilik' ? ' selected' : ''}>Satılık</option><option value="kiralik"${p.tur === 'kiralik' ? ' selected' : ''}>Kiralık</option></select></label>
+    <label>Durum<select id="p-durum"><option value="aktif"${p.durum === 'aktif' ? ' selected' : ''}>Aktif</option><option value="opsiyon"${p.durum === 'opsiyon' ? ' selected' : ''}>Opsiyonlu</option><option value="kapandi"${p.durum === 'kapandi' ? ' selected' : ''}>Kapandı</option></select></label>
+    <label>İlçe<select id="p-ilce">${opts(ILCELER, p.ilce)}</select></label>
+    <label>Mahalle<select id="p-mah">${mahOpts(p.ilce, p.mahalle)}</select></label>
+    <label>Oda<select id="p-oda">${opts(ODALAR, p.oda || '2+1')}</select></label>
+    <label>Brüt m²<input id="p-m2" inputmode="numeric" value="${p.m2 || ''}"></label>
+    <label>Bina yaşı<input id="p-yas" inputmode="numeric" value="${p.yas ?? ''}"></label>
+    <label id="p-fl">${p.tur === 'kiralik' ? 'Aylık kira (TL)' : 'Fiyat (TL)'}<input id="p-fiyat" inputmode="numeric" value="${p.fiyat || ''}"></label>
+    <label>Yetki bitişi<input id="p-yetki" type="date" value="${p.yetki || ''}"></label>
+    <label>Mülk sahibi<select id="p-sahip"><option value="">—</option>${sahipler.map(k => `<option value="${k.id}"${k.id === p.sahipId ? ' selected' : ''}>${esc(k.ad)}</option>`).join('')}</select></label>
+    <label class="chk full"><input type="checkbox" id="p-site"${p.site ? ' checked' : ''}>Site içi</label>
+    <div class="err full" id="p-err"></div>
+    <div class="acts full"><button class="btn" type="submit">Kaydet</button>${id ? `<button class="btn danger" type="button" data-a="sil-pf" data-id="${id}">Sil</button>` : ''}</div>
+    ${sahipler.length ? '' : '<div class="sub full">Önce mülk sahibini "Kişiler"e ekleyip buradan seçebilirsiniz.</div>'}
+  </form>`);
+  $('p-ilce').onchange = e => $('p-mah').innerHTML = mahOpts(e.target.value);
+  $('p-tur').onchange = e => $('p-fl').firstChild.textContent = e.target.value === 'kiralik' ? 'Aylık kira (TL)' : 'Fiyat (TL)';
+  $('fp').onsubmit = e => {
+    e.preventDefault();
+    const num = v => +String(v).replace(/\D/g, '') || 0;
+    const fiyat = num($('p-fiyat').value), m2 = num($('p-m2').value), mah = $('p-mah').value;
+    if (!mah || !fiyat || !m2) { $('p-err').textContent = 'Mahalle, m² ve fiyat gerekli.'; return; }
+    const ilce = $('p-ilce').value, c = MAHPOS[ilce + '|' + mah];
+    const o = Object.assign(id ? pf(id) : {id: uid(), olus: today()}, {tur: $('p-tur').value, durum: $('p-durum').value, ilce, mahalle: mah, oda: $('p-oda').value, m2, yas: $('p-yas').value, fiyat,
+      yetki: $('p-yetki').value, sahipId: $('p-sahip').value, site: $('p-site').checked});
+    if (c && (!o.lat || o.mahalle !== mah)) { o.lat = c[0] + (Math.random() - .5) * .004; o.lng = c[1] + (Math.random() - .5) * .005; }
+    if (!id) { DB.portfoy.push(o); if (o.sahipId) log(o.sahipId, 'portföy', `Portföy eklendi: ${o.oda} ${short(mah)}`); }
+    save(); close(); render(); toast(id ? 'Kaydedildi' : 'Portföy eklendi'); openPf(o.id);
+  };
+}
+function ayarlar(){
+  sheet(`<div class="hd"><h3>Yedek ve ayarlar</h3><button class="x" data-a="kapat" aria-label="Kapat">×</button></div>
+  <div class="banner info">Kayıtlar <b>bu cihazın tarayıcısında</b> saklanır. Telefon ve bilgisayar arasında otomatik paylaşılmaz. Düzenli olarak yedeği kopyalayıp bir yere (ör. kendinize WhatsApp mesajı) kaydedin.</div>
+  <form class="f" id="fa"><label>Adınız (mesaj imzası)<input id="a-ad" value="${esc(DB.ayar.ad)}"></label><label>Ofis adı<input id="a-ofis" value="${esc(DB.ayar.ofis)}"></label>
+    <div class="acts full"><button class="btn" type="submit">Kaydet</button></div></form>
+  <div class="box"><h4>Yedek</h4><div class="acts"><button class="btn sec" data-a="yedek-al">Yedeği kopyala</button></div>
+    <textarea id="yedek-t" style="width:100%;min-height:80px;border:1px solid var(--line);border-radius:9px;padding:8px" placeholder="Yedeği buraya yapıştırıp Geri yükle'ye basın"></textarea>
+    <div class="acts"><button class="btn sec" data-a="yedek-yukle">Geri yükle</button></div><div class="err" id="y-err"></div></div>
+  <div class="box"><h4>Örnek veriler</h4><div class="acts"><button class="btn sec" data-a="ornek">Örnek verileri yükle</button><button class="btn danger" data-a="ornek-sil">Örnekleri sil</button></div></div>`);
+  $('fa').onsubmit = e => { e.preventDefault(); DB.ayar.ad = $('a-ad').value.trim(); DB.ayar.ofis = $('a-ofis').value.trim(); save(); toast('Kaydedildi'); };
+}
+$('b-more').onclick = ayarlar;
+
+// ================= örnek veriler (açıkça "örnek" etiketli) =================
+function ornek(){
+  if (DB.kisiler.some(k => k.ornek)) { toast('Örnek veriler zaten yüklü'); return; }
+  const t = today(), K = (o) => Object.assign({id: uid(), olus: t, ornek: true, kvkk: true}, o);
+  const s1 = K({ad: 'Hatice Yılmaz', hitap: 'Hanım', tel: '0532 000 00 01', tip: 'sahip', kaynak: 'Tabela', takip: addDays(t, 5)});
+  const s2 = K({ad: 'Mehmet Kaya', hitap: 'Bey', tel: '0532 000 00 02', tip: 'sahip', kaynak: 'Referans', takip: addDays(t, -1)});
+  const a1 = K({ad: 'Ayşe Demir', hitap: 'Hanım', tel: '0532 000 00 03', tip: 'alici', kaynak: 'Sahibinden', takip: t, talep: {ilceler: ['Avcılar', 'Küçükçekmece'], min: 6000000, max: 8500000, odalar: ['2+1', '3+1'], m2: 90, site: false}});
+  const a2 = K({ad: 'Can Öztürk', hitap: 'Bey', tel: '0532 000 00 04', tip: 'alici', kaynak: 'Instagram', takip: addDays(t, -2), talep: {ilceler: ['Küçükçekmece'], min: 8000000, max: 10000000, odalar: ['3+1'], m2: 110, site: true}});
+  const a3 = K({ad: 'Elif Arslan', hitap: 'Hanım', tel: '0532 000 00 05', tip: 'alici', kaynak: 'Telefon', takip: addDays(t, 4), talep: {ilceler: ['Beylikdüzü', 'Esenyurt'], max: 6500000, odalar: ['2+1'], m2: 80}});
+  const k1 = K({ad: 'Burak Şahin', hitap: 'Bey', tel: '0532 000 00 06', tip: 'kiraci', kaynak: 'Emlakjet', takip: t, talep: {ilceler: ['Avcılar'], max: 30000, odalar: ['2+1'], m2: 80}});
+  DB.kisiler.push(s1, s2, a1, a2, a3, k1);
+  const P = (o) => { const c = MAHPOS[o.ilce + '|' + o.mahalle]; return Object.assign({id: uid(), olus: t, ornek: true, durum: 'aktif'}, c ? {lat: c[0] + (Math.random() - .5) * .004, lng: c[1] + (Math.random() - .5) * .005} : {}, o); };
+  DB.portfoy.push(
+    P({tur: 'satilik', ilce: 'Avcılar', mahalle: 'Ambarlı Mahallesi', oda: '3+1', m2: 125, yas: '8', fiyat: 7900000, site: false, sahipId: s1.id, yetki: addDays(t, 20)}),
+    P({tur: 'satilik', ilce: 'Küçükçekmece', mahalle: 'Atakent Mahallesi', oda: '3+1', m2: 120, yas: '12', fiyat: 11500000, site: true, sahipId: s2.id, yetki: addDays(t, 75)}),
+    P({tur: 'satilik', ilce: 'Beylikdüzü', mahalle: 'Yakuplu Mahallesi', oda: '2+1', m2: 90, yas: '4', fiyat: 5900000, site: true, sahipId: s1.id, yetki: addDays(t, 120)}),
+    P({tur: 'kiralik', ilce: 'Avcılar', mahalle: 'Cihangir Mahallesi', oda: '2+1', m2: 85, yas: '15', fiyat: 27000, site: false, sahipId: s2.id, yetki: addDays(t, 40)}));
+  log(a1.id, 'görüşme', 'Telefonda görüşüldü; okula yakın, asansörlü daire istiyor.');
+  log(a2.id, 'görüşme', 'Ofise geldi; site içi ve otopark şart.');
+  log(s2.id, 'görüşme', 'Atakent dairesi için fiyatı yüksek buluyoruz; rapor gösterilecek.');
+  const ts = (d, h) => addDays(t, d) + 'T' + h + ':00';
+  DB.mesajlar.push(
+    {kisiId: a1.id, yon: 'in', metin: 'Merhaba, Ambarlı\'daki 3+1 hâlâ satılık mı? Hafta sonu görebilir miyiz?', ts: ts(0, '09:41'), ornek: true},
+    {kisiId: k1.id, yon: 'in', metin: 'Selam, 2+1 kiralık arıyorum Avcılar\'da, 30 bine kadar.', ts: ts(-1, '18:12'), ornek: true, okundu: true},
+    {kisiId: k1.id, yon: 'out', metin: 'Merhaba Burak Bey, Cihangir\'de 27.000 TL\'ye 2+1 var. Görmek ister misiniz?', ts: ts(-1, '18:30'), ornek: true},
+    {kisiId: s2.id, yon: 'in', metin: 'Atakent\'teki daireyle ilgilenen oldu mu?', ts: ts(0, '11:05'), ornek: true});
+  save(); render(); close(); toast('Örnek veriler yüklendi');
+}
+function ornekSil(){
+  const ids = new Set(DB.kisiler.filter(k => k.ornek).map(k => k.id));
+  DB.kisiler = DB.kisiler.filter(k => !k.ornek); DB.portfoy = DB.portfoy.filter(p => !p.ornek);
+  DB.aktivite = DB.aktivite.filter(a => !ids.has(a.kisiId)); DB.mesajlar = DB.mesajlar.filter(m => !m.ornek);
+  save(); render(); close(); toast('Örnekler silindi');
+}
+
+// ================= tıklamalar =================
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-a]'); if (!el) return;
+  const a = el.dataset.a, id = el.dataset.id;
+  if (a === 'kapat') return close();
+  if (a === 'ac-kisi') { if (el.tagName !== 'A') e.preventDefault(); return openKisi(id); }
+  if (a === 'ac-pf') return openPf(id);
+  if (a === 'ac-thread') return openThread(id);
+  if (a === 'yeni-kisi') return formKisi();
+  if (a === 'duzen-kisi') return formKisi(id);
+  if (a === 'yeni-pf') return formPf(null, el.dataset.sahip);
+  if (a === 'duzen-pf') return formPf(id);
+  if (a === 'filt') { FILT = el.dataset.f; return render(); }
+  if (a === 'ornek') return ornek();
+  if (a === 'ornek-sil') return ornekSil();
+  if (a === 'takip') { const k = kisi(id); k.takip = addDays(today(), +el.dataset.g); log(id, 'takip', `Takip ${fmtD(k.takip)} tarihine ayarlandı`); save(); render(); openKisi(id); return toast('Takip tarihi ayarlandı'); }
+  if (a === 'not') { const v = $('not-t').value.trim(); if (!v) return; log(id, 'not', v); save(); return openKisi(id); }
+  if (a === 'wa-eslesme') { e.stopPropagation(); const k = kisi(el.dataset.k), p = pf(el.dataset.p); if (!gonderildi(k.id, p.id)) log(k.id, 'eslesme', `WhatsApp ile önerildi: ${p.oda} ${short(p.mahalle)}`, {portfoyId: p.id}); k.takip = addDays(today(), 2); save(); render(); return; }
+  if (a === 'wa-log') { log(el.dataset.k, 'whatsapp', el.dataset.m); save(); render(); return; }
+  if (a === 'gonder') { const v = $('rep-t').value.trim(); if (!v) return; const k = kisi(THREAD); DB.mesajlar.push({kisiId: THREAD, yon: 'out', metin: v, ts: new Date().toISOString().slice(0, 16)}); log(THREAD, 'whatsapp', 'Mesaj: ' + v.slice(0, 60)); save();
+    const l = waLink(k, v); if (l) window.open(l, '_blank', 'noopener'); return openThread(THREAD); }
+  if (a === 'sil-kisi') { if (el.dataset.ok !== '1') { el.dataset.ok = '1'; el.textContent = 'Silmek için tekrar basın'; return; } DB.kisiler = DB.kisiler.filter(k => k.id !== id); DB.aktivite = DB.aktivite.filter(x => x.kisiId !== id); DB.mesajlar = DB.mesajlar.filter(m => m.kisiId !== id); save(); close(); render(); return toast('Kişi silindi'); }
+  if (a === 'sil-pf') { if (el.dataset.ok !== '1') { el.dataset.ok = '1'; el.textContent = 'Silmek için tekrar basın'; return; } DB.portfoy = DB.portfoy.filter(p => p.id !== id); save(); close(); render(); return toast('Portföy silindi'); }
+  if (a === 'yedek-al') { const txt = JSON.stringify(DB); const t = $('yedek-t'); t.value = txt;
+    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => toast('Yedek kopyalandı'), () => { t.select(); toast('Metni seçip kopyalayın'); }); return; }
+  if (a === 'yedek-yukle') { try { const d = JSON.parse($('yedek-t').value); if (!d.kisiler || !d.portfoy) throw 0; DB = Object.assign(blank(), d); save(); render(); close(); toast('Yedek geri yüklendi'); } catch (x) { $('y-err').textContent = 'Bu metin geçerli bir yedek değil.'; } return; }
+});
+document.addEventListener('input', e => { if (e.target.id === 'q') { Q = e.target.value.toLocaleLowerCase('tr'); const pos = e.target.selectionStart; render(); const q = $('q'); q.focus(); q.setSelectionRange(pos, pos); } });
+render();
+})();
+</script>
+</body>
+</html>

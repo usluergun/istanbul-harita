@@ -530,10 +530,12 @@ function heatPopup(k){
 }
 function heatStyle(){
   const sat = curBase === 'uydu';
+  heatBg.eachLayer(l => l.setStyle({fillOpacity: (bolge === 'Tümü' || l.feature.properties.n === bolge) ? .14 : 0}));
   heatFeat.forEach((l, k) => {
     if (!l) return;
     const s = heatStats[k];
-    if (!s && !HEAT_ILCE.has(MAH.features[k].properties.i)) { l.setStyle({weight:0, opacity:0, fillOpacity:0}); return; }
+    const il = MAH.features[k].properties.i;
+    if ((bolge !== 'Tümü' && il !== bolge) || (!s && !HEAT_ILCE.has(il))) { l.setStyle({weight:0, opacity:0, fillOpacity:0}); return; }
     if (!s) { l.setStyle({fillColor:'#9aa1a4', fillOpacity: sat ? .25 : .12, color:'#7d8588', weight:.8, opacity:.7, dashArray:'2 3'}); return; }
     const few = s.n < HEAT_MIN || !heatBreaks.length;
     l.setStyle(few
@@ -545,12 +547,12 @@ const heatLeg = L.control({position:'bottomright'});
 heatLeg.onAdd = () => { const d = L.DomUtil.create('div', 'heat-leg'); L.DomEvent.disableClickPropagation(d); return d; };
 function heatLegend(){
   const el = heatLeg.getContainer(); if (!el) return;
-  const b = heatBreaks, n = Object.values(heatStats).filter(s => s.n >= HEAT_MIN).length;
+  const b = heatBreaks, n = Object.values(heatStats).filter(s => s.n >= HEAT_MIN && (bolge === 'Tümü' || s.b === bolge)).length;
   const rows = b.length ? HEAT_COL.map((c, i) => {
     const lab = i === 0 ? `≤ ${k2(b[0])}` : i === 4 ? `> ${k2(b[3])}` : `${k2(b[i-1])} – ${k2(b[i])}`;
     return `<div class="r"><i style="background:${c}"></i>${lab} TL/m²</div>`; }).reverse().join('') : '<div class="r">Bu filtrelerde yeterli veri yok</div>';
   el.innerHTML = `<h4>m² fiyatı (medyan)</h4>${rows}<div class="r na"><i></i>${HEAT_MIN} ilandan az / ilan yok</div>
-    <small>${n} mahalle · brüt m² · ${mtl(pMin)}–${mtl(pMax)} arası ilanlar · 5 eşit gruba bölündü. Mahalleye dokun: detay.</small>`;
+    <small>${bolge === 'Tümü' ? '' : esc(bolge) + ' gösteriliyor; renkler 7 ilçenin geneline göre. '}${n} mahalle · brüt m² · ${mtl(pMin)}–${mtl(pMax)} arası ilanlar · 5 eşit gruba bölündü. Mahalleye dokun: detay.</small>`;
 }
 heatFeat.forEach((l, k) => {
   if (!l) return;

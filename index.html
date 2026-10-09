@@ -22,6 +22,7 @@
 .hp table{border-collapse:collapse;width:100%;margin-top:6px;font-size:12px;font-variant-numeric:tabular-nums}
 .hp td{padding:2px 0;border-top:1px solid #eceeef}.hp td:last-child{text-align:right;font-weight:600}
 .hp .up{color:#b3261e}.hp .dn{color:#1c5cab}
+.hp .hp-rep{width:100%;margin-top:8px;padding:8px 10px;font-size:13px}
 .hp .note{margin-top:6px;font-size:10.5px;color:#5c6a72}
 .heat-on .dotm,.heat-on .tag{opacity:.28;transition:opacity .15s}.heat-on .dotm:hover,.heat-on .tag:hover,.heat-on .tag.on,.heat-on .dotm.on{opacity:1}
 @media (min-width:901px){.leaflet-bottom.leaflet-right .heat-leg{margin-bottom:96px}}
@@ -499,7 +500,7 @@ function heatPopup(k){
     <tr><td>m² aralığı</td><td>${k2(s.lo)} – ${k2(s.hi)} TL</td></tr>
     <tr><td>Yeni bina (0–5 yaş)</td><td>%${Math.round(s.yeni * 100)}</td></tr>
     <tr><td>Site içi</td><td>%${Math.round(s.site * 100)}</td></tr></table>
-    <div class="note">${few ? `Az ilan (${HEAT_MIN} altı): tek başına güvenilir değil. ` : ''}Seçili fiyat aralığı ve filtrelerdeki ilanlardan hesaplandı.</div></div>`;
+    <div class="note">${few ? `Az ilan (${HEAT_MIN} altı): tek başına güvenilir değil. ` : ''}Seçili fiyat aralığı ve filtrelerdeki ilanlardan hesaplandı.</div><button class="btn hp-rep" type="button" onclick="window.__mahRep && window.__mahRep(${k})">Mahalle raporunu aç</button></div>`;
 }
 function heatStyle(){
   const sat = curBase === 'uydu';
@@ -694,6 +695,67 @@ function openReport(R){
   if (canPrint) $('r-print').onclick = () => window.print();
   $('r-close').focus();
 }
+
+// --- 15) mahalle raporu (mahalle kartından tek tıkla)
+const ageGroup = x => { const y = yasN(x); if (y == null) return null; return y <= 5 ? '0–5 yaş' : y <= 10 ? '6–10 yaş' : y <= 20 ? '11–20 yaş' : '21+ yaş'; };
+function groupRows(a, keyFn, order){
+  const g = {}; a.forEach(x => { const k = keyFn(x); if (k) (g[k] = g[k] || []).push(x); });
+  const keys = order ? order.filter(k => g[k]) : Object.keys(g).sort((p, q) => g[q].length - g[p].length);
+  return keys.map(k => { const v = g[k]; return {k, n: v.length, p: med(v.map(x => x.p)), m2: med(v.map(brutM2)), tlm2: med(v.map(x => x.p / brutM2(x)))}; });
+}
+function openMahReport(k){
+  const f = MAH.features[k].properties, S = mahStats(k);
+  if (!S) return;
+  const a = ILAN.filter(x => x.mk === k && brutM2(x));
+  const d = S.ilce ? (S.m2 / S.ilce - 1) * 100 : 0;
+  const ranks = {}; ILAN.forEach(x => { if (x.b === S.b && x.mk >= 0 && brutM2(x)) (ranks[x.mk] = ranks[x.mk] || []).push(x.p / brutM2(x)); });
+  const rl = Object.entries(ranks).filter(([, v]) => v.length >= HEAT_MIN).map(([kk, v]) => [+kk, med(v)]).sort((p, q) => q[1] - p[1]);
+  const ri = rl.findIndex(r => r[0] === k);
+  const m2s = a.map(x => x.p / brutM2(x));
+  const byOda = groupRows(a, x => x.oda);
+  const byAge = groupRows(a, ageGroup, ['0–5 yaş', '6–10 yaş', '11–20 yaş', '21+ yaş']);
+  const sample = a.slice().sort((p, q) => p.p / brutM2(p) - q.p / brutM2(q));
+  const pick = sample.length <= 12 ? sample : [...Array(12)].map((_, i) => sample[Math.round(i * (sample.length - 1) / 11)]);
+  const few = S.n < HEAT_MIN;
+  const tr = rows => rows.map(r => `<tr><td>${esc(r.k)}</td><td class="r">${r.n}</td><td class="r">${mtl(r.p)}</td><td class="r">${Math.round(r.m2)}</td><td class="r">${Math.round(r.tlm2).toLocaleString('tr-TR')}</td></tr>`).join('');
+  const head = `<thead><tr><th></th><th class="r">İlan</th><th class="r">Medyan fiyat</th><th class="r">Medyan m²</th><th class="r">TL/m²</th></tr></thead>`;
+  const rep = $('rep');
+  rep.innerHTML = `<div class="rbar">${canPrint ? '<button class="btn" type="button" id="r-print">Yazdır / PDF olarak kaydet</button>' : ''}<button class="btn sec" type="button" id="r-close">Kapat</button></div>
+  <article class="sheet">
+    <header><div><div class="ey">Mahalle raporu · ${esc(today)}</div><h2>${esc(short(f.n))}, ${esc(f.i)}</h2>
+      <div style="color:#4f5f68;font-size:13px">Satılık konut piyasası · ${S.n} ilan</div></div>
+      <div class="who">Hazırlayan<br><span contenteditable="true" id="r-office" spellcheck="false">${esc(office)}</span></div></header>
+    ${few ? `<p class="fine" style="margin:12px 0 0;color:#7a5410">Bu mahallede ${S.n} ilan var; rakamlar tek başına güvenilir değil.</p>` : ''}
+    <h3>Mahalle göstergeleri</h3>
+    <div class="big"><div class="kv hl"><span>Medyan m² fiyatı</span><b>${Math.round(S.m2).toLocaleString('tr-TR')} TL</b></div>
+      <div class="kv"><span>${esc(f.i)} medyanı</span><b>${Math.round(S.ilce).toLocaleString('tr-TR')} TL</b></div>
+      <div class="kv"><span>İlçeye göre</span><b>${Math.abs(d) < .5 ? '%0' : (d > 0 ? '+' : '−') + '%' + Math.abs(d).toFixed(0)}</b></div>
+      <div class="kv"><span>İlçede sırası (pahalıdan)</span><b>${ri >= 0 ? `${ri + 1} / ${rl.length}` : '—'}</b></div>
+      <div class="kv"><span>Medyan ilan fiyatı</span><b>${mtl(S.p)}</b></div>
+      <div class="kv"><span>m² fiyatı, ilanların orta yarısı</span><b>${k2(q(m2s, .25))} – ${k2(q(m2s, .75))}</b></div>
+      <div class="kv"><span>Yeni bina (0–5 yaş)</span><b>%${Math.round(S.yeni * 100)}</b></div>
+      <div class="kv"><span>Site içi</span><b>%${Math.round(S.site * 100)}</b></div></div>
+    <h3>Oda sayısına göre</h3>
+    <div class="tw"><table>${head}<tbody>${tr(byOda)}</tbody></table></div>
+    <h3>Bina yaşına göre</h3>
+    <div class="tw"><table>${head}<tbody>${tr(byAge)}</tbody></table></div>
+    <h3>Örnek ilanlar · ucuzdan pahalıya</h3>
+    <div class="tw"><table><thead><tr><th>Oda</th><th class="r">Brüt m²</th><th>Yaş</th><th>Site</th><th class="r">Fiyat</th><th class="r">TL/m²</th></tr></thead><tbody>
+    ${pick.map(x => `<tr><td>${esc(x.oda || '')}</td><td class="r">${brutM2(x)}</td><td>${esc(yasT(x))}</td><td>${x.site ? 'Evet' : 'Hayır'}</td><td class="r">${tl(x.p)}</td><td class="r">${Math.round(x.p / brutM2(x)).toLocaleString('tr-TR')}</td></tr>`).join('')}
+    </tbody></table></div>
+    <h3>Yöntem ve sınırlar</h3>
+    <ul class="fine"><li>Rakamlar mahalledeki tüm ilanların brüt m² fiyatlarının medyanıdır; m² aralığı ilanların orta yarısını gösterir. Haritadaki filtreler bu raporu etkilemez.</li>
+    <li>Kaynak: emlakjet.com satılık konut ilanları, 26–30 Eylül 2026 taraması. Veri 5,5–10 M₺ arasındaki ilanları kapsar.</li>
+    <li>İlan fiyatları pazarlık payı içerir; gerçekleşen satış fiyatı genellikle daha düşüktür. Bu rapor resmî ekspertiz değildir.</li></ul>
+  </article>`;
+  rep.hidden = false; document.body.style.overflow = 'hidden';
+  map.closePopup();
+  $('r-close').onclick = closeReport;
+  $('r-office').oninput = e => { office = e.target.textContent.trim() || 'Ofis adınız'; };
+  if (canPrint) $('r-print').onclick = () => window.print();
+  $('r-close').focus();
+}
+window.__mahRep = openMahReport;
 function closeReport(){ $('rep').hidden = true; document.body.style.overflow = ''; }
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('rep').hidden) closeReport(); });
 window.__openReportFor = (b, mahN, m2, oda, yas, site) => { const k = MAH.features.findIndex(f => f.properties.i === b && f.properties.n === mahN); openReport(estimate({b, mk:k, m2, oda, yas, site})); };

@@ -484,12 +484,15 @@ function tog(id, fn){ const b = document.getElementById(id); b.onclick = () => {
 
 // ---- m² fiyat ısı haritası (mahalle bazlı, filtrelere göre canlı) ----
 const HEAT_MIN = 3;
-const HEAT_COL = ['#cde2fb','#86b6ef','#3987e5','#1c5cab','#0d366b'];
+const HEAT_ILCE = new Set(ILAN.map(x => x.b));
+const HEAT_COL = ['#a9cdf5','#6fa6ea','#3987e5','#1c5cab','#0d366b'];
 const brutM2 = x => { const n = parseInt(String(x.brut || x.m2 || '').replace(/\D/g,'')) || 0; return n >= 30 && n <= 1000 ? n : 0; };
 const med = a => { if (!a.length) return 0; const b = a.slice().sort((p,q) => p - q), h = b.length >> 1; return b.length % 2 ? b[h] : (b[h-1] + b[h]) / 2; };
 const k2 = n => Math.round(n / 1000).toLocaleString('tr-TR') + 'K';
 let heatOn = false, heatStats = {}, heatBreaks = [], ilceMed = {};
 const heatR = L.svg({padding:.3});
+const heatBg = L.geoJSON({type:'FeatureCollection', features: ILCE.features.filter(f => HEAT_ILCE.has(f.properties.n))},
+  {renderer: heatR, interactive: false, style: () => ({fillColor:'#9aa1a4', fillOpacity:.14, weight:0, opacity:0})});
 const heatLayer = L.geoJSON(MAH, {renderer: heatR, style: () => ({weight:0, fillOpacity:0, opacity:0})});
 const heatFeat = []; heatLayer.eachLayer(l => heatFeat[MAH.features.indexOf(l.feature)] = l);
 function heatClass(v){ let c = 0; while (c < heatBreaks.length && v > heatBreaks[c]) c++; return c; }
@@ -530,11 +533,12 @@ function heatStyle(){
   heatFeat.forEach((l, k) => {
     if (!l) return;
     const s = heatStats[k];
-    if (!s) { l.setStyle({weight:0, opacity:0, fillOpacity:0}); return; }
+    if (!s && !HEAT_ILCE.has(MAH.features[k].properties.i)) { l.setStyle({weight:0, opacity:0, fillOpacity:0}); return; }
+    if (!s) { l.setStyle({fillColor:'#9aa1a4', fillOpacity: sat ? .25 : .12, color:'#7d8588', weight:.8, opacity:.7, dashArray:'2 3'}); return; }
     const few = s.n < HEAT_MIN || !heatBreaks.length;
     l.setStyle(few
-      ? {fillColor:'#b9bdbf', fillOpacity: sat ? .45 : .32, color:'#8a9295', weight:1, opacity:.8, dashArray:'2 3'}
-      : {fillColor: HEAT_COL[heatClass(s.m2)], fillOpacity: sat ? .7 : (map.getContainer().classList.contains('no-tiles') ? .62 : .5), color:'#ffffff', weight:1.2, opacity:.9, dashArray:null});
+      ? {fillColor:'#9aa1a4', fillOpacity: sat ? .5 : .4, color:'#6f777a', weight:1, opacity:.9, dashArray:'2 3'}
+      : {fillColor: HEAT_COL[heatClass(s.m2)], fillOpacity: sat ? .78 : .74, color:'#ffffff', weight:1.2, opacity:.95, dashArray:null});
   });
 }
 const heatLeg = L.control({position:'bottomright'});
@@ -545,7 +549,7 @@ function heatLegend(){
   const rows = b.length ? HEAT_COL.map((c, i) => {
     const lab = i === 0 ? `≤ ${k2(b[0])}` : i === 4 ? `> ${k2(b[3])}` : `${k2(b[i-1])} – ${k2(b[i])}`;
     return `<div class="r"><i style="background:${c}"></i>${lab} TL/m²</div>`; }).reverse().join('') : '<div class="r">Bu filtrelerde yeterli veri yok</div>';
-  el.innerHTML = `<h4>m² fiyatı (medyan)</h4>${rows}<div class="r na"><i></i>${HEAT_MIN} ilandan az</div>
+  el.innerHTML = `<h4>m² fiyatı (medyan)</h4>${rows}<div class="r na"><i></i>${HEAT_MIN} ilandan az / ilan yok</div>
     <small>${n} mahalle · brüt m² · ${mtl(pMin)}–${mtl(pMax)} arası ilanlar · 5 eşit gruba bölündü. Mahalleye dokun: detay.</small>`;
 }
 heatFeat.forEach((l, k) => {
@@ -557,8 +561,8 @@ function heatRefresh(){ if (!heatOn) return; heatCompute(); heatStyle(); heatLeg
 tog('t-heat', v => {
   heatOn = v; map.getContainer().classList.toggle('heat-on', v);
   document.getElementById('heat-fab').setAttribute('aria-pressed', v);
-  if (v) { heatLayer.addTo(map); heatLeg.addTo(map); heatRefresh(); map.removeLayer(mahLayer); if (map.getZoom() < 12) { const d = vis(); if (d.length) map.setView(L.latLngBounds(d.map(x => [x.lat, x.lng])).getCenter(), 12); } }
-  else { map.removeLayer(heatLayer); heatLeg.remove(); if (document.getElementById('t-mah').getAttribute('aria-pressed') === 'true') mahLayer.addTo(map); }
+  if (v) { heatBg.addTo(map); heatBg.bringToBack(); heatLayer.addTo(map); heatLeg.addTo(map); heatRefresh(); map.removeLayer(mahLayer); if (map.getZoom() < 12) { const d = vis(); if (d.length) map.setView(L.latLngBounds(d.map(x => [x.lat, x.lng])).getCenter(), 12); } }
+  else { map.removeLayer(heatLayer); map.removeLayer(heatBg); heatLeg.remove(); if (document.getElementById('t-mah').getAttribute('aria-pressed') === 'true') mahLayer.addTo(map); }
 });
 document.getElementById('heat-fab').onclick = () => document.getElementById('t-heat').click();
 const _render = render; render = function(){ _render(); heatRefresh(); };

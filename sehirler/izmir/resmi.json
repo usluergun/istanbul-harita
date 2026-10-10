@@ -38,7 +38,8 @@
     "Karşıyaka": 580,
     "Konak": 424,
     "Urla": 151,
-    "Çeşme": 147
+    "Çeşme": 147,
+    "Balçova": 122
    },
    "2026-05": {
     "İzmir": 5624,
@@ -47,7 +48,8 @@
     "Karşıyaka": 459,
     "Konak": 330,
     "Urla": 83,
-    "Çeşme": 85
+    "Çeşme": 85,
+    "Balçova": 73
    },
    "2026-01": {
     "İzmir": 6618,
@@ -62,7 +64,7 @@
    "2026-05": 5624,
    "2026-01": 6618
   },
-  "aylik_not": "Kıyı ilçelerinin (Güzelbahçe, Urla, Çeşme, Karaburun) en son ilçe verisi Haziran 2026; Temmuz–Ağustos haberlerinde yalnızca ilk 9 ilçe yayımlandı."
+  "aylik_not": "Balçova, Güzelbahçe, Urla, Çeşme ve Karaburun için en son ilçe verisi Haziran 2026; Temmuz–Ağustos haberlerinde yalnızca ilk 9 ilçe yayımlandı. Narlıdere için 2026 ilçe verisi bulunamadı."
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
@@ -82,7 +84,9 @@
    "Güzelbahçe": 39474,
    "Urla": 82021,
    "Çeşme": 51902,
-   "Karaburun": 13725
+   "Karaburun": 13725,
+   "Balçova": 75743,
+   "Narlıdere": 61320
   },
   "2021": {
    "İzmir": 4425789,
@@ -91,7 +95,9 @@
    "Güzelbahçe": 37572,
    "Urla": 72741,
    "Çeşme": 48167,
-   "Karaburun": 11927
+   "Karaburun": 11927,
+   "Balçova": 80513,
+   "Narlıdere": 63438
   }
  },
  "yapi_izin": {
@@ -110,7 +116,8 @@
   "İzmir 2026-01: yeniasir haberinde 'Bornova 5.195, Bayraklı 4.185, Seferihisar 2.884' diye ayrı ve tutarsız bir paragraf var (muhtemelen yıllık veri ya da yayın hatası). Bu paragraf kullanılmadı.",
   "İzmir yıllık değişim 2026-08: Ağustos 2025 = 7.867 (sonmuhur). 6.532/7.867 = -%17,0 ile tutarlı.",
   "İzmir KFE endeks düzeyi 229,6 (2023=100). Türkiye KFE 236,8, reel yıllık -%6,5 (TCMB bülteni; fintables -%6,4 yazıyor).",
-  "Nüfus: 2025 ADNKS sonuçları Şubat 2026'da yayımlandı. Değerler nufusu.com/nufusum.com sayfalarından alındı (bu siteler gayriresmidir ve TÜİK'i kaynak gösterir). İzmir 2025 = 4.504.185 alomaliye'de de aynı. Şahinbey ve Şehitkamil 2025 değerleri alomaliye'de de aynı."
+  "Nüfus: 2025 ADNKS sonuçları Şubat 2026'da yayımlandı. Değerler nufusu.com/nufusum.com sayfalarından alındı (bu siteler gayriresmidir ve TÜİK'i kaynak gösterir). İzmir 2025 = 4.504.185 alomaliye'de de aynı. Şahinbey ve Şehitkamil 2025 değerleri alomaliye'de de aynı.",
+  "Balçova ve Narlıdere nüfusu (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı). Balçova Haziran 2026 = 122, Mayıs 2026 = 73 (gayrimenkulhaber ilçe tablosu, tek kaynak)."
  ],
  "kaynaklar": {
   "turkiye_tuik": [

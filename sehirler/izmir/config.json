@@ -1,6 +1,6 @@
 {
  "ad": "İzmir",
- "baslik": "İzmir merkez ve kıyı",
+ "baslik": "İzmir körfez ve kıyı",
  "merkez": [
   38.42,
   26.78
@@ -57,6 +57,26 @@
    "grup": "İzmir merkez",
    "emlakjet": "izmir-karsiyaka",
    "etiket": "ust"
+  },
+  {
+   "ad": "Balçova",
+   "lok": "Balçova'da",
+   "merkez": [
+    38.3906,
+    27.0494
+   ],
+   "grup": "İzmir merkez",
+   "emlakjet": "izmir-balcova"
+  },
+  {
+   "ad": "Narlıdere",
+   "lok": "Narlıdere'de",
+   "merkez": [
+    38.3933,
+    26.995
+   ],
+   "grup": "İzmir merkez",
+   "emlakjet": "izmir-narlidere"
   },
   {
    "ad": "Güzelbahçe",

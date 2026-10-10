@@ -818,6 +818,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('rep').
 window.__openReportFor = (b, mahN, m2, oda, yas, site) => { const k = MAH.features.findIndex(f => f.properties.i === b && f.properties.n === mahN); openReport(estimate({b, mk:k, m2, oda, yas, site})); };
 
 // --- 18) müteahhit pazar raporu (ilçe bazında, yazdırılabilir)
+let RESMI = null; // TÜİK ve TCMB özet verileri (data/resmi.json)
+fetch('data/resmi.json').then(r => r.ok ? r.json() : null).then(d => { RESMI = d; }).catch(() => {});
+const LOC = {'Avcılar':"Avcılar'da",'Bağcılar':"Bağcılar'da",'Başakşehir':"Başakşehir'de",'Beylikdüzü':"Beylikdüzü'nde",'Esenyurt':"Esenyurt'ta",'Güngören':"Güngören'de",'Küçükçekmece':"Küçükçekmece'de"};
+const loc = il => LOC[il] || il;
+const sp = v => (v >= 0 ? '+' : '−') + '%' + Math.abs(v * 100).toLocaleString('tr-TR', {maximumFractionDigits: 1});
 const MUT_TARAMA = new Date('2026-09-26T12:00:00');
 const mutGun = x => { const t = Date.parse((x.tarih || '') + 'T12:00:00'); return isNaN(t) ? null : Math.round((MUT_TARAMA - t) / 864e5); };
 const mutYas = y => y.startsWith('0 (Yap') ? 'Yapım aşamasında' : y.startsWith('0') ? 'Sıfır (oturuma hazır)' : ['1','2','3','4','5'].includes(y) ? '1–5 yaş' : y === '6-10' ? '6–10 yaş' : '11+ yaş';
@@ -852,6 +857,21 @@ function mutHbars(rows, lab, val, side, hi){
   const mx = Math.max(...rows.map(val)) || 1;
   return `<div class="mhb">${rows.map(r => `<div class="l">${esc(lab(r))}</div><div class="t"><i class="${hi(r) ? 'hi' : ''}" style="width:${(100 * val(r) / mx).toFixed(1)}%"></i></div><div class="v">${esc(side(r))}</div>`).join('')}</div>`;
 }
+function resmiHtml(il){
+  const D = RESMI; if (!D) return '';
+  const T = D.tuik, C = D.tcmb, n = T.ilce[il];
+  const rows = Object.entries(T.ilce).map(([b, v]) => ({b, v})).sort((a, b) => b.v - a.v);
+  return `<h3>Resmî veriler · ${esc(D.donem)}</h3>
+    <div class="big">${n != null ? `<div class="kv hl"><span>${esc(loc(il))} satılan konut</span><b>${n.toLocaleString('tr-TR')}</b></div>
+      <div class="kv"><span>İstanbul satışları içindeki payı</span><b>%${(100 * n / T.istanbul.satis).toLocaleString('tr-TR', {maximumFractionDigits: 1})}</b></div>` : ''}
+      <div class="kv"><span>İstanbul'da satılan konut</span><b>${T.istanbul.satis.toLocaleString('tr-TR')}</b></div>
+      <div class="kv"><span>İstanbul'da ilk el · ipotekli payı</span><b>${pc(T.istanbul.ilk_el / T.istanbul.satis)} · ${pc(T.istanbul.ipotekli / T.istanbul.satis)}</b></div>
+      <div class="kv"><span>İstanbul konut fiyatı, yıllık</span><b>${sp(C.istanbul_fiyat_yillik)}</b></div>
+      <div class="kv"><span>Türkiye konut fiyatı, yıllık reel</span><b>${sp(C.turkiye_fiyat_reel_yillik)}</b></div></div>
+    <p class="fine" style="margin:8px 0 4px">Satılan konut: tapuda el değiştiren konut adedi (yalnızca ilan bandı değil, tüm fiyatlar). Komşu ilçelerde aynı ay:</p>
+    ${mutHbars(rows, r => r.b, r => r.v, r => r.v.toLocaleString('tr-TR'), r => r.b === il)}
+    <p class="fine" style="margin:6px 0 0">Kaynak: ${esc(T.kaynak)}; ${esc(C.kaynak)}. İstanbul'da yeni kiracı kiraları yıllık ${sp(C.istanbul_kira_yillik)} arttı.</p>`;
+}
 function openMutRapor(il){
   const R = mutStats(il), prim = R.ym2 / R.em2 - 1, bos = R.s0 ? R.bos / R.s0 : 0, toda = R.oda.reduce((s, r) => s + r.n, 0) || 1;
   const lst = (rows, f) => rows.map((r, i) => (i ? (i === rows.length - 1 ? ' ve ' : ', ') : '') + `${esc(r.mh)} (<b>${f(r)}</b>)`).join('');
@@ -864,6 +884,8 @@ function openMutRapor(il){
   const az = R.mah.filter(r => r.m2 > md && r.yn < 3 && r.n >= 10);
   if (az.length) reads.push(`Fiyatı ilçe ortancasının üstünde ama yeni arzı neredeyse yok: ${az.map(r => `${esc(r.mh)} (<b>${tlr(r.m2)}</b>, <b>${r.yn}</b> yeni ilan)`).join(', ')}. Arsa veya kentsel dönüşüm fırsatı burada aranabilir.`);
   if (R.oda.length >= 2) reads.push(`Yeni binalarda arz ${esc(R.oda[0].o)} (<b>${pc(R.oda[0].n / toda)}</b>) ve ${esc(R.oda[1].o)} (<b>${pc(R.oda[1].n / toda)}</b>) ağırlıklı. Bu tiplerde fiyatla, diğerlerinde farklılaşarak rekabet edilir.`);
+  if (RESMI && RESMI.tuik.ilce[il] != null) { const C = RESMI.tcmb;
+    reads.push(`${esc(RESMI.donem)}'da ${esc(loc(il))} <b>${RESMI.tuik.ilce[il].toLocaleString('tr-TR')}</b> konut el değiştirdi. İstanbul'da fiyatlar yıllık <b>${sp(C.istanbul_fiyat_yillik)}</b> arttı; Türkiye genelinde reel olarak <b>${sp(C.turkiye_fiyat_reel_yillik)}</b>, yani fiyatlar enflasyonun gerisinde.`); }
   if (R.s0) reads.push(`Sıfır dairelerin <b>${pc(bos)}</b>'i boş, yani satılmayı bekleyen stok. Fiyat kararı bu stoka göre verilmeli.`);
   const mx = Math.max(...R.mah.map(r => r.m2));
   const bmx = Math.max(...R.bek.map(r => r.n)) || 1;
@@ -882,6 +904,7 @@ function openMutRapor(il){
       <div class="kv"><span>Yapımda · boş sıfır</span><b>${R.yp} · ${pc(bos)}</b></div>
       <div class="kv"><span>Yeni bina (0–5 yaş) m²</span><b>${tlr(R.ym2)}</b></div>
       <div class="kv"><span>Yeni binanın m² farkı</span><b>${(prim >= 0 ? '+' : '−') + pc(Math.abs(prim))}</b></div></div>
+    ${resmiHtml(il)}
     <h3>Müteahhit için okuma</h3>
     <ul class="reads">${reads.map(r => `<li>${r}</li>`).join('')}</ul>
     <h3>Mahalleler · m² fiyatına göre</h3>
@@ -902,6 +925,7 @@ function openMutRapor(il){
     <h3>Yöntem ve sınırlar</h3>
     <ul class="fine"><li>Kaynak: emlakjet.com satılık daire ilanları, 26–30 Eylül 2026 taraması. Yalnızca 5,5–10 M₺ arası ilanlar tarandı; bu bandın dışındaki daireler (küçük 1+1'ler, büyük daireler) eksik temsil edilir.</li>
     <li>m² fiyatı = ilan fiyatı ÷ brüt m². Değerler ortancadır (medyan). Sıfır: 0 yaş (yapımda veya oturuma hazır). Yeni bina: 0–5 yaş. Haritadaki filtreler bu raporu etkilemez.</li>
+    <li>Resmî veriler: satış adetleri TÜİK'in tapu kayıtlarından, fiyat değişimi TCMB'nin banka değerleme raporlarına dayanan endeksinden alınmıştır.</li>
     <li>Bunlar ilan (istenen) fiyatlarıdır, satış fiyatı değildir. Bekleme süresi yayında kalan ilanlardan hesaplandı; satılıp yayından kalkanlar görünmez. Gerçek satış hızı için düzenli tarama gerekir.</li></ul>
   </article>`;
   rep.hidden = false; document.body.style.overflow = 'hidden'; rep.scrollTop = 0;

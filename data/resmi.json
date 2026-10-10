@@ -1,0 +1,20 @@
+{
+  "donem": "Ağustos 2026",
+  "tuik": {
+    "kaynak": "TÜİK Konut Satış İstatistikleri, Ağustos 2026 (yayın: Eylül 2026)",
+    "turkiye": {"satis": 127410, "yillik": -0.147, "ilk_el": 44378, "ipotekli": 22131},
+    "istanbul": {"satis": 20426, "pay": 0.160, "ilk_el": 5813, "ipotekli": 4510},
+    "ilce": {"Esenyurt": 2545, "Küçükçekmece": 919, "Başakşehir": 888, "Avcılar": 727, "Beylikdüzü": 723, "Bağcılar": 533, "Güngören": 356}
+  },
+  "tcmb": {
+    "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
+    "istanbul_fiyat_yillik": 0.263, "istanbul_fiyat_aylik": 0.019,
+    "turkiye_fiyat_yillik": 0.23, "turkiye_fiyat_reel_yillik": -0.065,
+    "istanbul_kira_yillik": 0.345
+  },
+  "notlar": [
+    "İstanbul ilk el = ipoteksiz ilk el 4.891 + ipotekli ilk el 922.",
+    "İlçe rakamları TÜİK'in ilçe kırılımıdır; ilçe toplamı İstanbul toplamına (20.426) eşittir.",
+    "Derleme kaynakları: alomaliye.com (17.09.2026, 16.09.2026), foreks.com Bizim Menkul analizi (21.09.2026), tasinmazhaber.com (23.09.2026), fintables.com (02.10.2026)."
+  ]
+}

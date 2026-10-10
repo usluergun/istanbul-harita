@@ -2,7 +2,9 @@
 import re, json, sys, statistics as st, collections, datetime
 import unicodedata
 ILCE = unicodedata.normalize('NFC', sys.argv[1] if len(sys.argv) > 1 else 'Küçükçekmece')
-I = json.load(open('data/ilan.json')); G = json.load(open('data/geo.json'))
+import os
+SEHIR = os.environ.get('SEHIR', 'istanbul')  # SEHIR=izmir python3 tools/rapor_veri.py Konak
+I = json.load(open(f'sehirler/{SEHIR}/ilan.json')); G = json.load(open(f'sehirler/{SEHIR}/geo.json'))
 TARAMA = {'Esenyurt': datetime.date(2026, 9, 30), 'Beylikdüzü': datetime.date(2026, 9, 30)}  # diğer ilçeler 26 Eylül 2026
 SCRAPE = TARAMA.get(ILCE, datetime.date(2026, 9, 26))
 def brut(x):

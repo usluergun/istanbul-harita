@@ -8,12 +8,6 @@
    "ilk_el": 44378,
    "ipotekli": 22131
   },
-  "istanbul": {
-   "satis": 20426,
-   "pay": 0.16,
-   "ilk_el": 5813,
-   "ipotekli": 4510
-  },
   "ilce": {
    "Esenyurt": 2545,
    "Küçükçekmece": 919,
@@ -75,22 +69,31 @@
     "Güngören": 356
    }
   },
-  "istanbul_aylik": {
+  "il": {
+   "ad": "İstanbul",
+   "satis": 20426,
+   "pay": 0.16,
+   "ilk_el": 5813,
+   "ipotekli": 4510
+  },
+  "il_aylik": {
    "2026-01": 20412,
    "2026-03": 21665,
    "2026-05": 18206,
    "2026-06": 24084,
    "2026-07": 22594,
    "2026-08": 20426
-  }
+  },
+  "aylik_not": "Şubat–Nisan ilçe verisi henüz bulunamadı."
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
-  "istanbul_fiyat_yillik": 0.263,
-  "istanbul_fiyat_aylik": 0.019,
+  "bolge": "İstanbul",
+  "il_fiyat_yillik": 0.263,
+  "il_fiyat_aylik": 0.019,
+  "il_kira_yillik": 0.345,
   "turkiye_fiyat_yillik": 0.23,
-  "turkiye_fiyat_reel_yillik": -0.065,
-  "istanbul_kira_yillik": 0.345
+  "turkiye_fiyat_reel_yillik": -0.065
  },
  "notlar": [
   "İstanbul ilk el = ipoteksiz ilk el 4.891 + ipotekli ilk el 922 (Ağustos 2026).",

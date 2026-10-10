@@ -1,0 +1,80 @@
+{
+ "ad": "İstanbul",
+ "baslik": "İstanbul batı yakası",
+ "merkez": [
+  40.99,
+  28.715
+ ],
+ "zoom": 12,
+ "fiyat": {
+  "adimlar": [
+   5.5,
+   5.75,
+   6.0,
+   6.25,
+   6.5,
+   6.75,
+   7.0,
+   7.25,
+   7.5,
+   7.75,
+   8.0,
+   8.25,
+   8.5,
+   8.75,
+   9.0,
+   9.25,
+   9.5,
+   9.75,
+   10.0
+  ],
+  "min": 5.5,
+  "max": 10
+ },
+ "tarama": {
+  "varsayilan": "2026-09-26",
+  "ilce": {
+   "Esenyurt": "2026-09-30",
+   "Beylikdüzü": "2026-09-30"
+  },
+  "metin": "26–30 Eylül 2026"
+ },
+ "kaynak_notu": "Kaynak: emlakjet.com, 26 Eylül 2026 (Esenyurt ve Beylikdüzü 30 Eylül 2026); her ilçenin tüm ilan sayfaları tarandı, aynı dairenin tekrar ilanları tek işarette birleştirildi (diğer ilan linkleri kartta). Konumlar ilan sahibinin girdiği noktadır. Harita: © Esri. Yollar ve sınırlar: © OpenStreetMap katkıcıları.",
+ "rapor_ilce": "Küçükçekmece",
+ "ornek_portfoy_ilce": "Avcılar",
+ "ilceler": [
+  {
+   "ad": "Avcılar",
+   "lok": "Avcılar'da"
+  },
+  {
+   "ad": "Bağcılar",
+   "lok": "Bağcılar'da"
+  },
+  {
+   "ad": "Başakşehir",
+   "lok": "Başakşehir'de"
+  },
+  {
+   "ad": "Beylikdüzü",
+   "lok": "Beylikdüzü'nde"
+  },
+  {
+   "ad": "Esenyurt",
+   "lok": "Esenyurt'ta"
+  },
+  {
+   "ad": "Güngören",
+   "lok": "Güngören'de"
+  },
+  {
+   "ad": "Küçükçekmece",
+   "lok": "Küçükçekmece'de"
+  }
+ ],
+ "ilan_tipleri": [
+  "satilik-daire"
+ ],
+ "id": "istanbul",
+ "il_lok": "İstanbul'da"
+}

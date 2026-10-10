@@ -1,0 +1,111 @@
+{
+ "ad": "İzmir",
+ "baslik": "İzmir merkez ve kıyı",
+ "merkez": [
+  38.42,
+  26.78
+ ],
+ "zoom": 10,
+ "fiyat": {
+  "adimlar": [
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   12,
+   14,
+   16,
+   18,
+   20,
+   25,
+   30,
+   40,
+   50
+  ],
+  "min": 2,
+  "max": 50
+ },
+ "ilan_tipleri": [
+  "satilik-daire",
+  "satilik-villa",
+  "satilik-mustakil-ev"
+ ],
+ "ilceler": [
+  {
+   "ad": "Konak",
+   "lok": "Konak'ta",
+   "merkez": [
+    38.4189,
+    27.1287
+   ],
+   "grup": "İzmir merkez",
+   "emlakjet": "izmir-konak",
+   "etiket": "alt"
+  },
+  {
+   "ad": "Karşıyaka",
+   "lok": "Karşıyaka'da",
+   "merkez": [
+    38.4594,
+    27.115
+   ],
+   "grup": "İzmir merkez",
+   "emlakjet": "izmir-karsiyaka",
+   "etiket": "ust"
+  },
+  {
+   "ad": "Güzelbahçe",
+   "lok": "Güzelbahçe'de",
+   "merkez": [
+    38.3706,
+    26.8889
+   ],
+   "grup": "İzmir kıyı",
+   "emlakjet": "izmir-guzelbahce"
+  },
+  {
+   "ad": "Urla",
+   "lok": "Urla'da",
+   "merkez": [
+    38.3228,
+    26.7647
+   ],
+   "grup": "İzmir kıyı",
+   "emlakjet": "izmir-urla"
+  },
+  {
+   "ad": "Çeşme",
+   "lok": "Çeşme'de",
+   "merkez": [
+    38.3236,
+    26.3036
+   ],
+   "grup": "İzmir kıyı",
+   "emlakjet": "izmir-cesme"
+  },
+  {
+   "ad": "Karaburun",
+   "lok": "Karaburun'da",
+   "merkez": [
+    38.6386,
+    26.5128
+   ],
+   "grup": "İzmir kıyı",
+   "emlakjet": "izmir-karaburun"
+  }
+ ],
+ "gruplar": [
+  "İzmir merkez",
+  "İzmir kıyı"
+ ],
+ "rapor_ilce": "Konak",
+ "tarama": null,
+ "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Harita: © Esri, © OpenStreetMap katkıcıları.",
+ "id": "izmir",
+ "il_lok": "İzmir'de"
+}

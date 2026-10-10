@@ -6,7 +6,10 @@ from playwright.async_api import async_playwright
 SRC, OUT = sys.argv[1], sys.argv[2]
 os.makedirs(OUT, exist_ok=True)
 L = {k: json.load(open(os.path.join(SRC, f'rapor-{k}.json'))) for k in ['ozet', 'yas', 'oda', 'mahalle', 'bekleme', 'ilce']}
-RESMI = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'data', 'resmi.json'), encoding='utf-8'))
+RESMI = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'sehirler', os.environ.get('SEHIR', 'istanbul'), 'resmi.json'), encoding='utf-8'))
+# şehirden bağımsız anahtarlar (tuik.il, tcmb.il_*) → bu betiğin eski adları
+RESMI['tuik']['istanbul'] = RESMI['tuik']['il']
+for _k in ('fiyat_yillik', 'fiyat_aylik', 'kira_yillik'): RESMI['tcmb']['istanbul_' + _k] = RESMI['tcmb']['il_' + _k]
 LOC = {'Avcılar': "Avcılar'da", 'Bağcılar': "Bağcılar'da", 'Başakşehir': "Başakşehir'de", 'Beylikdüzü': "Beylikdüzü'nde", 'Esenyurt': "Esenyurt'ta", 'Güngören': "Güngören'de", 'Küçükçekmece': "Küçükçekmece'de"}
 ILCELER = [unicodedata.normalize('NFC', a) for a in sys.argv[3:]] or [r['ilce'] for r in L['ozet']]
 SLUG = {'Avcılar': 'avcilar', 'Bağcılar': 'bagcilar', 'Başakşehir': 'basaksehir', 'Beylikdüzü': 'beylikduzu', 'Esenyurt': 'esenyurt', 'Güngören': 'gungoren', 'Küçükçekmece': 'kucukcekmece'}

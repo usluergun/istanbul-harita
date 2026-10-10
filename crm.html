@@ -150,7 +150,7 @@ load();
 let ILAN = null, MAHSTAT = {}, ILCESTAT = {}, MAHS = {}, MAHPOS = {};
 const brut = x => { const n = parseInt(String(x.brut || x.m2 || '').replace(/\D/g, '')) || 0; return n >= 30 && n <= 1000 ? n : 0; };
 const med = a => { if (!a.length) return 0; const b = a.slice().sort((p, q) => p - q), h = b.length >> 1; return b.length % 2 ? b[h] : (b[h - 1] + b[h]) / 2; };
-fetch('data/ilan.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => {
+fetch(`sehirler/${(new URLSearchParams(location.search).get('sehir') || 'istanbul').replace(/[^a-z]/g, '')}/ilan.json`).then(r => r.ok ? r.json() : Promise.reject()).then(d => {
   ILAN = d;
   const g = {}, gi = {}, pos = {};
   d.forEach(x => {

@@ -1,0 +1,63 @@
+{
+ "ad": "Aydın",
+ "baslik": "Aydın kıyı",
+ "merkez": [
+  37.62,
+  27.27
+ ],
+ "zoom": 10,
+ "fiyat": {
+  "adimlar": [
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   10,
+   12,
+   15,
+   20,
+   25,
+   30
+  ],
+  "min": 2,
+  "max": 30
+ },
+ "ilan_tipleri": [
+  "satilik-daire",
+  "satilik-villa",
+  "satilik-mustakil-ev"
+ ],
+ "ilceler": [
+  {
+   "ad": "Kuşadası",
+   "lok": "Kuşadası'nda",
+   "merkez": [
+    37.8579,
+    27.261
+   ],
+   "grup": "Aydın kıyı",
+   "emlakjet": "aydin-kusadasi"
+  },
+  {
+   "ad": "Didim",
+   "lok": "Didim'de",
+   "merkez": [
+    37.3756,
+    27.2678
+   ],
+   "grup": "Aydın kıyı",
+   "emlakjet": "aydin-didim"
+  }
+ ],
+ "gruplar": [
+  "Aydın kıyı"
+ ],
+ "rapor_ilce": "Kuşadası",
+ "tarama": null,
+ "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Harita: © Esri, © OpenStreetMap katkıcıları.",
+ "id": "aydin",
+ "il_lok": "Aydın'da"
+}

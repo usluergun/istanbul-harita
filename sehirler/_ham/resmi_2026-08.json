@@ -1,0 +1,228 @@
+{
+  "donem": "Ağustos 2026",
+  "derleme_tarihi": "2026-10-10",
+  "turkiye": {
+    "tuik": {"satis": 127410, "ilk_el": 44378, "ikinci_el": 83032, "ipotekli": 22131, "yillik": -0.147, "ilk_el_yillik": -0.045, "ipotekli_yillik": 0.072},
+    "tcmb": {"fiyat_yillik": 0.230, "fiyat_aylik": 0.009, "kira_yillik": 0.264, "ay": "2026-08"}
+  },
+  "izmir": {
+    "tuik": {
+      "satis": 6532,
+      "ilk_el": 1995,
+      "ikinci_el": 4537,
+      "ipotekli": 1210,
+      "yillik": -0.170,
+      "ilk_el_yillik": -0.048,
+      "ipotekli_yillik": -0.081,
+      "onceki_yil_ayni_ay": 7867,
+      "ilce": {
+        "Konak": 345,
+        "Karşıyaka": 482,
+        "Güzelbahçe": null,
+        "Urla": null,
+        "Çeşme": null,
+        "Karaburun": null,
+        "Bornova": 322,
+        "Buca": 727,
+        "Bayraklı": 280,
+        "Çiğli": 422,
+        "Menemen": 854,
+        "Seferihisar": null
+      },
+      "aylik": {
+        "2026-08": {"İzmir": 6532, "Menemen": 854, "Buca": 727, "Torbalı": 651, "Karşıyaka": 482, "Çiğli": 422, "Karabağlar": 378, "Konak": 345, "Bornova": 322, "Bayraklı": 280},
+        "2026-07": {"İzmir": 6547, "Menemen": 1035, "Buca": 658, "Torbalı": 598, "Karşıyaka": 498, "Karabağlar": 372, "Çiğli": 337, "Bornova": 330, "Konak": 311, "Bayraklı": 251},
+        "2026-06": {"İzmir": 7865, "Aliağa": 210, "Balçova": 122, "Bayraklı": 749, "Bayındır": 14, "Bergama": 181, "Beydağ": 8, "Bornova": 342, "Buca": 725, "Dikili": 176, "Foça": 115, "Gaziemir": 163, "Güzelbahçe": 54, "Karabağlar": 413, "Karaburun": 53, "Karşıyaka": 580, "Kemalpaşa": 226, "Kiraz": 11, "Konak": 424, "Kınık": 8, "Menderes": 185, "Menemen": 1180, "Seferihisar": 215, "Selçuk": 36, "Tire": 126, "Torbalı": 618, "Urla": 151, "Çeşme": 147, "Çiğli": 379, "Ödemiş": 180, "Narlıdere": null},
+        "2026-05": {"İzmir": 5624, "Aliağa": 142, "Balçova": 73, "Bayraklı": 300, "Bayındır": 7, "Bergama": 162, "Bornova": 252, "Buca": 584, "Dikili": 125, "Foça": 81, "Gaziemir": 85, "Güzelbahçe": 45, "Karabağlar": 332, "Karaburun": 44, "Karşıyaka": 459, "Kemalpaşa": 141, "Kiraz": 7, "Konak": 330, "Kınık": 31, "Menderes": 120, "Menemen": 803, "Seferihisar": 174, "Selçuk": 28, "Tire": 78, "Torbalı": 608, "Urla": 83, "Çeşme": 85, "Çiğli": 295, "Ödemiş": 105, "Beydağ": null, "Narlıdere": null},
+        "2026-01": {"İzmir": 6618, "Buca": 828, "Menemen": 733, "Torbalı": 578, "Bayraklı": 549, "Karşıyaka": 479, "Konak": 385, "Karabağlar": 377, "Çiğli": 361, "Bornova": 337}
+      },
+      "aylik_detay": {
+        "2026-08": {"satis": 6532, "ilk_el": 1995, "ipotekli": 1210, "yillik": -0.170},
+        "2026-07": {"satis": 6547, "ilk_el": 1934, "ipotekli": 1305, "yillik": -0.188},
+        "2026-06": {"satis": 7865, "ilk_el": 2755, "ipotekli": 1578, "yillik": 0.280},
+        "2026-05": {"satis": 5624, "ilk_el": 1787, "ipotekli": 1286, "yillik": -0.302},
+        "2026-01": {"satis": 6618, "ilk_el": 1613, "ipotekli": 1265, "yillik": -0.033}
+      }
+    },
+    "nufus": {
+      "2025": {"İzmir": 4504185, "Konak": 317399, "Karşıyaka": 339624, "Güzelbahçe": 39474, "Urla": 82021, "Çeşme": 51902, "Karaburun": 13725, "Bornova": 452479, "Buca": 520941, "Bayraklı": 296481, "Çiğli": 216430, "Menemen": 220510, "Seferihisar": 63712},
+      "2021": {"İzmir": 4425789, "Konak": 336545, "Karşıyaka": 347023, "Güzelbahçe": 37572, "Urla": 72741, "Çeşme": 48167, "Karaburun": 11927, "Bornova": 452867, "Buca": 517963, "Bayraklı": 296839, "Çiğli": 209951, "Menemen": 193229, "Seferihisar": 52507}
+    },
+    "tcmb": {"fiyat_yillik": 0.233, "fiyat_aylik": 0.027, "kira_yillik": 0.255, "kira_aylik": 0.054, "fiyat_endeks": 229.6, "bolge": "İzmir", "ay": "2026-08"}
+  },
+  "aydin": {
+    "tuik": {
+      "satis": 2174,
+      "ilk_el": 625,
+      "ikinci_el": 1549,
+      "ipotekli": 289,
+      "yillik": null,
+      "aylik_degisim": -0.0414,
+      "ilce": {"Kuşadası": null, "Didim": null},
+      "aylik": {
+        "2026-08": {"Aydın": 2174, "Kuşadası": null, "Didim": null},
+        "2026-07": {"Aydın": 2268, "Kuşadası": null, "Didim": null},
+        "2026-06": {"Aydın": 2185, "Kuşadası": null, "Didim": null},
+        "2026-05": {"Aydın": 1575, "Kuşadası": null, "Didim": null},
+        "2026-01": {"Aydın": 2076, "Kuşadası": null, "Didim": null}
+      },
+      "aylik_detay": {
+        "2026-08": {"satis": 2174, "ilk_el": 625, "ipotekli": 289, "yillik": null, "aylik_degisim": -0.0414},
+        "2026-07": {"satis": 2268, "ilk_el": 682, "ipotekli": 365, "yillik": null, "aylik_degisim": 0.0379},
+        "2026-06": {"satis": 2185, "ilk_el": 516, "ipotekli": 365, "yillik": null},
+        "2026-05": {"satis": 1575, "ilk_el": 434, "ipotekli": 284, "yillik": null},
+        "2026-01": {"satis": 2076, "ilk_el": 506, "ipotekli": 341, "yillik": -0.07}
+      }
+    },
+    "nufus": {
+      "2025": {"Aydın": 1172107, "Kuşadası": 141431, "Didim": 103141},
+      "2021": {"Aydın": 1134031, "Kuşadası": 125812, "Didim": 93876}
+    },
+    "tcmb": {"fiyat_yillik": 0.179, "fiyat_aylik": null, "kira_yillik": null, "bolge": "TR32 Aydın, Denizli, Muğla", "ay": "2026-08"}
+  },
+  "gaziantep": {
+    "tuik": {
+      "satis": 3646,
+      "ilk_el": 1005,
+      "ikinci_el": 2641,
+      "ipotekli": null,
+      "yillik": null,
+      "aylik_degisim": 0.119,
+      "ilce": {"Şahinbey": null, "Şehitkamil": null},
+      "ilce_donemsel": {"2026-Q1 (Ocak-Mart toplam)": {"Şehitkamil": 4386, "Şahinbey": 3531}},
+      "aylik": {
+        "2026-08": {"Gaziantep": 3646, "Şahinbey": null, "Şehitkamil": null},
+        "2026-07": {"Gaziantep": 3258, "Şahinbey": null, "Şehitkamil": null},
+        "2026-06": {"Gaziantep": 3282, "Şahinbey": null, "Şehitkamil": null},
+        "2026-05": {"Gaziantep": null, "Şahinbey": null, "Şehitkamil": null},
+        "2026-01": {"Gaziantep": null, "Şahinbey": null, "Şehitkamil": null}
+      },
+      "aylik_detay": {
+        "2026-08": {"satis": 3646, "ilk_el": 1005, "ipotekli": null, "yillik": null, "aylik_degisim": 0.119},
+        "2026-07": {"satis": 3258, "ilk_el": null, "ipotekli": null, "yillik": null},
+        "2026-06": {"satis": 3282, "ilk_el": 917, "ipotekli": 668, "yillik": null}
+      }
+    },
+    "nufus": {
+      "2025": {"Gaziantep": 2222415, "Şahinbey": 957792, "Şehitkamil": 905880},
+      "2021": {"Gaziantep": 2130432, "Şahinbey": 936351, "Şehitkamil": 839553}
+    },
+    "tcmb": {"fiyat_yillik": null, "fiyat_aylik": null, "kira_yillik": null, "bolge": "TRC1 Gaziantep, Adıyaman, Kilis", "ay": "2026-08"}
+  },
+  "kaynaklar": {
+    "turkiye_tuik": [
+      "https://www.alomaliye.com/2026/09/17/konut-satislarinda-agustos-freni/",
+      "https://www.dha.com.tr/gundem/agustos-ayinda-127-bin-410-konut-satildi-2946185",
+      "https://emsal.com/konut-ve-is-yeri-satis-istatistikleri-agustos-2026/"
+    ],
+    "izmir_tuik_2026-08": [
+      "https://www.yeniasir.com.tr/izmir/2026/09/17/izmirde-konut-satislari-170-oraninda-azaldi-konut-satislarinda-ilk-sirada-o-ilce-var",
+      "https://www.gazetemizmir.com/izmirde-konut-satislari-geriledi-agustosta-6-bin-532-konut-satildi/141932",
+      "https://www.sonmuhur.com/izmirde-ev-piyasasinda-hazan-ruzgari",
+      "https://www.foreks.com/haber/detay/6ab0ff1495016b5817e5d84e/FRKS/tr/analiz-konut-satis-istatistikleri-bizim-menkul-21-09-26/"
+    ],
+    "izmir_tuik_2026-07": [
+      "https://www.yeniasir.com.tr/izmir/2026/08/13/izmirde-konut-piyasasinda-sert-fren-satislar-dustu-en-cok-satis-yapilan-ilce-belli-oldu",
+      "https://www.yenibakishaber.com/izmirin-konut-satis-haritasi-degisti-o-ilce-ilk-sirada",
+      "https://www.haberkenti.com/izmirde-konut-satislari-yuzde-188-oraninda-geriledi"
+    ],
+    "izmir_tuik_2026-06": [
+      "https://www.dha.com.tr/yerel-haberler/izmir/izmirde-konut-satislari-yuzde-28-artti-2911420",
+      "https://www.medyaege.com.tr/tuik-acikladi-izmirde-konut-satislari-artti-13-279405h.htm",
+      "https://www.gayrimenkulhaber.com/satis/izmir-ilce-konut-satislari-2026-haziran-izmirde-7-791-konut-satildi/"
+    ],
+    "izmir_tuik_2026-05": [
+      "https://www.egemeclisi.com/i-2",
+      "https://www.gayrimenkulhaber.com/satis/2026-mayis-izmir-ilce-konut-satislari-mayis-ayinda-izmirde-5-624-konut-satildi/"
+    ],
+    "izmir_tuik_2026-01": [
+      "https://www.yeniasir.com.tr/izmir/2026/02/19/izmirde-en-cok-konut-o-ilcede-satildi"
+    ],
+    "aydin_tuik": [
+      "https://www.aksiyon.com.tr/aydin-da-konut-satislari-agustosta-geriledi-isyeri-satislari-yuzde-45-artti-356910",
+      "https://www.aydindenge.com.tr/aydin/18/09/2026/aydinda-konut-satislari-yuzde-4-dustu",
+      "https://www.aydintimes.com/tuik-verileri-acikladi-konut-satislari-dustu",
+      "https://www.haberport.com/haber/aydinda-agustos-satislari-konutta-dusus-isyerinde-artis/31117",
+      "https://www.aydindenge.com.tr/aydin/14/08/2026/aydinda-son-bir-ayda-konut-satislari-yuzde-3-artti",
+      "https://www.haberler.com/ekonomi/aydin-da-son-bir-ayda-konut-satislari-yuzde-3-20144050-haberi/",
+      "https://www.aydindenge.com.tr/aydin/18/07/2026/aydinda-6-ayda-konut-satislari-yuzde-5-artti",
+      "https://www.haberler.com/ekonomi/aydin-da-konut-satislari-haziranda-yuzde-5-artti-2-bin-185-adet-20063518-haberi/",
+      "https://www.aydindenge.com.tr/aydin/18/06/2026/aydinda-5-ayda-konut-satislari-yuzde-24-azaldi",
+      "https://www.aydindenge.com.tr/aydin/20/02/2026/aydin-gayrimenkul-piyasasinda-dikkat-ceken-gerileme"
+    ],
+    "gaziantep_tuik": [
+      "https://www.kenthaber27.com/haber/turkiye-genelinde-geriledi-gaziantep-te-konut-satislari-yukseldi-1281054.html",
+      "https://www.referansgazetesi.com.tr/turkiyede-azaldi-gaziantepte-artti-konut-satisinda-gaziantep-farki",
+      "https://www.guncelgazete.com/gundem/konut-satisinda-gaziantep-farki-65933",
+      "https://www.olaymedya.com/ekonomi/17423484/gaziantepte-konut-piyasasi-alev-aldi",
+      "https://www.referansgazetesi.com.tr/gaziantepin-konut-ve-is-yeri-satis-istatistikleri-aciklandi-iste-o-rakamlar",
+      "https://www.malatyaguncel.com/gaziantep-te-konut-satislari-haziranda-hiz-kazandi-3101819h.htm",
+      "https://telgraf.net/haber/28510386/gaziantepte-3-bin-258-evin-anahtari-degisti",
+      "https://www.olaymedya.com/ekonomi/17420265/turkiye-ve-gaziantepte-yatirimcilarin-yeni-gozdesi-sehitkamil-ve-sahinbey"
+    ],
+    "izmir_nufus": [
+      "https://www.nufusu.com/il/izmir-nufusu",
+      "https://www.nufusum.com/il/izmir/",
+      "https://www.haberege.com.tr/izmirde-nufusun-adresi-degisiyor-kent-ceperlere-tasiniyor-4252221",
+      "https://www.alomaliye.com/2026/02/09/2025-yili-turkiye-nufusu-86-milyon-92-bin-168-kisi-oldu/",
+      "https://www.nufusu.com/ilce/konak_izmir-nufusu"
+    ],
+    "aydin_nufus": [
+      "https://www.nufusu.com/il/aydin-nufusu",
+      "https://www.nufusu.com/ilce/kusadasi_aydin-nufusu",
+      "https://www.nufusu.com/ilce/didim_aydin-nufusu",
+      "https://www.nufusum.com/il/aydin/"
+    ],
+    "gaziantep_nufus": [
+      "https://www.nufusu.com/il/gaziantep-nufusu",
+      "https://www.nufusu.com/ilce/sahinbey_gaziantep-nufusu",
+      "https://www.nufusu.com/ilce/sehitkamil_gaziantep-nufusu",
+      "https://www.nufusum.com/il/gaziantep/",
+      "https://www.alomaliye.com/2026/02/09/2025-yili-turkiye-nufusu-86-milyon-92-bin-168-kisi-oldu/"
+    ],
+    "tcmb": [
+      "https://www.tcmb.gov.tr/wps/wcm/connect/8bbac42a-c854-4c58-8b0c-e7e55c35ec2d/KFE.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-8bbac42a-c854-4c58-8b0c-e7e55c35ec2d-q2F0.93",
+      "https://www.alomaliye.com/2026/09/16/konut-fiyatlarinda-reel-kayip-yuzde-6-5/",
+      "https://www.yeniasir.com.tr/ekonomi/2026/09/16/agustos-ayinda-konut-fiyatlari-yuzde-23-oraninda-artti",
+      "https://fintables.com/arastirma/bultenler/sektorel-gorunum/sektorel-gorunum-eylul-2026-gayrimenkul-bulteni.md"
+    ]
+  },
+  "dogrulama": {
+    "izmir_tuik_2026-08_toplam_ilk_el_ipotekli_ilce": "3 kaynak (yeniasir, gazetemizmir, sonmuhur); İzmir'in Türkiye payı %5,1 (Bizim Menkul) ile tutarlı",
+    "izmir_tuik_2026-07": "3 kaynak",
+    "izmir_tuik_2026-06_toplam": "2 kaynak (DHA, medyaege); ilk 9 ilçe gayrimenkulhaber tablosuyla birebir aynı",
+    "izmir_tuik_2026-05_toplam": "2 kaynak (egemeclisi, gayrimenkulhaber); ilk 9 ilçe iki kaynakta aynı",
+    "izmir_tuik_2026-01": "tek kaynak (yeniasir)",
+    "aydin_tuik_2026-08": "4 kaynak",
+    "aydin_tuik_2026-07": "2 kaynak; 2268 → 2174 = -%4,14 ile iç tutarlı",
+    "aydin_tuik_2026-06": "2 kaynak",
+    "aydin_tuik_2026-05_ve_01": "tek kaynak (Aydın Denge); 1575/2076 = -%24 ve 2185/2076 = +%5 oranlarıyla iç tutarlı",
+    "gaziantep_tuik_2026-08": "4 kaynak (toplam ve ilk el)",
+    "gaziantep_tuik_2026-06": "toplam 2 kaynak; ilk el ve ipotekli tek kaynak (Referans)",
+    "nufus_2025": "iki kaynak (nufusu.com + nufusum.com); İzmir ilçelerinin bir kısmı haberege'de de aynı",
+    "nufus_2021": "İzmir ili ve 7 hedef ilçe haberege ile doğrulandı; diğerleri yalnızca nufusu.com",
+    "tcmb_izmir": "TCMB bülteni + alomaliye + yeniasir + fintables"
+  },
+  "notlar": [
+    "İzmir 2026-08 ilçe tablosu: haberlerde yalnızca ilk 9 ilçe yayımlandı. Güzelbahçe, Urla, Çeşme, Karaburun ve Seferihisar için Ağustos 2026 sayısı bulunamadı (null). Bu ilçelerin Haziran 2026 ve Mayıs 2026 değerleri gayrimenkulhaber.com'un tam ilçe tablosundan alındı (tek kaynak).",
+    "İzmir 2026-06: gayrimenkulhaber tablosunda Narlıdere yok ve toplam 7.791. TÜİK il toplamı 7.865 (DHA, medyaege). Aradaki 74'ün Narlıdere olması muhtemel ama doğrulanmadı, bu yüzden Narlıdere null bırakıldı.",
+    "İzmir 2026-05: gayrimenkulhaber tablosunda Beydağ ve Narlıdere yok. Listelenen ilçelerin toplamı 5.579, il toplamı 5.624.",
+    "İzmir 2026-01: yeniasir haberinde 'Bornova 5.195, Bayraklı 4.185, Seferihisar 2.884' diye ayrı ve tutarsız bir paragraf var (muhtemelen yıllık veri ya da yayın hatası). Bu paragraf kullanılmadı.",
+    "İzmir yıllık değişim 2026-08: Ağustos 2025 = 7.867 (sonmuhur). 6.532/7.867 = -%17,0 ile tutarlı.",
+    "Aydın 2026-08 yıllık değişim bulunamadı. Yerel haberler yalnızca aylık değişimi verdi (Temmuz'a göre -%4,14). Aydın Ağustos 2025 il toplamı bulunamadı. aksiyon.com.tr'nin Ağustos 2016 karşılaştırmasına göre Ağustos 2016 = 3.075.",
+    "Aydın ilçe bazında (Kuşadası, Didim) 2026 aylık konut satışı bulunamadı. Bulunan ilçe tabloları 2024 yılı toplamı (Kuşadası 8.888, Didim 5.320; marmarisyenisayfa/İHA) ve 'Mart 2025' etiketli ama il toplamıyla tutarsız bir tablo (Kuşadası 7.959, Didim 7.414; aydinpost, sesgazetesi). İkisi de istenen döneme ait değil, bu yüzden JSON'a konmadı.",
+    "Aydın 2026-07 ve 2026-06 ipotekli değerlerinin ikisi de 365. Bu iki ayrı haber kaynağında böyle geçiyor, tesadüf olabilir.",
+    "Gaziantep 2026-08: '%11,90 artış'ı kenthaber27, guncelgazete ve olaymedya yıllık, Referans Gazetesi aylık olarak yazdı. Temmuz 2026 = 3.258 alındığında 3.646/3.258 = +%11,9 çıkıyor, Türkiye geneli ise yıllık -%14,7. Bu yüzden oran aylık değişim kabul edildi (aylik_degisim = 0.119) ve yillik null bırakıldı.",
+    "Gaziantep 2026-07 = 3.258: Telgraf Gazetesi'nin 'Gaziantep'te 3 bin 258 evin anahtarı değişti' başlığından (yayın Ağustos 2026 ortası). Sayfa açılamadı, ay ifadesi metinden doğrulanamadı. Değerin Ağustos'taki %11,90 aylık artışla birebir uyuşması dolaylı doğrulamadır.",
+    "Gaziantep 2026-08 ipotekli satış sayısı bulunamadı. Haziran 2026 ipotekli = 668 (557 ikinci el + 111 ilk el; Referans Gazetesi).",
+    "Gaziantep Mayıs ve Ocak 2026 il toplamları bulunamadı.",
+    "Şahinbey ve Şehitkamil için aylık ilçe satışı bulunamadı. Yalnızca 2026 Ocak-Mart toplamı var: Şehitkamil 4.386 (Türkiye'de 4.), Şahinbey 3.531 (9.) (olaymedya, tek kaynak).",
+    "TÜİK veri portalı (veriportali.tuik.gov.tr, bülten 58345) JavaScript gerektirdiği için okunamadı. İl ve ilçe değerleri TÜİK'i kaynak gösteren haber sitelerinden alındı.",
+    "TCMB TR32 (Aydın, Denizli, Muğla) yıllık %17,9: TCMB Ağustos 2026 KFE bülteninin (KFE.pdf) bölge grafiğinden metin çıkarımıyla alındı. Grafik etiketleri karışık çıktığı için bölge-değer eşleşmesi kesin değil ve ikinci kaynakla doğrulanamadı. Aylık değer bulunamadı.",
+    "TCMB TRC1 (Gaziantep, Adıyaman, Kilis): bülten grafiğinde Gaziantep tek başına değil, Kilis-Adıyaman-Gaziantep-Diyarbakır-Şanlıurfa-Batman-Mardin-Siirt-Şırnak birleşik etiketiyle geçiyor ve değer eşleştirilemedi (aday değer %24,8, doğrulanamadı). EVDS (evds3.tcmb.gov.tr) JavaScript gerektirdiği için okunamadı. Bu yüzden null.",
+    "TR32 ve TRC1 için yeni kiracı kira endeksi bulunamadı.",
+    "İzmir KFE endeks düzeyi 229,6 (2023=100). Türkiye KFE 236,8, reel yıllık -%6,5 (TCMB bülteni; fintables -%6,4 yazıyor).",
+    "Nüfus: 2025 ADNKS sonuçları Şubat 2026'da yayımlandı. Değerler nufusu.com/nufusum.com sayfalarından alındı (bu siteler gayriresmidir ve TÜİK'i kaynak gösterir). İzmir 2025 = 4.504.185 alomaliye'de de aynı. Şahinbey ve Şehitkamil 2025 değerleri alomaliye'de de aynı.",
+    "gayrimenkulhaber.com'un 'Konut Satışları Ağustos 2026' haber başlığında 149.440 yazıyor. Bu sayı Ağustos 2025'e ait. 2026 değeri 127.410'dur ve kullanılan değer budur."
+  ]
+}

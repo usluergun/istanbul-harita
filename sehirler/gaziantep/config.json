@@ -1,0 +1,64 @@
+{
+ "ad": "Gaziantep",
+ "baslik": "Gaziantep merkez",
+ "merkez": [
+  37.07,
+  37.36
+ ],
+ "zoom": 12,
+ "fiyat": {
+  "adimlar": [
+   1,
+   1.5,
+   2,
+   2.5,
+   3,
+   3.5,
+   4,
+   5,
+   6,
+   7,
+   8,
+   10,
+   12,
+   15
+  ],
+  "min": 1,
+  "max": 15
+ },
+ "ilan_tipleri": [
+  "satilik-daire"
+ ],
+ "ilceler": [
+  {
+   "ad": "Şahinbey",
+   "lok": "Şahinbey'de",
+   "merkez": [
+    37.045,
+    37.38
+   ],
+   "grup": "Gaziantep merkez",
+   "emlakjet": "gaziantep-sahinbey",
+   "etiket": "alt"
+  },
+  {
+   "ad": "Şehitkamil",
+   "lok": "Şehitkamil'de",
+   "merkez": [
+    37.095,
+    37.335
+   ],
+   "grup": "Gaziantep merkez",
+   "emlakjet": "gaziantep-sehitkamil",
+   "etiket": "ust"
+  }
+ ],
+ "gruplar": [
+  "Gaziantep merkez"
+ ],
+ "rapor_ilce": "Şahinbey",
+ "tarama": null,
+ "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Harita: © Esri, © OpenStreetMap katkıcıları.",
+ "id": "gaziantep",
+ "il_lok": "Gaziantep'te"
+}

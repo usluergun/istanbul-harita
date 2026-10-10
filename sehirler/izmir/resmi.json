@@ -1,0 +1,152 @@
+{
+ "donem": "Ağustos 2026",
+ "tuik": {
+  "kaynak": "TÜİK Konut Satış İstatistikleri, Ağustos 2026 (yayın: Eylül 2026)",
+  "turkiye": {
+   "satis": 127410,
+   "yillik": -0.147,
+   "ilk_el": 44378,
+   "ipotekli": 22131
+  },
+  "il": {
+   "ad": "İzmir",
+   "satis": 6532,
+   "ilk_el": 1995,
+   "ipotekli": 1210,
+   "yillik": -0.17,
+   "aylik_degisim": null
+  },
+  "ilce": {
+   "Konak": 345,
+   "Karşıyaka": 482
+  },
+  "aylik": {
+   "2026-08": {
+    "İzmir": 6532,
+    "Karşıyaka": 482,
+    "Konak": 345
+   },
+   "2026-07": {
+    "İzmir": 6547,
+    "Karşıyaka": 498,
+    "Konak": 311
+   },
+   "2026-06": {
+    "İzmir": 7865,
+    "Güzelbahçe": 54,
+    "Karaburun": 53,
+    "Karşıyaka": 580,
+    "Konak": 424,
+    "Urla": 151,
+    "Çeşme": 147
+   },
+   "2026-05": {
+    "İzmir": 5624,
+    "Güzelbahçe": 45,
+    "Karaburun": 44,
+    "Karşıyaka": 459,
+    "Konak": 330,
+    "Urla": 83,
+    "Çeşme": 85
+   },
+   "2026-01": {
+    "İzmir": 6618,
+    "Karşıyaka": 479,
+    "Konak": 385
+   }
+  },
+  "il_aylik": {
+   "2026-08": 6532,
+   "2026-07": 6547,
+   "2026-06": 7865,
+   "2026-05": 5624,
+   "2026-01": 6618
+  },
+  "aylik_not": "Kıyı ilçelerinin (Güzelbahçe, Urla, Çeşme, Karaburun) en son ilçe verisi Haziran 2026; Temmuz–Ağustos haberlerinde yalnızca ilk 9 ilçe yayımlandı."
+ },
+ "tcmb": {
+  "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
+  "bolge": "İzmir",
+  "il_fiyat_yillik": 0.233,
+  "il_fiyat_aylik": 0.027,
+  "il_kira_yillik": 0.255,
+  "turkiye_fiyat_yillik": 0.23,
+  "turkiye_fiyat_reel_yillik": -0.065
+ },
+ "nufus": {
+  "kaynak": "TÜİK Adrese Dayalı Nüfus Kayıt Sistemi (2021 ve 2025 sonuçları)",
+  "2025": {
+   "İzmir": 4504185,
+   "Konak": 317399,
+   "Karşıyaka": 339624,
+   "Güzelbahçe": 39474,
+   "Urla": 82021,
+   "Çeşme": 51902,
+   "Karaburun": 13725
+  },
+  "2021": {
+   "İzmir": 4425789,
+   "Konak": 336545,
+   "Karşıyaka": 347023,
+   "Güzelbahçe": 37572,
+   "Urla": 72741,
+   "Çeşme": 48167,
+   "Karaburun": 11927
+  }
+ },
+ "yapi_izin": {
+  "kaynak": "TÜİK Yapı İzin İstatistikleri (Türkiye geneli)",
+  "ruhsat_daire_2026c1": 232252,
+  "ruhsat_daire_2026c1_yillik": 0.37,
+  "ruhsat_daire_2026c2_yillik": -0.095,
+  "iskan_daire_2026c2_yillik": 0.107,
+  "not": "İstanbul ve ilçe kırılımı bulunamadı; Türkiye geneli eğilim olarak verilir."
+ },
+ "notlar": [
+  "Değerler TÜİK ve TCMB yayınlarını kaynak gösteren haber sitelerinden derlendi; TÜİK veri portalı otomatik okunamadı.",
+  "İzmir 2026-08 ilçe tablosu: haberlerde yalnızca ilk 9 ilçe yayımlandı. Güzelbahçe, Urla, Çeşme, Karaburun ve Seferihisar için Ağustos 2026 sayısı bulunamadı (null). Bu ilçelerin Haziran 2026 ve Mayıs 2026 değerleri gayrimenkulhaber.com'un tam ilçe tablosundan alındı (tek kaynak).",
+  "İzmir 2026-06: gayrimenkulhaber tablosunda Narlıdere yok ve toplam 7.791. TÜİK il toplamı 7.865 (DHA, medyaege). Aradaki 74'ün Narlıdere olması muhtemel ama doğrulanmadı, bu yüzden Narlıdere null bırakıldı.",
+  "İzmir 2026-05: gayrimenkulhaber tablosunda Beydağ ve Narlıdere yok. Listelenen ilçelerin toplamı 5.579, il toplamı 5.624.",
+  "İzmir 2026-01: yeniasir haberinde 'Bornova 5.195, Bayraklı 4.185, Seferihisar 2.884' diye ayrı ve tutarsız bir paragraf var (muhtemelen yıllık veri ya da yayın hatası). Bu paragraf kullanılmadı.",
+  "İzmir yıllık değişim 2026-08: Ağustos 2025 = 7.867 (sonmuhur). 6.532/7.867 = -%17,0 ile tutarlı.",
+  "İzmir KFE endeks düzeyi 229,6 (2023=100). Türkiye KFE 236,8, reel yıllık -%6,5 (TCMB bülteni; fintables -%6,4 yazıyor).",
+  "Nüfus: 2025 ADNKS sonuçları Şubat 2026'da yayımlandı. Değerler nufusu.com/nufusum.com sayfalarından alındı (bu siteler gayriresmidir ve TÜİK'i kaynak gösterir). İzmir 2025 = 4.504.185 alomaliye'de de aynı. Şahinbey ve Şehitkamil 2025 değerleri alomaliye'de de aynı."
+ ],
+ "kaynaklar": {
+  "turkiye_tuik": [
+   "https://www.alomaliye.com/2026/09/17/konut-satislarinda-agustos-freni/",
+   "https://www.dha.com.tr/gundem/agustos-ayinda-127-bin-410-konut-satildi-2946185",
+   "https://emsal.com/konut-ve-is-yeri-satis-istatistikleri-agustos-2026/"
+  ],
+  "izmir_tuik_2026-08": [
+   "https://www.yeniasir.com.tr/izmir/2026/09/17/izmirde-konut-satislari-170-oraninda-azaldi-konut-satislarinda-ilk-sirada-o-ilce-var",
+   "https://www.gazetemizmir.com/izmirde-konut-satislari-geriledi-agustosta-6-bin-532-konut-satildi/141932",
+   "https://www.sonmuhur.com/izmirde-ev-piyasasinda-hazan-ruzgari",
+   "https://www.foreks.com/haber/detay/6ab0ff1495016b5817e5d84e/FRKS/tr/analiz-konut-satis-istatistikleri-bizim-menkul-21-09-26/"
+  ],
+  "izmir_tuik_2026-07": [
+   "https://www.yeniasir.com.tr/izmir/2026/08/13/izmirde-konut-piyasasinda-sert-fren-satislar-dustu-en-cok-satis-yapilan-ilce-belli-oldu",
+   "https://www.yenibakishaber.com/izmirin-konut-satis-haritasi-degisti-o-ilce-ilk-sirada",
+   "https://www.haberkenti.com/izmirde-konut-satislari-yuzde-188-oraninda-geriledi"
+  ],
+  "izmir_tuik_2026-06": [
+   "https://www.dha.com.tr/yerel-haberler/izmir/izmirde-konut-satislari-yuzde-28-artti-2911420",
+   "https://www.medyaege.com.tr/tuik-acikladi-izmirde-konut-satislari-artti-13-279405h.htm",
+   "https://www.gayrimenkulhaber.com/satis/izmir-ilce-konut-satislari-2026-haziran-izmirde-7-791-konut-satildi/"
+  ],
+  "izmir_tuik_2026-05": [
+   "https://www.egemeclisi.com/i-2",
+   "https://www.gayrimenkulhaber.com/satis/2026-mayis-izmir-ilce-konut-satislari-mayis-ayinda-izmirde-5-624-konut-satildi/"
+  ],
+  "izmir_tuik_2026-01": [
+   "https://www.yeniasir.com.tr/izmir/2026/02/19/izmirde-en-cok-konut-o-ilcede-satildi"
+  ],
+  "izmir_nufus": [
+   "https://www.nufusu.com/il/izmir-nufusu",
+   "https://www.nufusum.com/il/izmir/",
+   "https://www.haberege.com.tr/izmirde-nufusun-adresi-degisiyor-kent-ceperlere-tasiniyor-4252221",
+   "https://www.alomaliye.com/2026/02/09/2025-yili-turkiye-nufusu-86-milyon-92-bin-168-kisi-oldu/",
+   "https://www.nufusu.com/ilce/konak_izmir-nufusu"
+  ]
+ }
+}

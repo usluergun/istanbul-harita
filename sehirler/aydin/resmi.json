@@ -1,0 +1,110 @@
+{
+ "donem": "Ağustos 2026",
+ "tuik": {
+  "kaynak": "TÜİK Konut Satış İstatistikleri, Ağustos 2026 (yayın: Eylül 2026)",
+  "turkiye": {
+   "satis": 127410,
+   "yillik": -0.147,
+   "ilk_el": 44378,
+   "ipotekli": 22131
+  },
+  "il": {
+   "ad": "Aydın",
+   "satis": 2174,
+   "ilk_el": 625,
+   "ipotekli": 289,
+   "yillik": null,
+   "aylik_degisim": -0.0414
+  },
+  "ilce": {},
+  "aylik": {
+   "2026-08": {
+    "Aydın": 2174
+   },
+   "2026-07": {
+    "Aydın": 2268
+   },
+   "2026-06": {
+    "Aydın": 2185
+   },
+   "2026-05": {
+    "Aydın": 1575
+   },
+   "2026-01": {
+    "Aydın": 2076
+   }
+  },
+  "il_aylik": {
+   "2026-08": 2174,
+   "2026-07": 2268,
+   "2026-06": 2185,
+   "2026-05": 1575,
+   "2026-01": 2076
+  },
+  "aylik_not": "Kuşadası ve Didim için 2026 aylık ilçe satışı yayımlanmış bir kaynakta bulunamadı."
+ },
+ "tcmb": {
+  "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
+  "bolge": "TR32 Aydın, Denizli, Muğla",
+  "il_fiyat_yillik": null,
+  "il_fiyat_aylik": null,
+  "il_kira_yillik": null,
+  "turkiye_fiyat_yillik": 0.23,
+  "turkiye_fiyat_reel_yillik": -0.065
+ },
+ "nufus": {
+  "kaynak": "TÜİK Adrese Dayalı Nüfus Kayıt Sistemi (2021 ve 2025 sonuçları)",
+  "2025": {
+   "Aydın": 1172107,
+   "Kuşadası": 141431,
+   "Didim": 103141
+  },
+  "2021": {
+   "Aydın": 1134031,
+   "Kuşadası": 125812,
+   "Didim": 93876
+  }
+ },
+ "yapi_izin": {
+  "kaynak": "TÜİK Yapı İzin İstatistikleri (Türkiye geneli)",
+  "ruhsat_daire_2026c1": 232252,
+  "ruhsat_daire_2026c1_yillik": 0.37,
+  "ruhsat_daire_2026c2_yillik": -0.095,
+  "iskan_daire_2026c2_yillik": 0.107,
+  "not": "İstanbul ve ilçe kırılımı bulunamadı; Türkiye geneli eğilim olarak verilir."
+ },
+ "notlar": [
+  "Değerler TÜİK ve TCMB yayınlarını kaynak gösteren haber sitelerinden derlendi; TÜİK veri portalı otomatik okunamadı.",
+  "Aydın 2026-08 yıllık değişim bulunamadı. Yerel haberler yalnızca aylık değişimi verdi (Temmuz'a göre -%4,14). Aydın Ağustos 2025 il toplamı bulunamadı. aksiyon.com.tr'nin Ağustos 2016 karşılaştırmasına göre Ağustos 2016 = 3.075.",
+  "Aydın ilçe bazında (Kuşadası, Didim) 2026 aylık konut satışı bulunamadı. Bulunan ilçe tabloları 2024 yılı toplamı (Kuşadası 8.888, Didim 5.320; marmarisyenisayfa/İHA) ve 'Mart 2025' etiketli ama il toplamıyla tutarsız bir tablo (Kuşadası 7.959, Didim 7.414; aydinpost, sesgazetesi). İkisi de istenen döneme ait değil, bu yüzden JSON'a konmadı.",
+  "Aydın 2026-07 ve 2026-06 ipotekli değerlerinin ikisi de 365. Bu iki ayrı haber kaynağında böyle geçiyor, tesadüf olabilir.",
+  "TCMB TR32 (Aydın, Denizli, Muğla) yıllık %17,9: TCMB Ağustos 2026 KFE bülteninin (KFE.pdf) bölge grafiğinden metin çıkarımıyla alındı. Grafik etiketleri karışık çıktığı için bölge-değer eşleşmesi kesin değil ve ikinci kaynakla doğrulanamadı. Aylık değer bulunamadı.",
+  "TR32 ve TRC1 için yeni kiracı kira endeksi bulunamadı.",
+  "TCMB bölge (TR32) yıllık değeri bültendeki grafikten okunabildi (~%17,9) ama bölge eşleşmesi kesin olmadığı için gösterilmiyor."
+ ],
+ "kaynaklar": {
+  "turkiye_tuik": [
+   "https://www.alomaliye.com/2026/09/17/konut-satislarinda-agustos-freni/",
+   "https://www.dha.com.tr/gundem/agustos-ayinda-127-bin-410-konut-satildi-2946185",
+   "https://emsal.com/konut-ve-is-yeri-satis-istatistikleri-agustos-2026/"
+  ],
+  "aydin_tuik": [
+   "https://www.aksiyon.com.tr/aydin-da-konut-satislari-agustosta-geriledi-isyeri-satislari-yuzde-45-artti-356910",
+   "https://www.aydindenge.com.tr/aydin/18/09/2026/aydinda-konut-satislari-yuzde-4-dustu",
+   "https://www.aydintimes.com/tuik-verileri-acikladi-konut-satislari-dustu",
+   "https://www.haberport.com/haber/aydinda-agustos-satislari-konutta-dusus-isyerinde-artis/31117",
+   "https://www.aydindenge.com.tr/aydin/14/08/2026/aydinda-son-bir-ayda-konut-satislari-yuzde-3-artti",
+   "https://www.haberler.com/ekonomi/aydin-da-son-bir-ayda-konut-satislari-yuzde-3-20144050-haberi/",
+   "https://www.aydindenge.com.tr/aydin/18/07/2026/aydinda-6-ayda-konut-satislari-yuzde-5-artti",
+   "https://www.haberler.com/ekonomi/aydin-da-konut-satislari-haziranda-yuzde-5-artti-2-bin-185-adet-20063518-haberi/",
+   "https://www.aydindenge.com.tr/aydin/18/06/2026/aydinda-5-ayda-konut-satislari-yuzde-24-azaldi",
+   "https://www.aydindenge.com.tr/aydin/20/02/2026/aydin-gayrimenkul-piyasasinda-dikkat-ceken-gerileme"
+  ],
+  "aydin_nufus": [
+   "https://www.nufusu.com/il/aydin-nufusu",
+   "https://www.nufusu.com/ilce/kusadasi_aydin-nufusu",
+   "https://www.nufusu.com/ilce/didim_aydin-nufusu",
+   "https://www.nufusum.com/il/aydin/"
+  ]
+ }
+}

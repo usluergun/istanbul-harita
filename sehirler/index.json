@@ -1,0 +1,29 @@
+{
+ "sehirler": [
+  {
+   "id": "istanbul",
+   "ad": "İstanbul",
+   "baslik": "İstanbul batı yakası",
+   "durum": "hazir"
+  },
+  {
+   "id": "izmir",
+   "ad": "İzmir",
+   "baslik": "İzmir merkez ve kıyı",
+   "durum": "hazirlaniyor"
+  },
+  {
+   "id": "aydin",
+   "ad": "Aydın",
+   "baslik": "Aydın kıyı",
+   "durum": "hazirlaniyor"
+  },
+  {
+   "id": "gaziantep",
+   "ad": "Gaziantep",
+   "baslik": "Gaziantep merkez",
+   "durum": "hazirlaniyor"
+  }
+ ],
+ "varsayilan": "istanbul"
+}

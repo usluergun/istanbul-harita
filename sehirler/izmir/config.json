@@ -1,6 +1,6 @@
 {
  "ad": "İzmir",
- "baslik": "İzmir körfez ve kıyı",
+ "baslik": "İzmir körfezden Selçuk'a kıyı",
  "merkez": [
   38.42,
   26.78
@@ -138,6 +138,36 @@
    ],
    "grup": "İzmir kıyı",
    "emlakjet": "izmir-karaburun"
+  },
+  {
+   "ad": "Seferihisar",
+   "lok": "Seferihisar'da",
+   "merkez": [
+    38.1975,
+    26.8389
+   ],
+   "grup": "İzmir kıyı",
+   "emlakjet": "izmir-seferihisar"
+  },
+  {
+   "ad": "Menderes",
+   "lok": "Menderes'te",
+   "merkez": [
+    38.13,
+    27.1
+   ],
+   "grup": "İzmir kıyı",
+   "emlakjet": "izmir-menderes"
+  },
+  {
+   "ad": "Selçuk",
+   "lok": "Selçuk'ta",
+   "merkez": [
+    37.9514,
+    27.3681
+   ],
+   "grup": "İzmir kıyı",
+   "emlakjet": "izmir-selcuk"
   }
  ],
  "gruplar": [

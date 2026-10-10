@@ -47,7 +47,10 @@
     "Çeşme": 147,
     "Balçova": 122,
     "Bayraklı": 749,
-    "Çiğli": 379
+    "Çiğli": 379,
+    "Seferihisar": 215,
+    "Menderes": 185,
+    "Selçuk": 36
    },
    "2026-05": {
     "İzmir": 5624,
@@ -59,7 +62,10 @@
     "Çeşme": 85,
     "Balçova": 73,
     "Bayraklı": 300,
-    "Çiğli": 295
+    "Çiğli": 295,
+    "Seferihisar": 174,
+    "Menderes": 120,
+    "Selçuk": 28
    },
    "2026-01": {
     "İzmir": 6618,
@@ -76,7 +82,7 @@
    "2026-05": 5624,
    "2026-01": 6618
   },
-  "aylik_not": "Balçova, Güzelbahçe, Urla, Çeşme ve Karaburun için en son ilçe verisi Haziran 2026; Temmuz–Ağustos haberlerinde yalnızca ilk 9 ilçe yayımlandı. Narlıdere için 2026 ilçe verisi bulunamadı."
+  "aylik_not": "Balçova, Güzelbahçe, Urla, Çeşme, Karaburun, Seferihisar, Menderes ve Selçuk için en son ilçe verisi Haziran 2026; Temmuz–Ağustos haberlerinde yalnızca ilk 9 ilçe yayımlandı. Narlıdere için 2026 ilçe verisi bulunamadı."
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
@@ -100,7 +106,10 @@
    "Balçova": 75743,
    "Narlıdere": 61320,
    "Bayraklı": 296481,
-   "Çiğli": 216430
+   "Çiğli": 216430,
+   "Seferihisar": 63712,
+   "Menderes": 112853,
+   "Selçuk": 38578
   },
   "2021": {
    "İzmir": 4425789,
@@ -113,7 +122,10 @@
    "Balçova": 80513,
    "Narlıdere": 63438,
    "Bayraklı": 296839,
-   "Çiğli": 209951
+   "Çiğli": 209951,
+   "Seferihisar": 52507,
+   "Menderes": 104147,
+   "Selçuk": 37689
   }
  },
  "yapi_izin": {
@@ -133,7 +145,8 @@
   "İzmir yıllık değişim 2026-08: Ağustos 2025 = 7.867 (sonmuhur). 6.532/7.867 = -%17,0 ile tutarlı.",
   "İzmir KFE endeks düzeyi 229,6 (2023=100). Türkiye KFE 236,8, reel yıllık -%6,5 (TCMB bülteni; fintables -%6,4 yazıyor).",
   "Nüfus: 2025 ADNKS sonuçları Şubat 2026'da yayımlandı. Değerler nufusu.com/nufusum.com sayfalarından alındı (bu siteler gayriresmidir ve TÜİK'i kaynak gösterir). İzmir 2025 = 4.504.185 alomaliye'de de aynı. Şahinbey ve Şehitkamil 2025 değerleri alomaliye'de de aynı.",
-  "Balçova ve Narlıdere nüfusu (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı). Balçova Haziran 2026 = 122, Mayıs 2026 = 73 (gayrimenkulhaber ilçe tablosu, tek kaynak)."
+  "Balçova ve Narlıdere nüfusu (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı). Balçova Haziran 2026 = 122, Mayıs 2026 = 73 (gayrimenkulhaber ilçe tablosu, tek kaynak).",
+  "Menderes ve Selçuk nüfusu (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı). Seferihisar, Menderes, Selçuk Haziran/Mayıs 2026 satışları: gayrimenkulhaber ilçe tablosu (tek kaynak)."
  ],
  "kaynaklar": {
   "turkiye_tuik": [

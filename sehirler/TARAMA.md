@@ -51,6 +51,9 @@ Ardından `sehirler/index.json` içinde şehrin `durum` değeri `hazir` yapılı
 - **Urla** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-urla
 - **Çeşme** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-cesme
 - **Karaburun** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-karaburun
+- **Seferihisar** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-seferihisar
+- **Menderes** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-menderes
+- **Selçuk** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-selcuk
 
 ### Aydın ve Muğla kıyısı
 

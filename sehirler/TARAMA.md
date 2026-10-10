@@ -68,6 +68,7 @@ Ardından `sehirler/index.json` içinde şehrin `durum` değeri `hazir` yapılı
 - **Bodrum**: https://www.emlakjet.com/satilik-konut/mugla-bodrum
 - **Datça**: https://www.emlakjet.com/satilik-konut/mugla-datca
 - **Marmaris**: https://www.emlakjet.com/satilik-konut/mugla-marmaris
+- **Menteşe**: https://www.emlakjet.com/satilik-konut/mugla-mentese
 - **Ula**: https://www.emlakjet.com/satilik-konut/mugla-ula
 - **Köyceğiz**: https://www.emlakjet.com/satilik-konut/mugla-koycegiz
 - **Ortaca**: https://www.emlakjet.com/satilik-konut/mugla-ortaca

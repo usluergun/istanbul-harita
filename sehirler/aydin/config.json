@@ -1,11 +1,11 @@
 {
  "ad": "Aydın",
- "baslik": "Kuşadası'ndan Bodrum'a kıyı",
+ "baslik": "Aydın kıyı: Kuşadası, Söke, Didim",
  "merkez": [
-  37.45,
-  27.45
+  37.65,
+  27.3
  ],
- "zoom": 9,
+ "zoom": 10,
  "fiyat": {
   "adimlar": [
    2,
@@ -22,12 +22,10 @@
    25,
    30,
    40,
-   50,
-   75,
-   100
+   50
   ],
   "min": 2,
-  "max": 100
+  "max": 50
  },
  "ilan_tipleri": [
   "satilik-daire",
@@ -64,33 +62,10 @@
    ],
    "grup": "Aydın kıyı",
    "emlakjet": "aydin-didim"
-  },
-  {
-   "ad": "Milas",
-   "lok": "Milas'ta",
-   "merkez": [
-    37.3167,
-    27.7833
-   ],
-   "grup": "Muğla kıyı",
-   "emlakjet": "mugla-milas",
-   "il": "Muğla"
-  },
-  {
-   "ad": "Bodrum",
-   "lok": "Bodrum'da",
-   "merkez": [
-    37.0383,
-    27.4292
-   ],
-   "grup": "Muğla kıyı",
-   "emlakjet": "mugla-bodrum",
-   "il": "Muğla"
   }
  ],
  "gruplar": [
-  "Aydın kıyı",
-  "Muğla kıyı"
+  "Aydın kıyı"
  ],
  "rapor_ilce": "Kuşadası",
  "tarama": null,

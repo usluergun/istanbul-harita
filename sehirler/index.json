@@ -14,8 +14,14 @@
   },
   {
    "id": "aydin",
-   "ad": "Aydın–Bodrum",
-   "baslik": "Kuşadası'ndan Bodrum'a kıyı",
+   "ad": "Aydın",
+   "baslik": "Aydın kıyı: Kuşadası, Söke, Didim",
+   "durum": "hazirlaniyor"
+  },
+  {
+   "id": "mugla",
+   "ad": "Muğla",
+   "baslik": "Muğla kıyı: Milas, Bodrum",
    "durum": "hazirlaniyor"
   },
   {

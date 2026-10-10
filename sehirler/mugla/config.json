@@ -1,0 +1,65 @@
+{
+ "ad": "Muğla",
+ "baslik": "Muğla kıyı: Milas, Bodrum",
+ "merkez": [
+  37.17,
+  27.55
+ ],
+ "zoom": 10,
+ "fiyat": {
+  "adimlar": [
+   3,
+   4,
+   5,
+   6,
+   8,
+   10,
+   12,
+   15,
+   20,
+   25,
+   30,
+   40,
+   50,
+   75,
+   100
+  ],
+  "min": 3,
+  "max": 100
+ },
+ "ilan_tipleri": [
+  "satilik-daire",
+  "satilik-villa",
+  "satilik-mustakil-ev"
+ ],
+ "ilceler": [
+  {
+   "ad": "Milas",
+   "lok": "Milas'ta",
+   "merkez": [
+    37.3167,
+    27.7833
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-milas"
+  },
+  {
+   "ad": "Bodrum",
+   "lok": "Bodrum'da",
+   "merkez": [
+    37.0383,
+    27.4292
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-bodrum"
+  }
+ ],
+ "gruplar": [
+  "Muğla kıyı"
+ ],
+ "rapor_ilce": "Bodrum",
+ "tarama": null,
+ "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR (OCHA) ilçe katmanı ve il açık verilerinden mahalle sınırları (github.com/ttezer/turkiye-harita-verisi). Harita: © Esri, © OpenStreetMap katkıcıları.",
+ "id": "mugla",
+ "il_lok": "Muğla'da"
+}

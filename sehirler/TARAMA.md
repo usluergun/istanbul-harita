@@ -14,6 +14,7 @@ cd ~/Istanbul_Emlak_Harita   # bu deponun Mac'teki kopyası
 git checkout cok-sehir && git pull
 python3 tools/sinir_indir.py izmir
 python3 tools/sinir_indir.py aydin
+python3 tools/sinir_indir.py mugla
 python3 tools/sinir_indir.py gaziantep
 ```
 
@@ -55,13 +56,16 @@ Ardından `sehirler/index.json` içinde şehrin `durum` değeri `hazir` yapılı
 - **Menderes** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-menderes
 - **Selçuk** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-selcuk
 
-### Aydın ve Muğla kıyısı
+### Aydın
 
-- **Kuşadası** (Aydın kıyı): https://www.emlakjet.com/satilik-konut/aydin-kusadasi
-- **Söke** (Aydın kıyı): https://www.emlakjet.com/satilik-konut/aydin-soke
-- **Didim** (Aydın kıyı): https://www.emlakjet.com/satilik-konut/aydin-didim
-- **Milas** (Muğla kıyı): https://www.emlakjet.com/satilik-konut/mugla-milas
-- **Bodrum** (Muğla kıyı): https://www.emlakjet.com/satilik-konut/mugla-bodrum
+- **Kuşadası**: https://www.emlakjet.com/satilik-konut/aydin-kusadasi
+- **Söke**: https://www.emlakjet.com/satilik-konut/aydin-soke
+- **Didim**: https://www.emlakjet.com/satilik-konut/aydin-didim
+
+### Muğla
+
+- **Milas**: https://www.emlakjet.com/satilik-konut/mugla-milas
+- **Bodrum**: https://www.emlakjet.com/satilik-konut/mugla-bodrum
 
 ### Gaziantep
 

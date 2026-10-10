@@ -1,11 +1,11 @@
 {
  "ad": "Muğla",
- "baslik": "Muğla kıyı: Milas, Bodrum",
+ "baslik": "Muğla kıyı: Milas'tan Fethiye'ye",
  "merkez": [
-  37.17,
-  27.55
+  36.95,
+  28.4
  ],
- "zoom": 10,
+ "zoom": 9,
  "fiyat": {
   "adimlar": [
    3,
@@ -52,6 +52,86 @@
    ],
    "grup": "Muğla kıyı",
    "emlakjet": "mugla-bodrum"
+  },
+  {
+   "ad": "Datça",
+   "lok": "Datça'da",
+   "merkez": [
+    36.7375,
+    27.685
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-datca"
+  },
+  {
+   "ad": "Marmaris",
+   "lok": "Marmaris'te",
+   "merkez": [
+    36.855,
+    28.2742
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-marmaris"
+  },
+  {
+   "ad": "Ula",
+   "lok": "Ula'da",
+   "merkez": [
+    37.05,
+    28.33
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-ula"
+  },
+  {
+   "ad": "Köyceğiz",
+   "lok": "Köyceğiz'de",
+   "merkez": [
+    36.97,
+    28.69
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-koycegiz"
+  },
+  {
+   "ad": "Ortaca",
+   "lok": "Ortaca'da",
+   "merkez": [
+    36.8381,
+    28.7653
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-ortaca"
+  },
+  {
+   "ad": "Dalaman",
+   "lok": "Dalaman'da",
+   "merkez": [
+    36.7656,
+    28.8028
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-dalaman"
+  },
+  {
+   "ad": "Fethiye",
+   "lok": "Fethiye'de",
+   "merkez": [
+    36.6217,
+    29.1164
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-fethiye"
+  },
+  {
+   "ad": "Seydikemer",
+   "lok": "Seydikemer'de",
+   "merkez": [
+    36.61,
+    29.34
+   ],
+   "grup": "Muğla kıyı",
+   "emlakjet": "mugla-seydikemer"
   }
  ],
  "gruplar": [

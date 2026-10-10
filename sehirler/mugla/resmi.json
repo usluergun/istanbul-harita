@@ -25,7 +25,7 @@
   "il_aylik": {
    "2026-08": 1727
   },
-  "aylik_not": "Milas ve Bodrum için 2026 aylık ilçe satışı yayımlanmış bir kaynakta bulunamadı."
+  "aylik_not": "Muğla kıyı ilçeleri için 2026 aylık ilçe satışı yayımlanmış bir kaynakta bulunamadı."
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
@@ -41,12 +41,28 @@
   "2025": {
    "Muğla": 1099547,
    "Milas": 152275,
-   "Bodrum": 207196
+   "Bodrum": 207196,
+   "Datça": 26067,
+   "Marmaris": 97373,
+   "Ula": 27649,
+   "Köyceğiz": 41810,
+   "Ortaca": 58704,
+   "Dalaman": 53327,
+   "Fethiye": 187332,
+   "Seydikemer": 65648
   },
   "2021": {
    "Muğla": 1021141,
    "Milas": 145275,
-   "Bodrum": 187284
+   "Bodrum": 187284,
+   "Datça": 24519,
+   "Marmaris": 95849,
+   "Ula": 26306,
+   "Köyceğiz": 38425,
+   "Ortaca": 52929,
+   "Dalaman": 44386,
+   "Fethiye": 170379,
+   "Seydikemer": 61427
   }
  },
  "yapi_izin": {
@@ -60,7 +76,7 @@
  "notlar": [
   "Değerler TÜİK ve TCMB yayınlarını kaynak gösteren haber sitelerinden derlendi.",
   "Muğla Ağustos 2026: 1.727 konut (604 ilk el, 1.123 ikinci el), 32 yabancıya satış; gundemfethiye.com.tr ve bodrumolay.com (17 Eylül 2026). Bazı haberlerde toplam 1.720 yazıyor; ilk el + ikinci el toplamı 1.727 olduğu için 1.727 kullanıldı. İpotekli satış ve yıllık değişim bulunamadı.",
-  "Muğla, Milas, Bodrum nüfusu (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı).",
+  "Muğla ve ilçe nüfusları (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı).",
   "TCMB bölge (TR32) yıllık değeri kesin eşleştirilemediği için gösterilmiyor."
  ],
  "kaynaklar": {

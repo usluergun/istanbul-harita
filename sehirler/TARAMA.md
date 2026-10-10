@@ -66,6 +66,14 @@ Ardından `sehirler/index.json` içinde şehrin `durum` değeri `hazir` yapılı
 
 - **Milas**: https://www.emlakjet.com/satilik-konut/mugla-milas
 - **Bodrum**: https://www.emlakjet.com/satilik-konut/mugla-bodrum
+- **Datça**: https://www.emlakjet.com/satilik-konut/mugla-datca
+- **Marmaris**: https://www.emlakjet.com/satilik-konut/mugla-marmaris
+- **Ula**: https://www.emlakjet.com/satilik-konut/mugla-ula
+- **Köyceğiz**: https://www.emlakjet.com/satilik-konut/mugla-koycegiz
+- **Ortaca**: https://www.emlakjet.com/satilik-konut/mugla-ortaca
+- **Dalaman**: https://www.emlakjet.com/satilik-konut/mugla-dalaman
+- **Fethiye**: https://www.emlakjet.com/satilik-konut/mugla-fethiye
+- **Seydikemer**: https://www.emlakjet.com/satilik-konut/mugla-seydikemer
 
 ### Gaziantep
 

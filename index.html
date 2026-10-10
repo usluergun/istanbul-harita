@@ -822,7 +822,7 @@ window.__openReportFor = (b, mahN, m2, oda, yas, site) => { const k = MAH.featur
 
 // --- 18) müteahhit pazar raporu (ilçe bazında, yazdırılabilir)
 let RESMI = null; // TÜİK ve TCMB özet verileri (data/resmi.json)
-fetch('data/resmi.json').then(r => r.ok ? r.json() : null).then(d => { RESMI = d; }).catch(() => {});
+fetch('data/resmi.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : null).then(d => { RESMI = d; const sel = document.getElementById('r-ilce'); if (d && sel && !$('rep').hidden && document.querySelector('.sheet.mut')) openMutRapor(sel.value); }).catch(() => {});
 const LOC = {'Avcılar':"Avcılar'da",'Bağcılar':"Bağcılar'da",'Başakşehir':"Başakşehir'de",'Beylikdüzü':"Beylikdüzü'nde",'Esenyurt':"Esenyurt'ta",'Güngören':"Güngören'de",'Küçükçekmece':"Küçükçekmece'de"};
 const loc = il => LOC[il] || il;
 const sp = v => (v >= 0 ? '+' : '−') + '%' + Math.abs(v * 100).toLocaleString('tr-TR', {maximumFractionDigits: 1});

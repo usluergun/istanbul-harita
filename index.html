@@ -107,8 +107,18 @@
 .sheet .mhb .t i.hi{background:#0f7a6c}.sheet .mhb .v{color:#7c8a91;white-space:nowrap;font-variant-numeric:tabular-nums}
 .sheet .mvb{display:flex;gap:12px;align-items:flex-end;border-bottom:1px solid #1c2830;padding-top:6px}
 .sheet .mvb div{flex:1;display:flex;flex-direction:column;align-items:center;font-size:12px}.sheet .mvb i{display:block;width:60%;max-width:56px;background:#0f7a6c;border-radius:3px 3px 0 0;margin-top:3px}
-.sheet .mvb em{font-style:normal;color:#7c8a91;font-size:11px;margin:4px 0 -20px;white-space:nowrap}.sheet .mvb{margin-bottom:24px}
-.rbar select{font:inherit;font-size:14px;padding:6px 10px;border-radius:8px;border:1px solid #c4cdd1;background:#fff;color:#1c2830;margin-right:auto}
+.sheet .mvl{display:flex;gap:12px;margin-top:5px}.sheet .mvl span{flex:1;text-align:center;color:#7c8a91;font-size:11px;white-space:nowrap}
+.rbar select{font:inherit;font-size:16px;padding:7px 10px;border-radius:8px;border:1px solid #c4cdd1;background:#fff;color:#1c2830;margin-right:auto;min-width:0}
+.rbar{position:sticky;top:-24px;z-index:3;padding:8px;margin:-8px auto 12px;background:rgba(20,30,36,.94);border-radius:12px;align-items:center}
+.rbar .sm{display:none}
+.sheet.mut td{white-space:nowrap}.sheet.mut td:first-child{white-space:normal}
+@media (max-width:600px){
+  .rbar{flex-wrap:nowrap;gap:6px}.rbar select{flex:1}.rbar .btn{padding:8px 11px;white-space:nowrap}.rbar .lg{display:none}.rbar .sm{display:inline}.rbar #r-close{min-width:40px}
+  .sheet.mut .opt,.sheet .mbar{display:none}
+  .sheet.mut table{font-size:12px}.sheet.mut th,.sheet.mut td{padding:6px 4px}.sheet.mut th{font-size:10px;white-space:normal}
+  .sheet .mhb{font-size:11.5px;gap:5px 6px}
+  .sheet h2{font-size:21px}
+}
 @media (max-width:600px){.sheet{padding:20px 16px}.sheet .who{text-align:left}.sheet .big{grid-template-columns:1fr 1fr}.sheet .kv b{font-size:17px}}
 @media (max-width:900px){.panel.t-val .foot,.panel.t-mah .foot{display:none}}
 @media print{
@@ -122,6 +132,7 @@
   .sheet tr,.sheet .mhb,.sheet .mvb{break-inside:avoid}
   .sheet h3{break-after:avoid}
   .rbar select{display:none}
+  .sheet.mut .opt{display:table-cell!important}.sheet .mbar{display:inline-block!important}
   @page{size:A4;margin:14mm}
 }
 /* örnek ofis portföyü */
@@ -711,7 +722,7 @@ let office = 'Ofis adınız';
 function openReport(R){
   const t = R.t, S = R.stats, d = S && S.ilce ? (S.m2 / S.ilce - 1) * 100 : 0;
   const rep = $('rep');
-  rep.innerHTML = `<div class="rbar">${canPrint ? '<button class="btn" type="button" id="r-print">Yazdır / PDF olarak kaydet</button>' : ''}<button class="btn sec" type="button" id="r-close">Kapat</button></div>
+  rep.innerHTML = `<div class="rbar">${canPrint ? '<button class="btn" type="button" id="r-print"><span class="lg">Yazdır / PDF olarak kaydet</span><span class="sm">PDF kaydet</span></button>' : ''}<button class="btn sec" type="button" id="r-close" aria-label="Kapat"><span class="lg">Kapat</span><span class="sm">✕</span></button></div>
   <article class="sheet">
     <header><div><div class="ey">Değerleme ön raporu · ${esc(today)}</div><h2>${esc(short(mahName(t.mk)))}, ${esc(t.b)}</h2>
       <div style="color:#4f5f68;font-size:13px">${esc(t.oda)} · ${t.m2} m² brüt · ${esc(YAS.find(y => y[0] === t.yas)[1])} · ${t.site ? 'site içi' : 'site dışı'}</div></div>
@@ -766,7 +777,7 @@ function openMahReport(k){
   const tr = rows => rows.map(r => `<tr><td>${esc(r.k)}</td><td class="r">${r.n}</td><td class="r">${mtl(r.p)}</td><td class="r">${Math.round(r.m2)}</td><td class="r">${Math.round(r.tlm2).toLocaleString('tr-TR')}</td></tr>`).join('');
   const head = `<thead><tr><th></th><th class="r">İlan</th><th class="r">Medyan fiyat</th><th class="r">Medyan m²</th><th class="r">TL/m²</th></tr></thead>`;
   const rep = $('rep');
-  rep.innerHTML = `<div class="rbar">${canPrint ? '<button class="btn" type="button" id="r-print">Yazdır / PDF olarak kaydet</button>' : ''}<button class="btn sec" type="button" id="r-close">Kapat</button></div>
+  rep.innerHTML = `<div class="rbar">${canPrint ? '<button class="btn" type="button" id="r-print"><span class="lg">Yazdır / PDF olarak kaydet</span><span class="sm">PDF kaydet</span></button>' : ''}<button class="btn sec" type="button" id="r-close" aria-label="Kapat"><span class="lg">Kapat</span><span class="sm">✕</span></button></div>
   <article class="sheet">
     <header><div><div class="ey">Mahalle raporu · ${esc(today)}</div><h2>${esc(short(f.n))}, ${esc(f.i)}</h2>
       <div style="color:#4f5f68;font-size:13px">Satılık konut piyasası · ${S.n} ilan</div></div>
@@ -814,6 +825,7 @@ const MUT_YAS = ['Yapım aşamasında', 'Sıfır (oturuma hazır)', '1–5 yaş'
 const mutM2 = x => x.p / brutM2(x);
 const r0 = v => Math.round(v);
 const tlr = v => v == null ? '—' : r0(v).toLocaleString('tr-TR') + ' TL';
+const n0 = v => v == null ? '—' : r0(v).toLocaleString('tr-TR');
 const pc = v => '%' + r0(v * 100);
 const k1 = v => (v / 1000).toLocaleString('tr-TR', {maximumFractionDigits: 1}) + 'B';
 function mutStats(il){
@@ -857,7 +869,7 @@ function openMutRapor(il){
   const bmx = Math.max(...R.bek.map(r => r.n)) || 1;
   const ilceOpts = [...new Set(ILAN.map(x => x.b))].sort((a, b) => a.localeCompare(b, 'tr')).map(b => `<option${b === il ? ' selected' : ''}>${esc(b)}</option>`).join('');
   const rep = $('rep');
-  rep.innerHTML = `<div class="rbar"><select id="r-ilce" aria-label="İlçe">${ilceOpts}</select>${canPrint ? '<button class="btn" type="button" id="r-print">Yazdır / PDF olarak kaydet</button>' : ''}<button class="btn sec" type="button" id="r-close">Kapat</button></div>
+  rep.innerHTML = `<div class="rbar"><select id="r-ilce" aria-label="İlçe">${ilceOpts}</select>${canPrint ? '<button class="btn" type="button" id="r-print"><span class="lg">Yazdır / PDF olarak kaydet</span><span class="sm">PDF kaydet</span></button>' : ''}<button class="btn sec" type="button" id="r-close" aria-label="Kapat"><span class="lg">Kapat</span><span class="sm">✕</span></button></div>
   <article class="sheet mut">
     <header><div><div class="ey">Müteahhit pazar raporu · ${esc(today)}</div><h2>${esc(il)} konut pazarı</h2>
       <div style="color:#4f5f68;font-size:13px">Satılık daire · 5,5–10 M₺ fiyat bandı · ${R.n} ilan</div></div>
@@ -865,7 +877,7 @@ function openMutRapor(il){
     <p style="margin:14px 0 0;font-size:15px">Fiyat bandındaki <b>${R.n}</b> ilanın <b>${R.s0}</b>'i sıfır daire. ${prim >= 0 ? `Yeni binalar m²'de eski binalardan <b>${pc(prim)}</b> pahalı` : `Yeni binalar m²'de eski binalardan <b>${pc(-prim)}</b> ucuz`}${R.oda.length ? `; yeni arzın <b>${pc(R.oda[0].n / toda)}</b>'i ${esc(R.oda[0].o)}.` : '.'}</p>
     <h3>Özet</h3>
     <div class="big"><div class="kv hl"><span>Ortanca brüt m² fiyatı</span><b>${tlr(R.m2)}</b></div>
-      <div class="kv"><span>Ortanca daire</span><b>${mtl(R.p)} · ${r0(R.b)} m²</b></div>
+      <div class="kv"><span>Ortanca daire · ${r0(R.b)} m² brüt</span><b>${mtl(R.p)}</b></div>
       <div class="kv"><span>Sıfır daire ilanı</span><b>${R.s0}</b></div>
       <div class="kv"><span>Yapımda · boş sıfır</span><b>${R.yp} · ${pc(bos)}</b></div>
       <div class="kv"><span>Yeni bina (0–5 yaş) m²</span><b>${tlr(R.ym2)}</b></div>
@@ -873,20 +885,20 @@ function openMutRapor(il){
     <h3>Müteahhit için okuma</h3>
     <ul class="reads">${reads.map(r => `<li>${r}</li>`).join('')}</ul>
     <h3>Mahalleler · m² fiyatına göre</h3>
-    <div class="tw"><table><thead><tr><th>Mahalle</th><th class="r">İlan</th><th class="r">m² fiyatı</th><th class="r">Yeni bina m²</th><th class="r">Sıfır</th><th class="r">Yapımda</th><th class="r">Site içi</th><th class="r">Bekleme</th></tr></thead><tbody>
-    ${R.mah.map(r => `<tr><td>${esc(r.mh)}</td><td class="r">${r.n}</td><td class="r"><span class="mbar" style="width:${(44 * r.m2 / mx).toFixed(0)}px"></span>${tlr(r.m2)}</td><td class="r">${tlr(r.ym2)}</td><td class="r">${r.s0}</td><td class="r">${r.yp}</td><td class="r">%${r0(r.site * 100)}</td><td class="r">${r0(r.gun)} gün</td></tr>`).join('')}
+    <div class="tw"><table><thead><tr><th>Mahalle</th><th class="r">İlan</th><th class="r">TL/m²</th><th class="r">Yeni bina TL/m²</th><th class="r">Sıfır</th><th class="r opt">Yapımda</th><th class="r opt">Site içi</th><th class="r opt">Bekleme</th></tr></thead><tbody>
+    ${R.mah.map(r => `<tr><td>${esc(r.mh)}</td><td class="r">${r.n}</td><td class="r"><span class="mbar" style="width:${(44 * r.m2 / mx).toFixed(0)}px"></span>${n0(r.m2)}</td><td class="r">${n0(r.ym2)}</td><td class="r">${r.s0}</td><td class="r opt">${r.yp}</td><td class="r opt">%${r0(r.site * 100)}</td><td class="r opt">${r0(r.gun)} gün</td></tr>`).join('')}
     </tbody></table></div>
     <div class="mtwo">
       <div><h3>Bina yaşına göre m² fiyatı</h3>${mutHbars(R.yas, r => r.g, r => r.m2, r => k1(r.m2) + ' · ' + r.n, r => r.g.startsWith('Yap') || r.g.startsWith('Sıf'))}</div>
       <div><h3>İlçelere göre m² fiyatı</h3>${mutHbars(R.ilceler, r => r.b, r => r.m2, r => k1(r.m2) + ' · %' + r0(r.s0 * 100) + ' sıfır', r => r.b === il)}</div>
     </div>
     <h3>Yeni binalarda daire tipi (0–5 yaş)</h3>
-    <div class="tw"><table><thead><tr><th>Tip</th><th class="r">İlan</th><th class="r">Pay</th><th class="r">Fiyat</th><th class="r">Brüt</th><th class="r">Net</th><th class="r">m² fiyatı</th></tr></thead><tbody>
-    ${R.oda.map(r => `<tr><td>${esc(r.o)}</td><td class="r">${r.n}</td><td class="r">${pc(r.n / toda)}</td><td class="r">${mtl(r.p)}</td><td class="r">${r0(r.b)} m²</td><td class="r">${r.net ? r0(r.net) + ' m²' : '—'}</td><td class="r">${tlr(r.m2)}</td></tr>`).join('')}
+    <div class="tw"><table><thead><tr><th>Tip</th><th class="r">İlan</th><th class="r">Pay</th><th class="r">Fiyat</th><th class="r">Brüt m²</th><th class="r opt">Net m²</th><th class="r">TL/m²</th></tr></thead><tbody>
+    ${R.oda.map(r => `<tr><td>${esc(r.o)}</td><td class="r">${r.n}</td><td class="r">${pc(r.n / toda)}</td><td class="r">${mtl(r.p)}</td><td class="r">${r0(r.b)}</td><td class="r opt">${r.net ? r0(r.net) : '—'}</td><td class="r">${n0(r.m2)}</td></tr>`).join('')}
     </tbody></table></div>
     <h3>İlanda bekleme süresi</h3>
     <p class="fine" style="margin:0 0 6px">Yeni binalarda ortanca ${r0(R.gy)} gün, eski binalarda ${r0(R.ge)} gün.</p>
-    <div class="mvb">${R.bek.map(r => `<div><span>${r.n}</span><i style="height:${(70 * r.n / bmx).toFixed(0)}px"></i><em>${esc(r.g)}</em></div>`).join('')}</div>
+    <div class="mvb">${R.bek.map(r => `<div><span>${r.n}</span><i style="height:${(70 * r.n / bmx).toFixed(0)}px"></i></div>`).join('')}</div><div class="mvl">${R.bek.map(r => `<span>${esc(r.g)}</span>`).join('')}</div>
     <h3>Yöntem ve sınırlar</h3>
     <ul class="fine"><li>Kaynak: emlakjet.com satılık daire ilanları, 26–30 Eylül 2026 taraması. Yalnızca 5,5–10 M₺ arası ilanlar tarandı; bu bandın dışındaki daireler (küçük 1+1'ler, büyük daireler) eksik temsil edilir.</li>
     <li>m² fiyatı = ilan fiyatı ÷ brüt m². Değerler ortancadır (medyan). Sıfır: 0 yaş (yapımda veya oturuma hazır). Yeni bina: 0–5 yaş. Haritadaki filtreler bu raporu etkilemez.</li>

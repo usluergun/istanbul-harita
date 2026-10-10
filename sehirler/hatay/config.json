@@ -1,0 +1,128 @@
+{
+ "id": "hatay",
+ "ad": "Hatay",
+ "baslik": "Hatay kıyı ve Antakya",
+ "merkez": [
+  36.55,
+  36.1
+ ],
+ "zoom": 9,
+ "il_lok": "Hatay'da",
+ "fiyat": {
+  "adimlar": [
+   1,
+   1.5,
+   2,
+   2.5,
+   3,
+   3.5,
+   4,
+   5,
+   6,
+   7,
+   8,
+   10,
+   12,
+   15,
+   20
+  ],
+  "min": 1,
+  "max": 20
+ },
+ "ilan_tipleri": [
+  "satilik-daire",
+  "satilik-villa",
+  "satilik-mustakil-ev"
+ ],
+ "tarama": null,
+ "rapor_ilce": "İskenderun",
+ "ilceler": [
+  {
+   "ad": "Erzin",
+   "lok": "Erzin'de",
+   "merkez": [
+    36.9556,
+    36.2
+   ],
+   "grup": "Hatay kıyı",
+   "emlakjet": "hatay-erzin"
+  },
+  {
+   "ad": "Dörtyol",
+   "lok": "Dörtyol'da",
+   "merkez": [
+    36.8389,
+    36.2306
+   ],
+   "grup": "Hatay kıyı",
+   "emlakjet": "hatay-dortyol"
+  },
+  {
+   "ad": "Payas",
+   "lok": "Payas'ta",
+   "merkez": [
+    36.7578,
+    36.2156
+   ],
+   "grup": "Hatay kıyı",
+   "emlakjet": "hatay-payas"
+  },
+  {
+   "ad": "İskenderun",
+   "lok": "İskenderun'da",
+   "merkez": [
+    36.5872,
+    36.1735
+   ],
+   "grup": "Hatay kıyı",
+   "emlakjet": "hatay-iskenderun"
+  },
+  {
+   "ad": "Arsuz",
+   "lok": "Arsuz'da",
+   "merkez": [
+    36.4122,
+    35.8867
+   ],
+   "grup": "Hatay kıyı",
+   "emlakjet": "hatay-arsuz"
+  },
+  {
+   "ad": "Samandağ",
+   "lok": "Samandağ'da",
+   "merkez": [
+    36.0811,
+    35.9783
+   ],
+   "grup": "Hatay kıyı",
+   "emlakjet": "hatay-samandag"
+  },
+  {
+   "ad": "Defne",
+   "lok": "Defne'de",
+   "merkez": [
+    36.15,
+    36.13
+   ],
+   "grup": "Antakya",
+   "emlakjet": "hatay-defne",
+   "etiket": "alt"
+  },
+  {
+   "ad": "Antakya",
+   "lok": "Antakya'da",
+   "merkez": [
+    36.21,
+    36.1606
+   ],
+   "grup": "Antakya",
+   "emlakjet": "hatay-antakya",
+   "etiket": "ust"
+  }
+ ],
+ "gruplar": [
+  "Hatay kıyı",
+  "Antakya"
+ ],
+ "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR (OCHA) ilçe katmanı ve mahalle sınırları henüz yok (github.com/ttezer/turkiye-harita-verisi). Harita: © Esri, © OpenStreetMap katkıcıları."
+}

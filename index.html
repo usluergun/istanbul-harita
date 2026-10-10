@@ -446,7 +446,7 @@ async function hazirlik(GEO){
     pts.forEach(c => L.marker(c.merkez, {interactive: false, keyboard: false, icon: L.divIcon({className: 'lb lb-ilce prep-lb' + (c.etiket ? ' e-' + c.etiket : ''), html: `<span>${E(c.ad)}${NF[c.ad] ? `<small>${N0(NF[c.ad])} kişi</small>` : ''}</span>`, iconSize: [0, 0]})}).addTo(map));
     if (pts.length > 1) map.fitBounds(L.latLngBounds(pts.map(c => c.merkez)).pad(.35), {paddingTopLeft: innerWidth > 900 ? [340, 0] : [0, 40]});
   }
-  let h = GEO ? `<div class="note"><b>${E(CFG.ad)}: mahalle sınırları hazır</b> (${GEO.mah.features.length} mahalle). İlanlar taramadan sonra eklenecek; ısı haritası, Değer ve Müteahhit raporları o zaman açılır. Şimdilik resmî veriler gösteriliyor.</div>`
+  let h = GEO ? `<div class="note"><b>${E(CFG.ad)}: ${GEO.mah.features.length ? `mahalle sınırları hazır</b> (${GEO.mah.features.length} mahalle).` : 'ilçe sınırları hazır</b>; mahalle sınırları sonra eklenecek.'} İlanlar taramadan sonra eklenecek; ısı haritası, Değer ve Müteahhit raporları o zaman açılır. Şimdilik resmî veriler gösteriliyor.</div>`
     : `<div class="note"><b>${E(CFG.ad)} hazırlanıyor.</b> Mahalle sınırları ve ilanlar taramadan sonra eklenecek; ısı haritası, Değer ve Müteahhit raporları o zaman açılır. Şimdilik resmî veriler gösteriliyor.</div>`;
   if (D) {
     const T = D.tuik, C = D.tcmb, I = T.il, ilAy = Object.keys(T.il_aylik || {}).sort().slice(-3);
@@ -467,7 +467,7 @@ async function hazirlik(GEO){
     <p class="fine">Kaynak: ${E(T.kaynak)}; ${E(C.kaynak)}${C.bolge && C.bolge !== I.ad ? ' (bölge: ' + E(C.bolge) + ')' : ''}; ${E(D.nufus.kaynak)}.</p>`;
   }
   const TIP = {'satilik-daire': 'satılık daire', 'satilik-villa': 'villa', 'satilik-mustakil-ev': 'müstakil ev'};
-  h += `<h3>Sırada</h3><ol>${GEO ? '' : '<li>Mahalle ve ilçe sınırları</li>'}<li>İlan taraması: ${E((CFG.ilan_tipleri || []).map(t => TIP[t] || t).join(', '))}</li><li>Isı haritası, Değer ve Müteahhit raporları</li></ol>`;
+  h += `<h3>Sırada</h3><ol>${GEO && GEO.mah.features.length ? '' : '<li>Mahalle sınırları</li>'}<li>İlan taraması: ${E((CFG.ilan_tipleri || []).map(t => TIP[t] || t).join(', '))}</li><li>Isı haritası, Değer ve Müteahhit raporları</li></ol>`;
   const list = document.getElementById('list'); list.innerHTML = `<div class="prep">${h}</div>`; list.hidden = false;
   addEventListener('resize', () => map.invalidateSize({pan: false}));
 }

@@ -1,0 +1,84 @@
+{
+ "donem": "Haziran 2026",
+ "tuik": {
+  "kaynak": "TÜİK Konut Satış İstatistikleri, Haziran 2026 (yayın: Temmuz 2026)",
+  "turkiye": {
+   "satis": 127410,
+   "yillik": -0.147,
+   "ilk_el": 44378,
+   "ipotekli": 22131
+  },
+  "il": {
+   "ad": "Hatay",
+   "satis": 1240,
+   "ilk_el": 308,
+   "ipotekli": null,
+   "yillik": null,
+   "aylik_degisim": null
+  },
+  "ilce": {},
+  "aylik": {
+   "2026-06": {
+    "Hatay": 1240
+   }
+  },
+  "il_aylik": {
+   "2026-06": 1240
+  },
+  "aylik_not": "Hatay için Ağustos 2026 il verisi ve ilçe bazında satış bulunamadı; il özeti Haziran 2026."
+ },
+ "tcmb": {
+  "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
+  "bolge": "TR63 Hatay, Kahramanmaraş, Osmaniye",
+  "il_fiyat_yillik": null,
+  "il_fiyat_aylik": null,
+  "il_kira_yillik": null,
+  "turkiye_fiyat_yillik": 0.23,
+  "turkiye_fiyat_reel_yillik": -0.065
+ },
+ "nufus": {
+  "kaynak": "TÜİK Adrese Dayalı Nüfus Kayıt Sistemi (2021 ve 2025 sonuçları)",
+  "2025": {
+   "Hatay": 1577531,
+   "Antakya": 301855,
+   "Defne": 139605,
+   "Erzin": 43103,
+   "Dörtyol": 132987,
+   "Payas": 44530,
+   "İskenderun": 228149,
+   "Arsuz": 115077,
+   "Samandağ": 122952
+  },
+  "2021": {
+   "Hatay": 1670712,
+   "Antakya": 393634,
+   "Defne": 162199,
+   "Dörtyol": 127989,
+   "Payas": 43495,
+   "İskenderun": 250976,
+   "Arsuz": 99480,
+   "Samandağ": 123999
+  }
+ },
+ "yapi_izin": {
+  "kaynak": "TÜİK Yapı İzin İstatistikleri (Türkiye geneli)",
+  "ruhsat_daire_2026c1": 232252,
+  "ruhsat_daire_2026c1_yillik": 0.37,
+  "ruhsat_daire_2026c2_yillik": -0.095,
+  "iskan_daire_2026c2_yillik": 0.107,
+  "not": "İstanbul ve ilçe kırılımı bulunamadı; Türkiye geneli eğilim olarak verilir."
+ },
+ "notlar": [
+  "Hatay Haziran 2026: 1.240 konut (308 ilk el, 932 ikinci el); asigazetesi.com (17 Temmuz 2026, TÜİK verisi). Ağustos 2026 Hatay rakamı bulunamadı.",
+  "Nüfus (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı). Erzin 2021 değeri sayfada yok. 2021–2025 düşüşü büyük ölçüde Şubat 2023 depremlerinin etkisidir.",
+  "Mahalle sınırları açık veri setinde Hatay için yok; ilçe sınırları HDX COD-AB-TUR. Mahalle sınırları OpenStreetMap ile (tools/sinir_indir.py) eklenebilir."
+ ],
+ "kaynaklar": {
+  "hatay_tuik_2026-06": [
+   "https://www.asigazetesi.com/hatayda-haziran-ayinda-kac-konut-satildi-iste-veriler"
+  ],
+  "nufus": [
+   "https://www.nufusu.com/il/hatay-nufusu"
+  ]
+ }
+}

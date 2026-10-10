@@ -15,6 +15,7 @@ git checkout cok-sehir && git pull
 python3 tools/sinir_indir.py izmir
 python3 tools/sinir_indir.py aydin
 python3 tools/sinir_indir.py mugla
+python3 tools/sinir_indir.py hatay
 python3 tools/sinir_indir.py gaziantep
 ```
 
@@ -80,3 +81,16 @@ Ardından `sehirler/index.json` içinde şehrin `durum` değeri `hazir` yapılı
 
 - **Şahinbey** (Gaziantep merkez): https://www.emlakjet.com/satilik-konut/gaziantep-sahinbey
 - **Şehitkamil** (Gaziantep merkez): https://www.emlakjet.com/satilik-konut/gaziantep-sehitkamil
+
+### Hatay
+
+- **Erzin** (Hatay kıyı): https://www.emlakjet.com/satilik-konut/hatay-erzin
+- **Dörtyol** (Hatay kıyı): https://www.emlakjet.com/satilik-konut/hatay-dortyol
+- **Payas** (Hatay kıyı): https://www.emlakjet.com/satilik-konut/hatay-payas
+- **İskenderun** (Hatay kıyı): https://www.emlakjet.com/satilik-konut/hatay-iskenderun
+- **Arsuz** (Hatay kıyı): https://www.emlakjet.com/satilik-konut/hatay-arsuz
+- **Samandağ** (Hatay kıyı): https://www.emlakjet.com/satilik-konut/hatay-samandag
+- **Defne** (Antakya): https://www.emlakjet.com/satilik-konut/hatay-defne
+- **Antakya** (Antakya): https://www.emlakjet.com/satilik-konut/hatay-antakya
+
+Hatay'ın mahalle sınırları açık veri setinde yok: `python3 tools/sinir_indir.py hatay` (OpenStreetMap) ile eklenir.

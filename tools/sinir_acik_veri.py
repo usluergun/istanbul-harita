@@ -18,7 +18,7 @@ import json, os, sys, unicodedata
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sinir_indir import dp, r5, etiket_noktasi, kisa  # noqa: E402
 
-PLAKA = {'İstanbul': '34', 'İzmir': '35', 'Aydın': '09', 'Gaziantep': '27', 'Ankara': '06', 'Antalya': '07', 'Muğla': '48', 'Bursa': '16'}
+PLAKA = {'İstanbul': '34', 'İzmir': '35', 'Aydın': '09', 'Gaziantep': '27', 'Ankara': '06', 'Antalya': '07', 'Muğla': '48', 'Bursa': '16', 'Hatay': '31', 'Mersin': '33', 'Adana': '01'}
 
 
 def nfc(s): return unicodedata.normalize('NFC', s or '')

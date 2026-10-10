@@ -29,6 +29,12 @@
    "ad": "Gaziantep",
    "baslik": "Gaziantep merkez",
    "durum": "hazirlaniyor"
+  },
+  {
+   "id": "hatay",
+   "ad": "Hatay",
+   "baslik": "Hatay kıyı ve Antakya",
+   "durum": "hazirlaniyor"
   }
  ],
  "varsayilan": "istanbul"

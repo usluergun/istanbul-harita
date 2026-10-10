@@ -99,6 +99,16 @@
 .sheet .r{text-align:right}
 .sheet .fine{font-size:11.5px;color:#7c8a91;line-height:1.5}
 .sheet ul{margin:0;padding-left:18px}
+.sheet.mut .reads{line-height:1.55;padding-left:18px}.sheet.mut .reads li{margin-bottom:4px}
+.sheet .mbar{display:inline-block;height:7px;border-radius:3px;background:#c4cdd1;vertical-align:middle;margin-right:6px}
+.sheet .mtwo{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 24px}
+.sheet .mhb{display:grid;grid-template-columns:auto 1fr auto;gap:5px 8px;align-items:center;font-size:12.5px}
+.sheet .mhb .l{text-align:right;white-space:nowrap}.sheet .mhb .t{height:12px}.sheet .mhb .t i{display:block;height:100%;border-radius:3px;background:#c4cdd1}
+.sheet .mhb .t i.hi{background:#0f7a6c}.sheet .mhb .v{color:#7c8a91;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sheet .mvb{display:flex;gap:12px;align-items:flex-end;border-bottom:1px solid #1c2830;padding-top:6px}
+.sheet .mvb div{flex:1;display:flex;flex-direction:column;align-items:center;font-size:12px}.sheet .mvb i{display:block;width:60%;max-width:56px;background:#0f7a6c;border-radius:3px 3px 0 0;margin-top:3px}
+.sheet .mvb em{font-style:normal;color:#7c8a91;font-size:11px;margin:4px 0 -20px;white-space:nowrap}.sheet .mvb{margin-bottom:24px}
+.rbar select{font:inherit;font-size:14px;padding:6px 10px;border-radius:8px;border:1px solid #c4cdd1;background:#fff;color:#1c2830;margin-right:auto}
 @media (max-width:600px){.sheet{padding:20px 16px}.sheet .who{text-align:left}.sheet .big{grid-template-columns:1fr 1fr}.sheet .kv b{font-size:17px}}
 @media (max-width:900px){.panel.t-val .foot,.panel.t-mah .foot{display:none}}
 @media print{
@@ -109,6 +119,9 @@
   .rbar{display:none!important}
   .sheet{box-shadow:none;border-radius:0;max-width:none;padding:0}
   .sheet .who [contenteditable]{border:0}
+  .sheet tr,.sheet .mhb,.sheet .mvb{break-inside:avoid}
+  .sheet h3{break-after:avoid}
+  .rbar select{display:none}
   @page{size:A4;margin:14mm}
 }
 /* örnek ofis portföyü */
@@ -267,7 +280,7 @@ h1{font-family:var(--f-display);font-size:22px;line-height:1.05;margin:0}
     <div class="eyebrow">İstanbul batı yakası · satılık konut</div>
     <h1>Mahalle Fiyat Haritası</h1>
     <a class="crm-link" href="crm.html">Ofis Paneli: müşteri, portföy, eşleştirme →</a>
-    <a class="crm-link" id="rapor-link" href="https://claude.ai/artifact/FePtH1mH9tJYSmqWZzpaDo" target="_blank" rel="noopener">Müteahhit pazar raporu →</a>
+    <a class="crm-link" id="rapor-link" href="#" role="button">Müteahhit pazar raporu →</a>
     <div class="row" id="bolgeler" role="group" aria-label="Bölge"></div>
     <div class="cnt"><b id="n">0</b> ilan gösteriliyor · toplam <span id="t">0</span></div>
     <div class="row">
@@ -568,7 +581,8 @@ tog('t-heat', v => {
 document.getElementById('heat-fab').onclick = () => document.getElementById('t-heat').click();
 const RAPOR_SLUG = {'Avcılar':'avcilar','Bağcılar':'bagcilar','Başakşehir':'basaksehir','Beylikdüzü':'beylikduzu','Esenyurt':'esenyurt','Güngören':'gungoren','Küçükçekmece':'kucukcekmece'};
 function raporLink(){ const a = document.getElementById('rapor-link'); if (!a) return; const sl = RAPOR_SLUG[bolge];
-  a.href = 'https://claude.ai/artifact/FePtH1mH9tJYSmqWZzpaDo' + (sl ? '#' + sl : ''); a.textContent = sl ? `Müteahhit raporu: ${bolge} →` : 'Müteahhit pazar raporu →'; }
+  a.textContent = sl ? `Müteahhit raporu: ${bolge} →` : 'Müteahhit pazar raporu →'; }
+document.getElementById('rapor-link').onclick = e => { e.preventDefault(); if (mobile()) menu(false); window.__mutRap && window.__mutRap(RAPOR_SLUG[bolge] ? bolge : 'Küçükçekmece'); };
 const _render = render; render = function(){ _render(); heatRefresh(); raporLink(); };
 raporLink();
 document.querySelectorAll('.b-base').forEach(b => { const o = b.onclick; b.onclick = () => { o(); if (heatOn) heatStyle(); }; });
@@ -791,6 +805,101 @@ window.__mahRep = openMahReport;
 function closeReport(){ $('rep').hidden = true; document.body.style.overflow = ''; }
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('rep').hidden) closeReport(); });
 window.__openReportFor = (b, mahN, m2, oda, yas, site) => { const k = MAH.features.findIndex(f => f.properties.i === b && f.properties.n === mahN); openReport(estimate({b, mk:k, m2, oda, yas, site})); };
+
+// --- 18) müteahhit pazar raporu (ilçe bazında, yazdırılabilir)
+const MUT_TARAMA = new Date('2026-09-26T12:00:00');
+const mutGun = x => { const t = Date.parse((x.tarih || '') + 'T12:00:00'); return isNaN(t) ? null : Math.round((MUT_TARAMA - t) / 864e5); };
+const mutYas = y => y.startsWith('0 (Yap') ? 'Yapım aşamasında' : y.startsWith('0') ? 'Sıfır (oturuma hazır)' : ['1','2','3','4','5'].includes(y) ? '1–5 yaş' : y === '6-10' ? '6–10 yaş' : '11+ yaş';
+const MUT_YAS = ['Yapım aşamasında', 'Sıfır (oturuma hazır)', '1–5 yaş', '6–10 yaş', '11+ yaş'];
+const mutM2 = x => x.p / brutM2(x);
+const r0 = v => Math.round(v);
+const tlr = v => v == null ? '—' : r0(v).toLocaleString('tr-TR') + ' TL';
+const pc = v => '%' + r0(v * 100);
+const k1 = v => (v / 1000).toLocaleString('tr-TR', {maximumFractionDigits: 1}) + 'B';
+function mutStats(il){
+  const A = ILAN.filter(x => brutM2(x)), K = A.filter(x => x.b === il);
+  const Y = K.filter(x => x.yeni), E = K.filter(x => !x.yeni), S0 = K.filter(x => x.yas.startsWith('0'));
+  const yas = MUT_YAS.map(g => { const v = K.filter(x => mutYas(x.yas) === g); return {g, n: v.length, m2: med(v.map(mutM2))}; }).filter(r => r.n);
+  const og = {}; Y.forEach(x => (og[x.oda] = og[x.oda] || []).push(x));
+  const netN = x => parseInt(String(x.net || '')) || null;
+  const oda = Object.entries(og).filter(([, v]) => v.length >= 3).map(([o, v]) => ({o, n: v.length, p: med(v.map(x => x.p)), b: med(v.map(brutM2)), net: med(v.map(netN).filter(Boolean)), m2: med(v.map(mutM2))})).sort((a, b) => b.n - a.n);
+  const mg = {}; K.forEach(x => { if (x.mk >= 0) (mg[x.mk] = mg[x.mk] || []).push(x); });
+  const mah = Object.entries(mg).map(([k, v]) => { const yv = v.filter(x => x.yeni);
+    return {mh: short(MAH.features[k].properties.n), n: v.length, m2: med(v.map(mutM2)), yn: yv.length, ym2: yv.length >= 3 ? med(yv.map(mutM2)) : null,
+      s0: v.filter(x => x.yas.startsWith('0')).length, yp: v.filter(x => x.yas.startsWith('0 (Yap')).length, site: v.filter(x => x.site).length / v.length,
+      gun: med(v.map(mutGun).filter(g => g != null))}; }).sort((a, b) => b.m2 - a.m2);
+  const ilceler = [...new Set(A.map(x => x.b))].map(b => { const v = A.filter(x => x.b === b);
+    return {b, m2: med(v.map(mutM2)), s0: v.filter(x => x.yas.startsWith('0')).length / v.length}; }).sort((a, b) => b.m2 - a.m2);
+  const gs = K.map(mutGun).filter(g => g != null);
+  const bek = [['0–30 gün', 0, 31], ['31–90 gün', 31, 91], ['91–180 gün', 91, 181], ['180+ gün', 181, 1e9]].map(([g, lo, hi]) => ({g, n: gs.filter(d => d >= lo && d < hi).length}));
+  return {il, n: K.length, m2: med(K.map(mutM2)), p: med(K.map(x => x.p)), b: med(K.map(brutM2)), s0: S0.length, bos: S0.filter(x => x.kul === 'Boş').length,
+    yp: S0.filter(x => x.yas.startsWith('0 (Yap')).length, ym2: med(Y.map(mutM2)), em2: med(E.map(mutM2)),
+    gy: med(Y.map(mutGun).filter(g => g != null)), ge: med(E.map(mutGun).filter(g => g != null)), yas, oda, mah, ilceler, bek};
+}
+function mutHbars(rows, lab, val, side, hi){
+  const mx = Math.max(...rows.map(val)) || 1;
+  return `<div class="mhb">${rows.map(r => `<div class="l">${esc(lab(r))}</div><div class="t"><i class="${hi(r) ? 'hi' : ''}" style="width:${(100 * val(r) / mx).toFixed(1)}%"></i></div><div class="v">${esc(side(r))}</div>`).join('')}</div>`;
+}
+function openMutRapor(il){
+  const R = mutStats(il), prim = R.ym2 / R.em2 - 1, bos = R.s0 ? R.bos / R.s0 : 0, toda = R.oda.reduce((s, r) => s + r.n, 0) || 1;
+  const lst = (rows, f) => rows.map((r, i) => (i ? (i === rows.length - 1 ? ' ve ' : ', ') : '') + `${esc(r.mh)} (<b>${f(r)}</b>)`).join('');
+  const reads = [];
+  const rk = R.mah.filter(r => r.s0 > 0).sort((a, b) => b.s0 - a.s0).slice(0, 4);
+  if (rk.length) reads.push(`Rekabet en yoğun: ${lst(rk, r => r.s0 + ' sıfır ilan')}. Bu mahallelerde yeni proje, satılmayı bekleyen sıfır stokla yarışır.`);
+  const yt = R.mah.filter(r => r.ym2 != null).sort((a, b) => b.ym2 - a.ym2).slice(0, 3);
+  if (yt.length) reads.push(`Yeni binada en yüksek m² fiyatı: ${lst(yt, r => tlr(r.ym2))}.`);
+  const sm = R.mah.map(r => r.m2).sort((a, b) => a - b), md = sm[sm.length >> 1];
+  const az = R.mah.filter(r => r.m2 > md && r.yn < 3 && r.n >= 10);
+  if (az.length) reads.push(`Fiyatı ilçe ortancasının üstünde ama yeni arzı neredeyse yok: ${az.map(r => `${esc(r.mh)} (<b>${tlr(r.m2)}</b>, <b>${r.yn}</b> yeni ilan)`).join(', ')}. Arsa veya kentsel dönüşüm fırsatı burada aranabilir.`);
+  if (R.oda.length >= 2) reads.push(`Yeni binalarda arz ${esc(R.oda[0].o)} (<b>${pc(R.oda[0].n / toda)}</b>) ve ${esc(R.oda[1].o)} (<b>${pc(R.oda[1].n / toda)}</b>) ağırlıklı. Bu tiplerde fiyatla, diğerlerinde farklılaşarak rekabet edilir.`);
+  if (R.s0) reads.push(`Sıfır dairelerin <b>${pc(bos)}</b>'i boş, yani satılmayı bekleyen stok. Fiyat kararı bu stoka göre verilmeli.`);
+  const mx = Math.max(...R.mah.map(r => r.m2));
+  const bmx = Math.max(...R.bek.map(r => r.n)) || 1;
+  const ilceOpts = [...new Set(ILAN.map(x => x.b))].sort((a, b) => a.localeCompare(b, 'tr')).map(b => `<option${b === il ? ' selected' : ''}>${esc(b)}</option>`).join('');
+  const rep = $('rep');
+  rep.innerHTML = `<div class="rbar"><select id="r-ilce" aria-label="İlçe">${ilceOpts}</select>${canPrint ? '<button class="btn" type="button" id="r-print">Yazdır / PDF olarak kaydet</button>' : ''}<button class="btn sec" type="button" id="r-close">Kapat</button></div>
+  <article class="sheet mut">
+    <header><div><div class="ey">Müteahhit pazar raporu · ${esc(today)}</div><h2>${esc(il)} konut pazarı</h2>
+      <div style="color:#4f5f68;font-size:13px">Satılık daire · 5,5–10 M₺ fiyat bandı · ${R.n} ilan</div></div>
+      <div class="who">Hazırlayan<br><span contenteditable="true" id="r-office" spellcheck="false">${esc(office)}</span></div></header>
+    <p style="margin:14px 0 0;font-size:15px">Fiyat bandındaki <b>${R.n}</b> ilanın <b>${R.s0}</b>'i sıfır daire. ${prim >= 0 ? `Yeni binalar m²'de eski binalardan <b>${pc(prim)}</b> pahalı` : `Yeni binalar m²'de eski binalardan <b>${pc(-prim)}</b> ucuz`}${R.oda.length ? `; yeni arzın <b>${pc(R.oda[0].n / toda)}</b>'i ${esc(R.oda[0].o)}.` : '.'}</p>
+    <h3>Özet</h3>
+    <div class="big"><div class="kv hl"><span>Ortanca brüt m² fiyatı</span><b>${tlr(R.m2)}</b></div>
+      <div class="kv"><span>Ortanca daire</span><b>${mtl(R.p)} · ${r0(R.b)} m²</b></div>
+      <div class="kv"><span>Sıfır daire ilanı</span><b>${R.s0}</b></div>
+      <div class="kv"><span>Yapımda · boş sıfır</span><b>${R.yp} · ${pc(bos)}</b></div>
+      <div class="kv"><span>Yeni bina (0–5 yaş) m²</span><b>${tlr(R.ym2)}</b></div>
+      <div class="kv"><span>Yeni binanın m² farkı</span><b>${(prim >= 0 ? '+' : '−') + pc(Math.abs(prim))}</b></div></div>
+    <h3>Müteahhit için okuma</h3>
+    <ul class="reads">${reads.map(r => `<li>${r}</li>`).join('')}</ul>
+    <h3>Mahalleler · m² fiyatına göre</h3>
+    <div class="tw"><table><thead><tr><th>Mahalle</th><th class="r">İlan</th><th class="r">m² fiyatı</th><th class="r">Yeni bina m²</th><th class="r">Sıfır</th><th class="r">Yapımda</th><th class="r">Site içi</th><th class="r">Bekleme</th></tr></thead><tbody>
+    ${R.mah.map(r => `<tr><td>${esc(r.mh)}</td><td class="r">${r.n}</td><td class="r"><span class="mbar" style="width:${(44 * r.m2 / mx).toFixed(0)}px"></span>${tlr(r.m2)}</td><td class="r">${tlr(r.ym2)}</td><td class="r">${r.s0}</td><td class="r">${r.yp}</td><td class="r">%${r0(r.site * 100)}</td><td class="r">${r0(r.gun)} gün</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="mtwo">
+      <div><h3>Bina yaşına göre m² fiyatı</h3>${mutHbars(R.yas, r => r.g, r => r.m2, r => k1(r.m2) + ' · ' + r.n, r => r.g.startsWith('Yap') || r.g.startsWith('Sıf'))}</div>
+      <div><h3>İlçelere göre m² fiyatı</h3>${mutHbars(R.ilceler, r => r.b, r => r.m2, r => k1(r.m2) + ' · %' + r0(r.s0 * 100) + ' sıfır', r => r.b === il)}</div>
+    </div>
+    <h3>Yeni binalarda daire tipi (0–5 yaş)</h3>
+    <div class="tw"><table><thead><tr><th>Tip</th><th class="r">İlan</th><th class="r">Pay</th><th class="r">Fiyat</th><th class="r">Brüt</th><th class="r">Net</th><th class="r">m² fiyatı</th></tr></thead><tbody>
+    ${R.oda.map(r => `<tr><td>${esc(r.o)}</td><td class="r">${r.n}</td><td class="r">${pc(r.n / toda)}</td><td class="r">${mtl(r.p)}</td><td class="r">${r0(r.b)} m²</td><td class="r">${r.net ? r0(r.net) + ' m²' : '—'}</td><td class="r">${tlr(r.m2)}</td></tr>`).join('')}
+    </tbody></table></div>
+    <h3>İlanda bekleme süresi</h3>
+    <p class="fine" style="margin:0 0 6px">Yeni binalarda ortanca ${r0(R.gy)} gün, eski binalarda ${r0(R.ge)} gün.</p>
+    <div class="mvb">${R.bek.map(r => `<div><span>${r.n}</span><i style="height:${(70 * r.n / bmx).toFixed(0)}px"></i><em>${esc(r.g)}</em></div>`).join('')}</div>
+    <h3>Yöntem ve sınırlar</h3>
+    <ul class="fine"><li>Kaynak: emlakjet.com satılık daire ilanları, 26–30 Eylül 2026 taraması. Yalnızca 5,5–10 M₺ arası ilanlar tarandı; bu bandın dışındaki daireler (küçük 1+1'ler, büyük daireler) eksik temsil edilir.</li>
+    <li>m² fiyatı = ilan fiyatı ÷ brüt m². Değerler ortancadır (medyan). Sıfır: 0 yaş (yapımda veya oturuma hazır). Yeni bina: 0–5 yaş. Haritadaki filtreler bu raporu etkilemez.</li>
+    <li>Bunlar ilan (istenen) fiyatlarıdır, satış fiyatı değildir. Bekleme süresi yayında kalan ilanlardan hesaplandı; satılıp yayından kalkanlar görünmez. Gerçek satış hızı için düzenli tarama gerekir.</li></ul>
+  </article>`;
+  rep.hidden = false; document.body.style.overflow = 'hidden'; rep.scrollTop = 0;
+  map.closePopup();
+  $('r-close').onclick = closeReport;
+  $('r-ilce').onchange = e => openMutRapor(e.target.value);
+  $('r-office').oninput = e => { office = e.target.textContent.trim() || 'Ofis adınız'; };
+  if (canPrint) $('r-print').onclick = () => window.print();
+}
+window.__mutRap = openMutRapor;
 
 // --- 4) örnek ofis portföyü (demo; gerçek bir ofisin ilanları değildir)
 // --- 17) ofis portföyü: Ofis Paneli'ne girilen portföy (bu cihazda saklanır); yoksa örnek gösterilir

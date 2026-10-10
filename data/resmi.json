@@ -1,20 +1,133 @@
 {
-  "donem": "Ağustos 2026",
-  "tuik": {
-    "kaynak": "TÜİK Konut Satış İstatistikleri, Ağustos 2026 (yayın: Eylül 2026)",
-    "turkiye": {"satis": 127410, "yillik": -0.147, "ilk_el": 44378, "ipotekli": 22131},
-    "istanbul": {"satis": 20426, "pay": 0.160, "ilk_el": 5813, "ipotekli": 4510},
-    "ilce": {"Esenyurt": 2545, "Küçükçekmece": 919, "Başakşehir": 888, "Avcılar": 727, "Beylikdüzü": 723, "Bağcılar": 533, "Güngören": 356}
+ "donem": "Ağustos 2026",
+ "tuik": {
+  "kaynak": "TÜİK Konut Satış İstatistikleri, Ağustos 2026 (yayın: Eylül 2026)",
+  "turkiye": {
+   "satis": 127410,
+   "yillik": -0.147,
+   "ilk_el": 44378,
+   "ipotekli": 22131
   },
-  "tcmb": {
-    "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
-    "istanbul_fiyat_yillik": 0.263, "istanbul_fiyat_aylik": 0.019,
-    "turkiye_fiyat_yillik": 0.23, "turkiye_fiyat_reel_yillik": -0.065,
-    "istanbul_kira_yillik": 0.345
+  "istanbul": {
+   "satis": 20426,
+   "pay": 0.16,
+   "ilk_el": 5813,
+   "ipotekli": 4510
   },
-  "notlar": [
-    "İstanbul ilk el = ipoteksiz ilk el 4.891 + ipotekli ilk el 922.",
-    "İlçe rakamları TÜİK'in ilçe kırılımıdır; ilçe toplamı İstanbul toplamına (20.426) eşittir.",
-    "Derleme kaynakları: alomaliye.com (17.09.2026, 16.09.2026), foreks.com Bizim Menkul analizi (21.09.2026), tasinmazhaber.com (23.09.2026), fintables.com (02.10.2026)."
-  ]
+  "ilce": {
+   "Esenyurt": 2545,
+   "Küçükçekmece": 919,
+   "Başakşehir": 888,
+   "Avcılar": 727,
+   "Beylikdüzü": 723,
+   "Bağcılar": 533,
+   "Güngören": 356
+  },
+  "aylik": {
+   "2026-01": {
+    "İstanbul": 20412,
+    "Esenyurt": 2407,
+    "Küçükçekmece": 1023,
+    "Başakşehir": 621,
+    "Avcılar": 662,
+    "Beylikdüzü": 779,
+    "Bağcılar": 495,
+    "Güngören": 397
+   },
+   "2026-05": {
+    "İstanbul": 18206,
+    "Esenyurt": 2109,
+    "Küçükçekmece": 833,
+    "Başakşehir": 691,
+    "Avcılar": 572,
+    "Beylikdüzü": 772,
+    "Bağcılar": 479,
+    "Güngören": 395
+   },
+   "2026-06": {
+    "İstanbul": 24084,
+    "Esenyurt": 2597,
+    "Küçükçekmece": 1370,
+    "Başakşehir": 1023,
+    "Avcılar": 849,
+    "Beylikdüzü": 952,
+    "Bağcılar": 590,
+    "Güngören": 414
+   },
+   "2026-07": {
+    "İstanbul": 22594,
+    "Esenyurt": 2663,
+    "Küçükçekmece": 1094,
+    "Başakşehir": 1117,
+    "Avcılar": 739,
+    "Beylikdüzü": 923,
+    "Bağcılar": 573,
+    "Güngören": 326
+   },
+   "2026-08": {
+    "İstanbul": 20426,
+    "Esenyurt": 2545,
+    "Küçükçekmece": 919,
+    "Başakşehir": 888,
+    "Avcılar": 727,
+    "Beylikdüzü": 723,
+    "Bağcılar": 533,
+    "Güngören": 356
+   }
+  },
+  "istanbul_aylik": {
+   "2026-01": 20412,
+   "2026-03": 21665,
+   "2026-05": 18206,
+   "2026-06": 24084,
+   "2026-07": 22594,
+   "2026-08": 20426
+  }
+ },
+ "tcmb": {
+  "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
+  "istanbul_fiyat_yillik": 0.263,
+  "istanbul_fiyat_aylik": 0.019,
+  "turkiye_fiyat_yillik": 0.23,
+  "turkiye_fiyat_reel_yillik": -0.065,
+  "istanbul_kira_yillik": 0.345
+ },
+ "notlar": [
+  "İstanbul ilk el = ipoteksiz ilk el 4.891 + ipotekli ilk el 922 (Ağustos 2026).",
+  "İlçe aylık satışları TÜİK ilçe kırılımıdır; ilçe toplamları İstanbul toplamına eşittir (Ağustos 2026 doğrulandı). Şubat, Mart ve Nisan 2026 ilçe verisi bulunamadı.",
+  "Ocak 2026 İstanbul toplamı (20.412) iki kaynakla doğrulandı (gayrimenkulhaber.com, fintables.com).",
+  "2025 ilçe nüfusları nufusu.com ve nufusune.com'da aynıdır (TÜİK ADNKS 2025); 2021 nüfusları TÜİK ADNKS 2021.",
+  "Derleme kaynakları: alomaliye.com, foreks.com (Bizim Menkul), tasinmazhaber.com, gayrimenkulhaber.com, fintables.com, ekonomist.com.tr, aa.com.tr, bruxelleskorner.com, haber.sol.org.tr."
+ ],
+ "nufus": {
+  "kaynak": "TÜİK Adrese Dayalı Nüfus Kayıt Sistemi (2021 ve 2025 sonuçları)",
+  "2025": {
+   "Esenyurt": 1003905,
+   "Küçükçekmece": 785270,
+   "Başakşehir": 536797,
+   "Bağcılar": 707635,
+   "Avcılar": 440663,
+   "Beylikdüzü": 422988,
+   "Güngören": 251242,
+   "İstanbul": 15754053
+  },
+  "2021": {
+   "Esenyurt": 977489,
+   "Küçükçekmece": 805930,
+   "Başakşehir": 503243,
+   "Bağcılar": 744351,
+   "Avcılar": 457981,
+   "Beylikdüzü": 398122,
+   "Güngören": 283083,
+   "İstanbul": 15840900
+  }
+ },
+ "yapi_izin": {
+  "kaynak": "TÜİK Yapı İzin İstatistikleri (Türkiye geneli)",
+  "ruhsat_daire_2026c1": 232252,
+  "ruhsat_daire_2026c1_yillik": 0.37,
+  "ruhsat_daire_2026c2_yillik": -0.095,
+  "iskan_daire_2026c2_yillik": 0.107,
+  "not": "İstanbul ve ilçe kırılımı bulunamadı; Türkiye geneli eğilim olarak verilir."
+ }
 }

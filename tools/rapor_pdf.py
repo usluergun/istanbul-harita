@@ -89,6 +89,31 @@ def resmi(il):
 {hbars(rows, lambda r: r['b'], lambda r: r['v'], lambda r: nf(r['v']), lambda r: r['b'] == il)}
 <p class="note" style="margin:2mm 0 0">Kaynak: {e(T["kaynak"])}; {e(C["kaynak"])}.</p></div>'''
 
+AYAD = {'01':'Oca','02':'Şub','03':'Mar','04':'Nis','05':'May','06':'Haz','07':'Tem','08':'Ağu','09':'Eyl','10':'Eki','11':'Kas','12':'Ara'}
+def talep_rows():
+    A, N = RESMI['tuik']['aylik'], RESMI['nufus']; son3 = sorted(A)[-3:]
+    rows = []
+    for b in RESMI['tuik']['ilce']:
+        s3 = sum(A[m].get(b, 0) for m in son3); n = N['2025'][b]
+        rows.append({'b': b, 's3': s3, 'nf': n, 'dn': n / N['2021'][b] - 1, 'k': s3 / len(son3) * 12 / n * 1000})
+    return sorted(rows, key=lambda r: -r['k']), son3
+
+def k1d(v): return ('%.1f' % v).replace('.', ',')
+
+def talep(il):
+    A = RESMI['tuik']['aylik']; rows, son3 = talep_rows(); Y = RESMI['yapi_izin']
+    seri = [(AYAD[m[5:]] + ' ' + m[2:4], A[m].get(il, 0)) for m in sorted(A)]
+    mx = max(v for _, v in seri) or 1
+    vb = ''.join(f'<div class="c"><span>{nf(v)}</span><i style="height:{80 * v / mx:.1f}%"></i></div>' for _, v in seri)
+    vbl = ''.join(f'<span>{e(g)}</span>' for g, _ in seri)
+    tr = ''.join(f'<tr{" style=\"background:#e8f1f6;font-weight:600\"" if r["b"] == il else ""}><td>{e(r["b"])}</td><td>{nf(r["s3"])}</td><td>{nf(r["nf"])}</td><td>{sp(r["dn"])}</td><td>{k1d(r["k"])}</td></tr>' for r in rows)
+    return f'''<div class="card"><h2>Son aylar ve talep · {e(il)}</h2>
+<div class="two"><div><h3>Tapuda satılan konut, aylık</h3><div class="vb" style="height:30mm">{vb}</div><div class="vbl">{vbl}</div>
+<p class="note" style="margin:2mm 0 0">Şubat–Nisan 2026 ilçe verisi bulunamadı.</p></div>
+<div><h3>Talebin nüfusa göre yoğunluğu</h3><table><thead><tr><th>İlçe</th><th>3 ay satış</th><th>Nüfus 2025</th><th>2021–25</th><th>Satış/1.000</th></tr></thead><tbody>{tr}</tbody></table>
+<p class="note" style="margin:2mm 0 0">3 ay: {"–".join(AYAD[m[5:]] for m in son3)} {son3[0][:4]}. Satış/1.000: 1.000 kişiye düşen yıllık konut satışı.</p></div></div>
+<p class="note" style="margin:2mm 0 0"><b>Gelecek arz (Türkiye geneli):</b> Yapı ruhsatı alan daire sayısı 2026'nın 1. çeyreğinde yıllık {sp(Y["ruhsat_daire_2026c1_yillik"])} artışla {nf(Y["ruhsat_daire_2026c1"])} oldu, 2. çeyrekte {sp(Y["ruhsat_daire_2026c2_yillik"])} değişti; iskân alan daire sayısı 2. çeyrekte {sp(Y["iskan_daire_2026c2_yillik"])} arttı. İstanbul ve ilçe kırılımı bulunamadı.</p></div>'''
+
 def sayfa(il):
     o = next(r for r in L['ozet'] if r['ilce'] == il)
     yas = [r for r in L['yas'] if r['ilce'] == il and r['ilan'] > 0]
@@ -114,6 +139,10 @@ def sayfa(il):
     if il in RESMI['tuik']['ilce']:
         C = RESMI['tcmb']
         reads.append(f"{e(RESMI['donem'])}'da {e(LOC.get(il, il))} <b>{nf(RESMI['tuik']['ilce'][il])}</b> konut el değiştirdi. İstanbul'da fiyatlar yıllık <b>{sp(C['istanbul_fiyat_yillik'])}</b> arttı; Türkiye genelinde reel olarak <b>{sp(C['turkiye_fiyat_reel_yillik'])}</b>, yani fiyatlar enflasyonun gerisinde.")
+    tr_, _ = talep_rows(); me = next((r for r in tr_ if r['b'] == il), None)
+    if me:
+        ort = sum(r['k'] for r in tr_) / len(tr_)
+        reads.append(f"Talep yoğunluğu: {e(LOC.get(il, il))} 1.000 kişiye yılda <b>{k1d(me['k'])}</b> konut satışı düşüyor (7 ilçe ortalaması <b>{k1d(ort)}</b>). Nüfus 2021'den bu yana <b>{sp(me['dn'])}</b> değişti.")
     if o['sifir_ilan']: reads.append(f'Sıfır dairelerin <b>{pct(bos)}</b>\'i boş, yani satılmayı bekleyen stok. Fiyat kararı bu stoka göre verilmeli.')
     mx = max(r['m2_medyan'] for r in mah)
     mrows = ''.join(f'<tr><td>{e(r["mahalle"])}</td><td>{nf(r["ilan"])}</td><td><span class="bar" style="width:{14 * r["m2_medyan"] / mx:.1f}mm"></span>{tl(r["m2_medyan"])}</td><td>{tl(r["yeni_m2"])}</td><td>{nf(r["sifir_ilan"])}</td><td>{nf(r["yapimda"])}</td><td>%{r["site_pay"]}</td><td>{nf(r["bekleme_gun"])} gün</td></tr>' for r in mah)
@@ -133,8 +162,9 @@ def sayfa(il):
  <div class="tile"><div class="l">Yeni binanın m² farkı</div><div class="b">{('+' if prim >= 0 else '−') + pct(abs(prim))}</div><div class="n"><span>0–5 yaş: {tl(o['yeni_m2'])}/m²</span><span>6+ yaş: {tl(o['eski_m2'])}/m²</span></div></div>
 </div>
 {resmi(il)}
+{talep(il)}
 <div class="card"><h2>Müteahhit için okuma</h2><ul class="reads">{''.join(f'<li>{r}</li>' for r in reads)}</ul></div>
-<div class="card" style="break-inside:auto;break-before:page"><h2>Mahalleler</h2><p class="note">m² fiyatına göre sıralı. Yeni bina m²: mahallede en az 3 yeni (0–5 yaş) ilan varsa. Bekleme: ilan tarihinden tarama gününe geçen ortanca süre.</p>
+<div class="card" style="break-inside:auto"><h2>Mahalleler</h2><p class="note">m² fiyatına göre sıralı. Yeni bina m²: mahallede en az 3 yeni (0–5 yaş) ilan varsa. Bekleme: ilan tarihinden tarama gününe geçen ortanca süre.</p>
 <table><thead><tr><th>Mahalle</th><th>İlan</th><th>m² fiyatı</th><th>Yeni bina m²</th><th>Sıfır ilan</th><th>Yapımda</th><th>Site içi</th><th>Bekleme</th></tr></thead><tbody>{mrows}</tbody></table></div>
 <div class="two">
  <div class="card"><h3>Bina yaşına göre m² fiyatı</h3><p class="note">Ortanca brüt m² fiyatı · ilan adedi. Sıfır gruplar renkli.</p>
@@ -151,7 +181,7 @@ def sayfa(il):
 <div class="card method"><h3>Yöntem ve sınırlar</h3>
 <p>Kaynak: emlakjet.com'daki satılık daire ilanları, tarama günü {tarih(o['tarama'])}. Yalnızca {band} fiyat bandındaki ilanlar tarandı; bu bandın dışındaki daireler rapora girmedi, bu yüzden küçük 1+1'ler ve büyük daireler eksik temsil ediliyor.</p>
 <p>m² fiyatı = ilan fiyatı ÷ brüt m². Mahalle ve tip değerleri ortancadır (medyan). Aynı daire birden fazla kez ilan verildiyse bir kez sayıldı. Bunlar ilan (istenen) fiyatlarıdır, satış fiyatı değildir. Satılıp yayından kalkan ilanlar bu taramada görünmez; gerçek satış hızı için düzenli tarama gerekir.</p>
-<p>Resmî veriler: satış adetleri TÜİK'in tapu kayıtlarından, fiyat değişimi TCMB'nin banka değerleme raporlarına dayanan endeksinden alınmıştır.</p>
+<p>Resmî veriler: satış adetleri TÜİK'in tapu kayıtlarından, fiyat değişimi TCMB'nin banka değerleme raporlarına dayanan endeksinden, nüfus TÜİK Adrese Dayalı Nüfus Kayıt Sistemi'nden, yapı izinleri TÜİK Yapı İzin İstatistikleri'nden alınmıştır.</p>
 <p>Sıfır: 0 yaş (yapım aşamasında veya oturuma hazır). Yeni bina: 0–5 yaş.</p></div>
 </body></html>"""
 

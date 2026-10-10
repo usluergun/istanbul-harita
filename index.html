@@ -100,6 +100,7 @@
 .sheet .fine{font-size:11.5px;color:#7c8a91;line-height:1.5}
 .sheet ul{margin:0;padding-left:18px}
 .sheet.mut .reads{line-height:1.55;padding-left:18px}.sheet.mut .reads li{margin-bottom:4px}
+.sheet tr.sel td{background:#e8f3f1;font-weight:600}
 .sheet .mbar{display:inline-block;height:7px;border-radius:3px;background:#c4cdd1;vertical-align:middle;margin-right:6px}
 .sheet .mtwo{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 24px}
 .sheet .mhb{display:grid;grid-template-columns:auto 1fr auto;gap:5px 8px;align-items:center;font-size:12.5px}
@@ -825,8 +826,8 @@ fetch('data/resmi.json').then(r => r.ok ? r.json() : null).then(d => { RESMI = d
 const LOC = {'Avcılar':"Avcılar'da",'Bağcılar':"Bağcılar'da",'Başakşehir':"Başakşehir'de",'Beylikdüzü':"Beylikdüzü'nde",'Esenyurt':"Esenyurt'ta",'Güngören':"Güngören'de",'Küçükçekmece':"Küçükçekmece'de"};
 const loc = il => LOC[il] || il;
 const sp = v => (v >= 0 ? '+' : '−') + '%' + Math.abs(v * 100).toLocaleString('tr-TR', {maximumFractionDigits: 1});
-const MUT_TARAMA = new Date('2026-09-26T12:00:00');
-const mutGun = x => { const t = Date.parse((x.tarih || '') + 'T12:00:00'); return isNaN(t) ? null : Math.round((MUT_TARAMA - t) / 864e5); };
+const MUT_TARAMA = b => new Date((b === 'Esenyurt' || b === 'Beylikdüzü' ? '2026-09-30' : '2026-09-26') + 'T12:00:00'); // ilçe tarama günleri
+const mutGun = x => { const t = Date.parse((x.tarih || '') + 'T12:00:00'); return isNaN(t) ? null : Math.round((MUT_TARAMA(x.b) - t) / 864e5); };
 const mutYas = y => y.startsWith('0 (Yap') ? 'Yapım aşamasında' : y.startsWith('0') ? 'Sıfır (oturuma hazır)' : ['1','2','3','4','5'].includes(y) ? '1–5 yaş' : y === '6-10' ? '6–10 yaş' : '11+ yaş';
 const MUT_YAS = ['Yapım aşamasında', 'Sıfır (oturuma hazır)', '1–5 yaş', '6–10 yaş', '11+ yaş'];
 const mutM2 = x => x.p / brutM2(x);
@@ -872,7 +873,30 @@ function resmiHtml(il){
       <div class="kv"><span>Türkiye, reel yıllık</span><b>${sp(C.turkiye_fiyat_reel_yillik)}</b></div></div>
     <p class="fine" style="margin:8px 0 4px">Satılan konut: tapuda el değiştiren konut adedi (yalnızca ilan bandı değil, tüm fiyatlar). Komşu ilçelerde aynı ay:</p>
     ${mutHbars(rows, r => r.b, r => r.v, r => r.v.toLocaleString('tr-TR'), r => r.b === il)}
-    <p class="fine" style="margin:6px 0 0">Kaynak: ${esc(T.kaynak)}; ${esc(C.kaynak)}. İstanbul'da yeni kiracı kiraları yıllık ${sp(C.istanbul_kira_yillik)} arttı.</p>`;
+    ${talepHtml(il)}
+    <p class="fine" style="margin:6px 0 0">Kaynak: ${esc(T.kaynak)}; ${esc(C.kaynak)}${D.nufus ? '; ' + esc(D.nufus.kaynak) : ''}${D.yapi_izin ? '; ' + esc(D.yapi_izin.kaynak) : ''}. İstanbul'da yeni kiracı kiraları yıllık ${sp(C.istanbul_kira_yillik)} arttı.</p>`;
+}
+const AYAD = {'01':'Oca','02':'Şub','03':'Mar','04':'Nis','05':'May','06':'Haz','07':'Tem','08':'Ağu','09':'Eyl','10':'Eki','11':'Kas','12':'Ara'};
+function talepRows(){
+  const D = RESMI; if (!D || !D.tuik.aylik || !D.nufus) return [];
+  const A = D.tuik.aylik, son3 = Object.keys(A).sort().slice(-3), N = D.nufus;
+  return Object.keys(D.tuik.ilce).map(b => { const s3 = son3.reduce((t, m) => t + (A[m][b] || 0), 0);
+    return {b, s3, nf: N['2025'][b], dn: N['2025'][b] / N['2021'][b] - 1, k: s3 / son3.length * 12 / N['2025'][b] * 1000}; }).sort((a, b) => b.k - a.k);
+}
+function talepHtml(il){
+  const D = RESMI; if (!D || !D.tuik.aylik) return '';
+  const A = D.tuik.aylik, ay = Object.keys(A).sort(), son3 = ay.slice(-3), rows = talepRows();
+  const seri = ay.map(m => ({g: AYAD[m.slice(5)] + ' ' + m.slice(2, 4), n: A[m][il] || 0}));
+  const mx = Math.max(...seri.map(r => r.n)) || 1;
+  const Y = D.yapi_izin;
+  return `<h3>Son aylar ve talep · ${esc(il)}</h3>
+    <div class="mvb">${seri.map(r => `<div><span>${r.n.toLocaleString('tr-TR')}</span><i style="height:${(60 * r.n / mx).toFixed(0)}px"></i></div>`).join('')}</div><div class="mvl">${seri.map(r => `<span>${r.g}</span>`).join('')}</div>
+    <p class="fine" style="margin:6px 0 10px">Tapuda satılan konut, aylık. Şubat–Nisan ilçe verisi henüz bulunamadı.</p>
+    <div class="tw"><table><thead><tr><th>İlçe</th><th class="r">3 ay satış</th><th class="r">Nüfus</th><th class="r opt">Nüfus 2021–25</th><th class="r">Satış/1.000</th></tr></thead><tbody>
+    ${rows.map(r => `<tr${r.b === il ? ' class="sel"' : ''}><td>${esc(r.b)}</td><td class="r">${r.s3.toLocaleString('tr-TR')}</td><td class="r">${r.nf.toLocaleString('tr-TR')}</td><td class="r opt">${sp(r.dn)}</td><td class="r">${r.k.toLocaleString('tr-TR', {maximumFractionDigits: 1})}</td></tr>`).join('')}
+    </tbody></table></div>
+    <p class="fine" style="margin:6px 0 0">Son 3 ay: ${son3.map(m => AYAD[m.slice(5)]).join('–')} ${son3[0].slice(0, 4)}. Nüfus: 2025. "Satış/1.000": 1.000 kişiye düşen yıllık konut satışı (son 3 ayın aylık ortalaması × 12 ÷ nüfus); talebin nüfusa göre yoğunluğunu gösterir.</p>
+    ${Y ? `<p class="fine" style="margin:6px 0 0"><b>Gelecek arz (Türkiye geneli):</b> Yapı ruhsatı alan daire sayısı 2026'nın 1. çeyreğinde yıllık ${sp(Y.ruhsat_daire_2026c1_yillik)} artışla ${Y.ruhsat_daire_2026c1.toLocaleString('tr-TR')} oldu, 2. çeyrekte ${sp(Y.ruhsat_daire_2026c2_yillik)} değişti. İskân alan daire sayısı 2. çeyrekte ${sp(Y.iskan_daire_2026c2_yillik)} arttı; yani tamamlanıp piyasaya giren yeni konut artıyor. İstanbul ve ilçe kırılımı bulunamadı.</p>` : ''}`;
 }
 function openMutRapor(il){
   const R = mutStats(il), prim = R.ym2 / R.em2 - 1, bos = R.s0 ? R.bos / R.s0 : 0, toda = R.oda.reduce((s, r) => s + r.n, 0) || 1;
@@ -888,6 +912,9 @@ function openMutRapor(il){
   if (R.oda.length >= 2) reads.push(`Yeni binalarda arz ${esc(R.oda[0].o)} (<b>${pc(R.oda[0].n / toda)}</b>) ve ${esc(R.oda[1].o)} (<b>${pc(R.oda[1].n / toda)}</b>) ağırlıklı. Bu tiplerde fiyatla, diğerlerinde farklılaşarak rekabet edilir.`);
   if (RESMI && RESMI.tuik.ilce[il] != null) { const C = RESMI.tcmb;
     reads.push(`${esc(RESMI.donem)}'da ${esc(loc(il))} <b>${RESMI.tuik.ilce[il].toLocaleString('tr-TR')}</b> konut el değiştirdi. İstanbul'da fiyatlar yıllık <b>${sp(C.istanbul_fiyat_yillik)}</b> arttı; Türkiye genelinde reel olarak <b>${sp(C.turkiye_fiyat_reel_yillik)}</b>, yani fiyatlar enflasyonun gerisinde.`); }
+  { const tr = talepRows(), me = tr.find(r => r.b === il);
+    if (me) { const ort = tr.reduce((t, r) => t + r.k, 0) / tr.length;
+      reads.push(`Talep yoğunluğu: ${esc(loc(il))} 1.000 kişiye yılda <b>${me.k.toLocaleString('tr-TR', {maximumFractionDigits: 1})}</b> konut satışı düşüyor (7 ilçe ortalaması <b>${ort.toLocaleString('tr-TR', {maximumFractionDigits: 1})}</b>). Nüfus 2021'den bu yana <b>${sp(me.dn)}</b> değişti.`); } }
   if (R.s0) reads.push(`Sıfır dairelerin <b>${pc(bos)}</b>'i boş, yani satılmayı bekleyen stok. Fiyat kararı bu stoka göre verilmeli.`);
   const mx = Math.max(...R.mah.map(r => r.m2));
   const bmx = Math.max(...R.bek.map(r => r.n)) || 1;
@@ -927,7 +954,7 @@ function openMutRapor(il){
     <h3>Yöntem ve sınırlar</h3>
     <ul class="fine"><li>Kaynak: emlakjet.com satılık daire ilanları, 26–30 Eylül 2026 taraması. Yalnızca 5,5–10 M₺ arası ilanlar tarandı; bu bandın dışındaki daireler (küçük 1+1'ler, büyük daireler) eksik temsil edilir.</li>
     <li>m² fiyatı = ilan fiyatı ÷ brüt m². Değerler ortancadır (medyan). Sıfır: 0 yaş (yapımda veya oturuma hazır). Yeni bina: 0–5 yaş. Haritadaki filtreler bu raporu etkilemez.</li>
-    <li>Resmî veriler: satış adetleri TÜİK'in tapu kayıtlarından, fiyat değişimi TCMB'nin banka değerleme raporlarına dayanan endeksinden alınmıştır.</li>
+    <li>Resmî veriler: satış adetleri TÜİK'in tapu kayıtlarından, fiyat değişimi TCMB'nin banka değerleme raporlarına dayanan endeksinden, nüfus TÜİK Adrese Dayalı Nüfus Kayıt Sistemi'nden, yapı izinleri TÜİK Yapı İzin İstatistikleri'nden alınmıştır.</li>
     <li>Bunlar ilan (istenen) fiyatlarıdır, satış fiyatı değildir. Bekleme süresi yayında kalan ilanlardan hesaplandı; satılıp yayından kalkanlar görünmez. Gerçek satış hızı için düzenli tarama gerekir.</li></ul>
   </article>`;
   rep.hidden = false; document.body.style.overflow = 'hidden'; rep.scrollTop = 0;

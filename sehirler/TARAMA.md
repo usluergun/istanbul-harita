@@ -50,10 +50,13 @@ Ardından `sehirler/index.json` içinde şehrin `durum` değeri `hazir` yapılı
 - **Çeşme** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-cesme
 - **Karaburun** (İzmir kıyı): https://www.emlakjet.com/satilik-konut/izmir-karaburun
 
-### Aydın
+### Aydın ve Muğla kıyısı
 
 - **Kuşadası** (Aydın kıyı): https://www.emlakjet.com/satilik-konut/aydin-kusadasi
+- **Söke** (Aydın kıyı): https://www.emlakjet.com/satilik-konut/aydin-soke
 - **Didim** (Aydın kıyı): https://www.emlakjet.com/satilik-konut/aydin-didim
+- **Milas** (Muğla kıyı): https://www.emlakjet.com/satilik-konut/mugla-milas
+- **Bodrum** (Muğla kıyı): https://www.emlakjet.com/satilik-konut/mugla-bodrum
 
 ### Gaziantep
 

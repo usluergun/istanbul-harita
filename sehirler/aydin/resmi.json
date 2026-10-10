@@ -39,9 +39,10 @@
    "2026-07": 2268,
    "2026-06": 2185,
    "2026-05": 1575,
-   "2026-01": 2076
+   "2026-01": 2076,
+   "2026-04": 2175
   },
-  "aylik_not": "Kuşadası ve Didim için 2026 aylık ilçe satışı yayımlanmış bir kaynakta bulunamadı."
+  "aylik_not": "Kuşadası, Söke, Didim, Milas ve Bodrum için 2026 aylık ilçe satışı yayımlanmış bir kaynakta bulunamadı. Üstteki il özeti Aydın içindir; Milas ve Bodrum Muğla iline bağlıdır."
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
@@ -57,12 +58,18 @@
   "2025": {
    "Aydın": 1172107,
    "Kuşadası": 141431,
-   "Didim": 103141
+   "Didim": 103141,
+   "Söke": 123843,
+   "Milas": 152275,
+   "Bodrum": 207196
   },
   "2021": {
    "Aydın": 1134031,
    "Kuşadası": 125812,
-   "Didim": 93876
+   "Didim": 93876,
+   "Söke": 122708,
+   "Milas": 145275,
+   "Bodrum": 187284
   }
  },
  "yapi_izin": {
@@ -80,7 +87,9 @@
   "Aydın 2026-07 ve 2026-06 ipotekli değerlerinin ikisi de 365. Bu iki ayrı haber kaynağında böyle geçiyor, tesadüf olabilir.",
   "TCMB TR32 (Aydın, Denizli, Muğla) yıllık %17,9: TCMB Ağustos 2026 KFE bülteninin (KFE.pdf) bölge grafiğinden metin çıkarımıyla alındı. Grafik etiketleri karışık çıktığı için bölge-değer eşleşmesi kesin değil ve ikinci kaynakla doğrulanamadı. Aylık değer bulunamadı.",
   "TR32 ve TRC1 için yeni kiracı kira endeksi bulunamadı.",
-  "TCMB bölge (TR32) yıllık değeri bültendeki grafikten okunabildi (~%17,9) ama bölge eşleşmesi kesin olmadığı için gösterilmiyor."
+  "TCMB bölge (TR32) yıllık değeri bültendeki grafikten okunabildi (~%17,9) ama bölge eşleşmesi kesin olmadığı için gösterilmiyor.",
+  "Söke, Milas, Bodrum nüfusu (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı). Aydın Nisan 2026 satışı 2.175 (gazetebirlik, 15 Mayıs 2026).",
+  "Milas ve Bodrum Muğla iline bağlıdır; TCMB bölgesi TR32 (Aydın, Denizli, Muğla) aynıdır."
  ],
  "kaynaklar": {
   "turkiye_tuik": [

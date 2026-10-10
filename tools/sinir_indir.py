@@ -127,10 +127,10 @@ def main():
     sehir = sys.argv[1]; yollar = '--yollar-yok' not in sys.argv
     kok = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sehirler', sehir)
     cfg = json.load(open(os.path.join(kok, 'config.json'), encoding='utf-8'))
-    il, ilceler = cfg['ad'], [c['ad'] for c in cfg['ilceler']]
+    ilceler = [(c['ad'], c.get('il', cfg['ad'])) for c in cfg['ilceler']]
     geo = {'mah': {'type': 'FeatureCollection', 'features': []}, 'ilce': {'type': 'FeatureCollection', 'features': []},
            'labels': {'ilce': [], 'mah': [], 'semt': []}, 'roads': [[], [], [], []]}
-    for ad in ilceler:
+    for ad, il in ilceler:
         print(f'{il} / {ad}: indiriliyor…')
         alan_q = f'area["name"="{il}"]["admin_level"="4"]["boundary"="administrative"]->.il;\nrel(area.il)["boundary"="administrative"]["admin_level"="6"]["name"="{ad}"]->.r;\n.r map_to_area->.a;\n'
         d = overpass(f'[out:json][timeout:300];\n{alan_q}(.r; rel(area.a)["boundary"="administrative"]["admin_level"="8"];);\nout geom;\n'

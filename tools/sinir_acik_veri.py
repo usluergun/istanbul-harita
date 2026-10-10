@@ -43,7 +43,6 @@ def main():
     sehir, kaynak = sys.argv[1], sys.argv[2]
     kok = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sehirler', sehir)
     cfg = json.load(open(os.path.join(kok, 'config.json'), encoding='utf-8'))
-    plaka = PLAKA[cfg['ad']]
     D = json.load(open(os.path.join(kaynak, 'dist', 'json', 'districts.json'), encoding='utf-8'))
     DG = {f['properties']['id']: f for f in json.load(open(os.path.join(kaynak, 'dist', 'geojson', 'districts.geojson'), encoding='utf-8'))['features']}
     geo = {'mah': {'type': 'FeatureCollection', 'features': []}, 'ilce': {'type': 'FeatureCollection', 'features': []},
@@ -51,6 +50,7 @@ def main():
            'kaynak': 'İlçe: HDX COD-AB-TUR (OCHA, CC BY-IGO). Mahalle: il açık veri ve KML derlemesi, github.com/ttezer/turkiye-harita-verisi'}
     for c in cfg['ilceler']:
         ad = c['ad']
+        plaka = PLAKA[c.get('il', cfg['ad'])]  # ilçe başka ile bağlıysa config'te 'il' yazar (ör. Bodrum → Muğla)
         d = next((x for x in D if x['plate_code'] == plaka and nfc(x['name']) == ad), None)
         if not d: print(f'! {ad} veri setinde bulunamadı', file=sys.stderr); continue
         g = mp(DG[d['id']]['geometry'])

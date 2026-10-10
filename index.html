@@ -267,6 +267,7 @@ h1{font-family:var(--f-display);font-size:22px;line-height:1.05;margin:0}
     <div class="eyebrow">İstanbul batı yakası · satılık konut</div>
     <h1>Mahalle Fiyat Haritası</h1>
     <a class="crm-link" href="crm.html">Ofis Paneli: müşteri, portföy, eşleştirme →</a>
+    <a class="crm-link" id="rapor-link" href="https://claude.ai/artifact/FePtH1mH9tJYSmqWZzpaDo" target="_blank" rel="noopener">Müteahhit pazar raporu →</a>
     <div class="row" id="bolgeler" role="group" aria-label="Bölge"></div>
     <div class="cnt"><b id="n">0</b> ilan gösteriliyor · toplam <span id="t">0</span></div>
     <div class="row">
@@ -565,7 +566,11 @@ tog('t-heat', v => {
   else { map.removeLayer(heatLayer); map.removeLayer(heatBg); heatLeg.remove(); if (document.getElementById('t-mah').getAttribute('aria-pressed') === 'true') mahLayer.addTo(map); }
 });
 document.getElementById('heat-fab').onclick = () => document.getElementById('t-heat').click();
-const _render = render; render = function(){ _render(); heatRefresh(); };
+const RAPOR_SLUG = {'Avcılar':'avcilar','Bağcılar':'bagcilar','Başakşehir':'basaksehir','Beylikdüzü':'beylikduzu','Esenyurt':'esenyurt','Güngören':'gungoren','Küçükçekmece':'kucukcekmece'};
+function raporLink(){ const a = document.getElementById('rapor-link'); if (!a) return; const sl = RAPOR_SLUG[bolge];
+  a.href = 'https://claude.ai/artifact/FePtH1mH9tJYSmqWZzpaDo' + (sl ? '#' + sl : ''); a.textContent = sl ? `Müteahhit raporu: ${bolge} →` : 'Müteahhit pazar raporu →'; }
+const _render = render; render = function(){ _render(); heatRefresh(); raporLink(); };
+raporLink();
 document.querySelectorAll('.b-base').forEach(b => { const o = b.onclick; b.onclick = () => { o(); if (heatOn) heatStyle(); }; });
 tog('f-yeni', v => { fYeni = v; render(); });
 tog('f-site', v => { fSite = v; render(); });

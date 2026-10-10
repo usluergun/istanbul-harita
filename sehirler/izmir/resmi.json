@@ -18,18 +18,24 @@
   },
   "ilce": {
    "Konak": 345,
-   "Karşıyaka": 482
+   "Karşıyaka": 482,
+   "Bayraklı": 280,
+   "Çiğli": 422
   },
   "aylik": {
    "2026-08": {
     "İzmir": 6532,
     "Karşıyaka": 482,
-    "Konak": 345
+    "Konak": 345,
+    "Bayraklı": 280,
+    "Çiğli": 422
    },
    "2026-07": {
     "İzmir": 6547,
     "Karşıyaka": 498,
-    "Konak": 311
+    "Konak": 311,
+    "Bayraklı": 251,
+    "Çiğli": 337
    },
    "2026-06": {
     "İzmir": 7865,
@@ -39,7 +45,9 @@
     "Konak": 424,
     "Urla": 151,
     "Çeşme": 147,
-    "Balçova": 122
+    "Balçova": 122,
+    "Bayraklı": 749,
+    "Çiğli": 379
    },
    "2026-05": {
     "İzmir": 5624,
@@ -49,12 +57,16 @@
     "Konak": 330,
     "Urla": 83,
     "Çeşme": 85,
-    "Balçova": 73
+    "Balçova": 73,
+    "Bayraklı": 300,
+    "Çiğli": 295
    },
    "2026-01": {
     "İzmir": 6618,
     "Karşıyaka": 479,
-    "Konak": 385
+    "Konak": 385,
+    "Bayraklı": 549,
+    "Çiğli": 361
    }
   },
   "il_aylik": {
@@ -86,7 +98,9 @@
    "Çeşme": 51902,
    "Karaburun": 13725,
    "Balçova": 75743,
-   "Narlıdere": 61320
+   "Narlıdere": 61320,
+   "Bayraklı": 296481,
+   "Çiğli": 216430
   },
   "2021": {
    "İzmir": 4425789,
@@ -97,7 +111,9 @@
    "Çeşme": 48167,
    "Karaburun": 11927,
    "Balçova": 80513,
-   "Narlıdere": 63438
+   "Narlıdere": 63438,
+   "Bayraklı": 296839,
+   "Çiğli": 209951
   }
  },
  "yapi_izin": {

@@ -37,15 +37,15 @@
  ],
  "ilceler": [
   {
-   "ad": "Konak",
-   "lok": "Konak'ta",
+   "ad": "Çiğli",
+   "lok": "Çiğli'de",
    "merkez": [
-    38.4189,
-    27.1287
+    38.495,
+    27.07
    ],
    "grup": "İzmir merkez",
-   "emlakjet": "izmir-konak",
-   "etiket": "alt"
+   "emlakjet": "izmir-cigli",
+   "etiket": "ust"
   },
   {
    "ad": "Karşıyaka",
@@ -57,6 +57,27 @@
    "grup": "İzmir merkez",
    "emlakjet": "izmir-karsiyaka",
    "etiket": "ust"
+  },
+  {
+   "ad": "Bayraklı",
+   "lok": "Bayraklı'da",
+   "merkez": [
+    38.4622,
+    27.1653
+   ],
+   "grup": "İzmir merkez",
+   "emlakjet": "izmir-bayrakli"
+  },
+  {
+   "ad": "Konak",
+   "lok": "Konak'ta",
+   "merkez": [
+    38.4189,
+    27.1287
+   ],
+   "grup": "İzmir merkez",
+   "emlakjet": "izmir-konak",
+   "etiket": "alt"
   },
   {
    "ad": "Balçova",

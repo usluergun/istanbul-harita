@@ -41,6 +41,8 @@ Ardından `sehirler/index.json` içinde şehrin `durum` değeri `hazir` yapılı
 
 ### İzmir
 
+- **Çiğli** (İzmir merkez): https://www.emlakjet.com/satilik-konut/izmir-cigli
+- **Bayraklı** (İzmir merkez): https://www.emlakjet.com/satilik-konut/izmir-bayrakli
 - **Konak** (İzmir merkez): https://www.emlakjet.com/satilik-konut/izmir-konak
 - **Karşıyaka** (İzmir merkez): https://www.emlakjet.com/satilik-konut/izmir-karsiyaka
 - **Balçova** (İzmir merkez): https://www.emlakjet.com/satilik-konut/izmir-balcova

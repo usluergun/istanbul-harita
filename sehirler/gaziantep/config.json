@@ -58,7 +58,7 @@
  ],
  "rapor_ilce": "Şahinbey",
  "tarama": null,
- "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Harita: © Esri, © OpenStreetMap katkıcıları.",
+ "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR (OCHA) ilçe katmanı ve il açık verilerinden mahalle sınırları (github.com/ttezer/turkiye-harita-verisi). Harita: © Esri, © OpenStreetMap katkıcıları.",
  "id": "gaziantep",
  "il_lok": "Gaziantep'te"
 }

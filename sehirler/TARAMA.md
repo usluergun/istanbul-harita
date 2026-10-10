@@ -3,7 +3,11 @@
 Bu bulut ortamı emlakjet ve OpenStreetMap'e erişemiyor. Aşağıdaki iki adım internet erişimi olan bilgisayarda (Mac) çalışır.
 Her adımdan sonra değişiklikleri `cok-sehir` dalına gönderin; harita yeni veriyi kendiliğinden kullanır.
 
-## 1. Mahalle sınırları (her şehir için bir kez, yaklaşık 5–15 dk)
+## 1. Mahalle sınırları — İzmir, Aydın, Gaziantep için TAMAM
+
+Sınırlar açık veri setinden alındı (`tools/sinir_acik_veri.py`, kaynak: github.com/ttezer/turkiye-harita-verisi). Aşağıdaki OpenStreetMap komutu yalnızca semt adları ve ana yol katmanı da istenirse veya yeni bir şehir bu veri setinde yoksa gerekir.
+
+### OpenStreetMap ile (isteğe bağlı, her şehir için 5–15 dk)
 
 ```bash
 cd ~/Istanbul_Emlak_Harita   # bu deponun Mac'teki kopyası

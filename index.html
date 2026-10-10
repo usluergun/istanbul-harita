@@ -380,7 +380,7 @@ document.title = `${CFG.ad} · Mahalle Fiyat Haritası`;
 document.getElementById('eyebrow').textContent = CFG.baslik + ' · satılık konut';
 document.getElementById('foot').textContent = CFG.kaynak_notu || '';
 document.getElementById('sehirler').innerHTML = IDX.sehirler.map(c => `<a class="tog" href="?sehir=${c.id}" aria-pressed="${c.id === SEHIR}"${c.id === SEHIR ? ' aria-current="page"' : ''}>${c.ad}${c.durum !== 'hazir' ? ' <small>hazırlanıyor</small>' : ''}</a>`).join('');
-if (!ILAN || !ILAN.length || !GEO) { hazirlik(); return; }
+if (!ILAN || !ILAN.length || !GEO) { hazirlik(GEO); return; }
 
 // --- resmî veri yardımcıları (tüm şehirler; yalnızca verilen veriye bakar)
 function rAy(m, kisa){ const A = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'], a = A[+m.slice(5, 7) - 1]; return kisa ? a.slice(0, 3) + ' ' + m.slice(2, 4) : a + ' ' + m.slice(0, 4); }
@@ -397,7 +397,7 @@ function rTalep(D, list){
     return {b, s, nf, dn: nf && n21 ? nf / n21 - 1 : null, k: s && nf ? s.ort * 12 / nf * 1000 : null}; });
 }
 // --- hazırlık görünümü: şehrin sınır ve ilan verisi henüz yokken resmî verileri ve ilçeleri gösterir
-async function hazirlik(){
+async function hazirlik(GEO){
   const E = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const N0 = v => v == null ? '—' : Math.round(v).toLocaleString('tr-TR');
   const P = v => v == null ? '—' : '%' + Math.round(v * 100);
@@ -405,19 +405,49 @@ async function hazirlik(){
   const D = await tryJ(DIR + 'resmi.json');
   const panel = document.getElementById('panel'); panel.classList.add('prep-mode');
   document.getElementById('heat-fab').style.display = 'none';
-  document.querySelector('.bar').style.display = 'none';
+  if (!GEO) document.querySelector('.bar').style.display = 'none';
   const mb = document.getElementById('menu-btn'); mb.innerHTML = '☰ ' + E(CFG.ad);
   const menu = o => { panel.classList.toggle('open', o); document.getElementById('scrim').classList.toggle('open', o); mb.setAttribute('aria-expanded', o); };
   mb.onclick = () => menu(true); document.getElementById('scrim').onclick = () => menu(false); document.getElementById('close-menu').onclick = () => menu(false);
   const map = L.map('map', {zoomControl: false}).setView(CFG.merkez, CFG.zoom || 11);
   L.control.zoom({position: 'topright'}).addTo(map);
   const inC = /claude/i.test(location.hostname);
-  L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/${inC ? 'Canvas/World_Light_Gray_Base' : 'World_Street_Map'}/MapServer/tile/{z}/{y}/{x}`, {maxZoom: 19, attribution: 'Harita © Esri, © OpenStreetMap katkıcıları'}).addTo(map);
+  const esri = t => `https://server.arcgisonline.com/ArcGIS/rest/services/${t}/MapServer/tile/{z}/{y}/{x}`;
+  const bases = {sade: L.tileLayer(esri('Canvas/World_Light_Gray_Base'), {maxZoom: 19, attribution: 'Harita © Esri, © OpenStreetMap katkıcıları'}),
+    sokak: L.tileLayer(esri('World_Street_Map'), {maxZoom: 19, attribution: 'Harita © Esri, HERE, Garmin, © OpenStreetMap katkıcıları'}),
+    uydu: L.tileLayer(esri('World_Imagery'), {maxZoom: 19, attribution: 'Görüntü © Esri'})};
+  let cur = inC ? 'sade' : 'sokak'; bases[cur].addTo(map);
   const IL = CFG.ilceler || [], NF = D && D.nufus ? D.nufus['2025'] : {};
-  const pts = IL.filter(c => c.merkez);
-  pts.forEach(c => L.marker(c.merkez, {interactive: false, keyboard: false, icon: L.divIcon({className: 'lb lb-ilce prep-lb' + (c.etiket ? ' e-' + c.etiket : ''), html: `<span>${E(c.ad)}${NF[c.ad] ? `<small>${N0(NF[c.ad])} kişi</small>` : ''}</span>`, iconSize: [0, 0]})}).addTo(map));
-  if (pts.length > 1) map.fitBounds(L.latLngBounds(pts.map(c => c.merkez)).pad(.35), {paddingTopLeft: innerWidth > 900 ? [340, 0] : [0, 40]});
-  let h = `<div class="note"><b>${E(CFG.ad)} hazırlanıyor.</b> Mahalle sınırları ve ilanlar taramadan sonra eklenecek; ısı haritası, Değer ve Müteahhit raporları o zaman açılır. Şimdilik resmî veriler gösteriliyor.</div>`;
+  if (GEO) { // sınırlar hazır: İstanbul'daki katmanların aynısı
+    const bR = L.svg({padding: .3}), $b = id => document.getElementById(id);
+    if (inC) { const land = L.geoJSON(GEO.ilce, {interactive: false, style: {stroke: false, fillColor: '#eef1ef', fillOpacity: 1}}); map.createPane('land').style.zIndex = 250; land.options.pane = 'land'; land.addTo(map); }
+    const mahL = L.geoJSON(GEO.mah, {renderer: bR, interactive: false, style: {color: '#2f6db5', weight: 1.4, opacity: .75, dashArray: '5 4', fill: false}});
+    const ilC = L.geoJSON(GEO.ilce, {renderer: bR, interactive: false, style: {color: '#ffffff', weight: 6, opacity: .7, fill: false}});
+    const ilL = L.geoJSON(GEO.ilce, {renderer: bR, interactive: false, style: {color: '#c0162e', weight: 3, opacity: .95, fill: false}});
+    const ilG = L.layerGroup([ilC, ilL]);
+    const lbl = (cls, arr) => L.layerGroup(arr.map(([n, lat, lng]) => L.marker([lat, lng], {interactive: false, keyboard: false, icon: L.divIcon({className: 'lb ' + cls, html: `<span>${E(n)}</span>`, iconSize: [0, 0]})})));
+    const ilLb = lbl('lb-ilce', GEO.labels.ilce), mahLb = lbl('lb-mah', GEO.labels.mah), semtLb = lbl('lb-semt', GEO.labels.semt || []);
+    [mahL, ilG, semtLb, mahLb, ilLb].forEach(l => l.addTo(map));
+    const sty = () => { const z = map.getZoom(), sat = cur === 'uydu', c = map.getContainer().classList;
+      ilL.setStyle({color: sat ? '#ff4d6d' : '#c0162e'}); mahL.setStyle({color: sat ? '#ffe28a' : '#2f6db5'}); c.toggle('z-mah-off', z < 14); c.toggle('z-semt-off', z < 13); c.toggle('on-sat', sat); };
+    map.on('zoomend', sty);
+    document.querySelectorAll('.b-base').forEach(x => { x.setAttribute('aria-pressed', x.dataset.b === cur); x.onclick = () => {
+      map.removeLayer(bases[cur]); cur = x.dataset.b; bases[cur].addTo(map); bases[cur].bringToBack();
+      document.querySelectorAll('.b-base').forEach(y => y.setAttribute('aria-pressed', y === x)); sty(); }; });
+    const tg = (id, layer) => { const t = $b(id); t.onclick = () => { const v = t.getAttribute('aria-pressed') !== 'true'; t.setAttribute('aria-pressed', v); v ? layer.addTo(map) : map.removeLayer(layer); }; };
+    tg('t-ilce', ilG); tg('t-mah', mahL); tg('t-semt', semtLb);
+    const ct = (id, cls) => { const t = $b(id); t.onclick = () => { const v = t.getAttribute('aria-pressed') !== 'true'; t.setAttribute('aria-pressed', v); map.getContainer().classList.toggle(cls, !v); }; };
+    ct('t-ilcelb', 'hide-ilcelb'); ct('t-mahlb', 'hide-mahlb'); ct('t-semtlb', 'hide-semtlb');
+    // ilan ve yol verisi gelene kadar boş kalan düğmeler gizlenir
+    ['t-heat', 't-pf'].concat((GEO.roads || []).some(r => r.length) ? [] : ['t-yol']).concat((GEO.labels.semt || []).length ? [] : ['t-semt', 't-semtlb']).forEach(id => $b(id).style.display = 'none');
+    map.fitBounds(ilL.getBounds(), {paddingTopLeft: innerWidth > 900 ? [340, 20] : [10, 60], paddingBottomRight: [20, 90]}); sty();
+  } else {
+    const pts = IL.filter(c => c.merkez);
+    pts.forEach(c => L.marker(c.merkez, {interactive: false, keyboard: false, icon: L.divIcon({className: 'lb lb-ilce prep-lb' + (c.etiket ? ' e-' + c.etiket : ''), html: `<span>${E(c.ad)}${NF[c.ad] ? `<small>${N0(NF[c.ad])} kişi</small>` : ''}</span>`, iconSize: [0, 0]})}).addTo(map));
+    if (pts.length > 1) map.fitBounds(L.latLngBounds(pts.map(c => c.merkez)).pad(.35), {paddingTopLeft: innerWidth > 900 ? [340, 0] : [0, 40]});
+  }
+  let h = GEO ? `<div class="note"><b>${E(CFG.ad)}: mahalle sınırları hazır</b> (${GEO.mah.features.length} mahalle). İlanlar taramadan sonra eklenecek; ısı haritası, Değer ve Müteahhit raporları o zaman açılır. Şimdilik resmî veriler gösteriliyor.</div>`
+    : `<div class="note"><b>${E(CFG.ad)} hazırlanıyor.</b> Mahalle sınırları ve ilanlar taramadan sonra eklenecek; ısı haritası, Değer ve Müteahhit raporları o zaman açılır. Şimdilik resmî veriler gösteriliyor.</div>`;
   if (D) {
     const T = D.tuik, C = D.tcmb, I = T.il, ilAy = Object.keys(T.il_aylik || {}).sort().slice(-3);
     const ilK = ilAy.length && NF[I.ad] ? ilAy.reduce((t, m) => t + T.il_aylik[m], 0) / ilAy.length * 12 / NF[I.ad] * 1000 : null;
@@ -437,7 +467,7 @@ async function hazirlik(){
     <p class="fine">Kaynak: ${E(T.kaynak)}; ${E(C.kaynak)}${C.bolge && C.bolge !== I.ad ? ' (bölge: ' + E(C.bolge) + ')' : ''}; ${E(D.nufus.kaynak)}.</p>`;
   }
   const TIP = {'satilik-daire': 'satılık daire', 'satilik-villa': 'villa', 'satilik-mustakil-ev': 'müstakil ev'};
-  h += `<h3>Sırada</h3><ol><li>Mahalle ve ilçe sınırları (OpenStreetMap)</li><li>İlan taraması: ${E((CFG.ilan_tipleri || []).map(t => TIP[t] || t).join(', '))}</li><li>Isı haritası, Değer ve Müteahhit raporları</li></ol>`;
+  h += `<h3>Sırada</h3><ol>${GEO ? '' : '<li>Mahalle ve ilçe sınırları</li>'}<li>İlan taraması: ${E((CFG.ilan_tipleri || []).map(t => TIP[t] || t).join(', '))}</li><li>Isı haritası, Değer ve Müteahhit raporları</li></ol>`;
   const list = document.getElementById('list'); list.innerHTML = `<div class="prep">${h}</div>`; list.hidden = false;
   addEventListener('resize', () => map.invalidateSize({pan: false}));
 }

@@ -6,6 +6,8 @@ from playwright.async_api import async_playwright
 SRC, OUT = sys.argv[1], sys.argv[2]
 os.makedirs(OUT, exist_ok=True)
 L = {k: json.load(open(os.path.join(SRC, f'rapor-{k}.json'))) for k in ['ozet', 'yas', 'oda', 'mahalle', 'bekleme', 'ilce']}
+RESMI = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'data', 'resmi.json'), encoding='utf-8'))
+LOC = {'Avcılar': "Avcılar'da", 'Bağcılar': "Bağcılar'da", 'Başakşehir': "Başakşehir'de", 'Beylikdüzü': "Beylikdüzü'nde", 'Esenyurt': "Esenyurt'ta", 'Güngören': "Güngören'de", 'Küçükçekmece': "Küçükçekmece'de"}
 ILCELER = [unicodedata.normalize('NFC', a) for a in sys.argv[3:]] or [r['ilce'] for r in L['ozet']]
 SLUG = {'Avcılar': 'avcilar', 'Bağcılar': 'bagcilar', 'Başakşehir': 'basaksehir', 'Beylikdüzü': 'beylikduzu', 'Esenyurt': 'esenyurt', 'Güngören': 'gungoren', 'Küçükçekmece': 'kucukcekmece'}
 AY = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık']
@@ -68,6 +70,22 @@ def hbars(rows, label, value, side, hi):
         out.append(f'<div class="lab">{e(label(r))}</div><div class="trk"><div class="fill{" hi" if hi(r) else ""}" style="width:{100 * value(r) / mx:.1f}%"></div></div><div class="val">{e(side(r))}</div>')
     return ''.join(out) + '</div>'
 
+def sp(v): return ('+' if v >= 0 else '−') + '%' + ('%.1f' % abs(v * 100)).rstrip('0').rstrip('.').replace('.', ',')
+
+def resmi(il):
+    T, C = RESMI['tuik'], RESMI['tcmb']; n = T['ilce'].get(il)
+    rows = sorted(({'b': b, 'v': v} for b, v in T['ilce'].items()), key=lambda r: -r['v'])
+    tiles = (f'<div class="tile"><div class="l">{e(LOC.get(il, il))} satılan konut</div><div class="b">{nf(n)}</div><div class="n">İstanbul satışlarının %{("%.1f" % (100 * n / T["istanbul"]["satis"])).replace(".", ",")}\'i</div></div>' if n else '')
+    tiles += (f'<div class="tile"><div class="l">İstanbul\'da satılan konut</div><div class="b">{nf(T["istanbul"]["satis"])}</div><div class="n">İlk el {pct(T["istanbul"]["ilk_el"] / T["istanbul"]["satis"])} · ipotekli {pct(T["istanbul"]["ipotekli"] / T["istanbul"]["satis"])}</div></div>'
+              f'<div class="tile"><div class="l">İstanbul konut fiyatı, yıllık</div><div class="b">{sp(C["istanbul_fiyat_yillik"])}</div><div class="n">Aylık {sp(C["istanbul_fiyat_aylik"])} · TCMB</div></div>'
+              f'<div class="tile"><div class="l">Türkiye konut fiyatı, yıllık reel</div><div class="b">{sp(C["turkiye_fiyat_reel_yillik"])}</div><div class="n">İstanbul kira, yıllık {sp(C["istanbul_kira_yillik"])}</div></div>')
+    return f'''<div class="card"><h2>Resmî veriler · {e(RESMI["donem"])}</h2>
+<p class="note">Satılan konut: tapuda el değiştiren konut adedi (yalnızca ilan bandı değil, tüm fiyatlar).</p>
+<div class="tiles" style="margin-bottom:3mm">{tiles}</div>
+<h3>Aynı ay komşu ilçelerde satılan konut</h3>
+{hbars(rows, lambda r: r['b'], lambda r: r['v'], lambda r: nf(r['v']), lambda r: r['b'] == il)}
+<p class="note" style="margin:2mm 0 0">Kaynak: {e(T["kaynak"])}; {e(C["kaynak"])}.</p></div>'''
+
 def sayfa(il):
     o = next(r for r in L['ozet'] if r['ilce'] == il)
     yas = [r for r in L['yas'] if r['ilce'] == il and r['ilan'] > 0]
@@ -90,6 +108,9 @@ def sayfa(il):
     az = [r for r in mah if r['m2_medyan'] > med and r['yeni_ilan'] < 3 and r['ilan'] >= 10]
     if az: reads.append('Fiyatı ilçe ortancasının üstünde ama yeni arzı neredeyse yok: ' + ', '.join(f'{e(r["mahalle"])} (<b>{tl(r["m2_medyan"])}</b>, <b>{r["yeni_ilan"]}</b> yeni ilan)' for r in az) + '. Arsa veya kentsel dönüşüm fırsatı burada aranabilir.')
     if len(oda) >= 2: reads.append(f'Yeni binalarda arz {e(oda[0]["oda"])} (<b>{pct(oda[0]["ilan"] / toda)}</b>) ve {e(oda[1]["oda"])} (<b>{pct(oda[1]["ilan"] / toda)}</b>) ağırlıklı. Bu tiplerde fiyatla, diğerlerinde farklılaşarak rekabet edilir.')
+    if il in RESMI['tuik']['ilce']:
+        C = RESMI['tcmb']
+        reads.append(f"{e(RESMI['donem'])}'da {e(LOC.get(il, il))} <b>{nf(RESMI['tuik']['ilce'][il])}</b> konut el değiştirdi. İstanbul'da fiyatlar yıllık <b>{sp(C['istanbul_fiyat_yillik'])}</b> arttı; Türkiye genelinde reel olarak <b>{sp(C['turkiye_fiyat_reel_yillik'])}</b>, yani fiyatlar enflasyonun gerisinde.")
     if o['sifir_ilan']: reads.append(f'Sıfır dairelerin <b>{pct(bos)}</b>\'i boş, yani satılmayı bekleyen stok. Fiyat kararı bu stoka göre verilmeli.')
     mx = max(r['m2_medyan'] for r in mah)
     mrows = ''.join(f'<tr><td>{e(r["mahalle"])}</td><td>{nf(r["ilan"])}</td><td><span class="bar" style="width:{14 * r["m2_medyan"] / mx:.1f}mm"></span>{tl(r["m2_medyan"])}</td><td>{tl(r["yeni_m2"])}</td><td>{nf(r["sifir_ilan"])}</td><td>{nf(r["yapimda"])}</td><td>%{r["site_pay"]}</td><td>{nf(r["bekleme_gun"])} gün</td></tr>' for r in mah)
@@ -108,6 +129,7 @@ def sayfa(il):
  <div class="tile"><div class="l">Sıfır daire ilanı</div><div class="b">{nf(o['sifir_ilan'])}</div><div class="n">{nf(o['yapimda_ilan'])} yapım aşamasında · {pct(bos)} boş (satılmamış)</div></div>
  <div class="tile"><div class="l">Yeni binanın m² farkı</div><div class="b">{('+' if prim >= 0 else '−') + pct(abs(prim))}</div><div class="n">0–5 yaş {tl(o['yeni_m2'])} / m², 6 yaş ve üstü {tl(o['eski_m2'])} / m²</div></div>
 </div>
+{resmi(il)}
 <div class="card"><h2>Müteahhit için okuma</h2><ul class="reads">{''.join(f'<li>{r}</li>' for r in reads)}</ul></div>
 <div class="card" style="break-inside:auto"><h2>Mahalleler</h2><p class="note">m² fiyatına göre sıralı. Yeni bina m²: mahallede en az 3 yeni (0–5 yaş) ilan varsa. Bekleme: ilan tarihinden tarama gününe geçen ortanca süre.</p>
 <table><thead><tr><th>Mahalle</th><th>İlan</th><th>m² fiyatı</th><th>Yeni bina m²</th><th>Sıfır ilan</th><th>Yapımda</th><th>Site içi</th><th>Bekleme</th></tr></thead><tbody>{mrows}</tbody></table></div>
@@ -126,6 +148,7 @@ def sayfa(il):
 <div class="card method"><h3>Yöntem ve sınırlar</h3>
 <p>Kaynak: emlakjet.com'daki satılık daire ilanları, tarama günü {tarih(o['tarama'])}. Yalnızca {band} fiyat bandındaki ilanlar tarandı; bu bandın dışındaki daireler rapora girmedi, bu yüzden küçük 1+1'ler ve büyük daireler eksik temsil ediliyor.</p>
 <p>m² fiyatı = ilan fiyatı ÷ brüt m². Mahalle ve tip değerleri ortancadır (medyan). Aynı daire birden fazla kez ilan verildiyse bir kez sayıldı. Bunlar ilan (istenen) fiyatlarıdır, satış fiyatı değildir. Satılıp yayından kalkan ilanlar bu taramada görünmez; gerçek satış hızı için düzenli tarama gerekir.</p>
+<p>Resmî veriler: satış adetleri TÜİK'in tapu kayıtlarından, fiyat değişimi TCMB'nin banka değerleme raporlarına dayanan endeksinden alınmıştır.</p>
 <p>Sıfır: 0 yaş (yapım aşamasında veya oturuma hazır). Yeni bina: 0–5 yaş.</p></div>
 </body></html>"""
 

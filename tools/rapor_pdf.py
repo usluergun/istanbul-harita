@@ -25,6 +25,7 @@ CSS = """
 * { box-sizing: border-box; }
 body { font-family: 'Inter', 'DejaVu Sans', sans-serif; font-size: 9.6pt; color: #1d2329; margin: 0; }
 h1 { font-family: 'Lora', 'DejaVu Serif', serif; font-weight: 500; font-size: 24pt; margin: 2mm 0 2mm; letter-spacing: -.01em; }
+h2, h3 { break-after: avoid; }
 h2 { font-size: 12pt; font-weight: 600; margin: 0 0 2.5mm; }
 h3 { font-size: 10.5pt; font-weight: 600; margin: 0 0 1mm; }
 .eyebrow { font-size: 7.6pt; letter-spacing: .08em; text-transform: uppercase; color: #6a737c; }
@@ -33,7 +34,9 @@ h3 { font-size: 10.5pt; font-weight: 600; margin: 0 0 1mm; }
 .tile { border: 1px solid #dfe3e6; border-radius: 2mm; padding: 3mm 3.5mm; }
 .tile .l { font-size: 7.8pt; color: #6a737c; }
 .tile .b { font-family: 'Lora', 'DejaVu Serif', serif; font-size: 17pt; margin: 1mm 0; font-variant-numeric: tabular-nums; }
-.tile .n { font-size: 7.6pt; color: #6a737c; line-height: 1.35; }
+.tile .n { font-size: 7.6pt; color: #6a737c; line-height: 1.4; }
+.tile .n span { display: block; white-space: nowrap; }
+.tile .l { white-space: nowrap; }
 .card { border: 1px solid #dfe3e6; border-radius: 2mm; padding: 3.5mm 4mm; margin-bottom: 4.5mm; break-inside: avoid; }
 .note { font-size: 7.8pt; color: #6a737c; margin: 0 0 2.5mm; line-height: 1.4; }
 ul.reads { margin: 0; padding-left: 4.5mm; line-height: 1.5; }
@@ -75,10 +78,10 @@ def sp(v): return ('+' if v >= 0 else '−') + '%' + ('%.1f' % abs(v * 100)).rst
 def resmi(il):
     T, C = RESMI['tuik'], RESMI['tcmb']; n = T['ilce'].get(il)
     rows = sorted(({'b': b, 'v': v} for b, v in T['ilce'].items()), key=lambda r: -r['v'])
-    tiles = (f'<div class="tile"><div class="l">{e(LOC.get(il, il))} satılan konut</div><div class="b">{nf(n)}</div><div class="n">İstanbul satışlarının %{("%.1f" % (100 * n / T["istanbul"]["satis"])).replace(".", ",")}\'i</div></div>' if n else '')
-    tiles += (f'<div class="tile"><div class="l">İstanbul\'da satılan konut</div><div class="b">{nf(T["istanbul"]["satis"])}</div><div class="n">İlk el {pct(T["istanbul"]["ilk_el"] / T["istanbul"]["satis"])} · ipotekli {pct(T["istanbul"]["ipotekli"] / T["istanbul"]["satis"])}</div></div>'
-              f'<div class="tile"><div class="l">İstanbul konut fiyatı, yıllık</div><div class="b">{sp(C["istanbul_fiyat_yillik"])}</div><div class="n">Aylık {sp(C["istanbul_fiyat_aylik"])} · TCMB</div></div>'
-              f'<div class="tile"><div class="l">Türkiye konut fiyatı, yıllık reel</div><div class="b">{sp(C["turkiye_fiyat_reel_yillik"])}</div><div class="n">İstanbul kira, yıllık {sp(C["istanbul_kira_yillik"])}</div></div>')
+    tiles = (f'<div class="tile"><div class="l">İlçede satılan konut</div><div class="b">{nf(n)}</div><div class="n"><span>İstanbul\'un %{("%.1f" % (100 * n / T["istanbul"]["satis"])).replace(".", ",")}\'i</span></div></div>' if n else '')
+    tiles += (f'<div class="tile"><div class="l">İstanbul\'da satılan konut</div><div class="b">{nf(T["istanbul"]["satis"])}</div><div class="n"><span>İlk el {pct(T["istanbul"]["ilk_el"] / T["istanbul"]["satis"])} · ipotekli {pct(T["istanbul"]["ipotekli"] / T["istanbul"]["satis"])}</span></div></div>'
+              f'<div class="tile"><div class="l">İstanbul fiyat, yıllık</div><div class="b">{sp(C["istanbul_fiyat_yillik"])}</div><div class="n"><span>Aylık {sp(C["istanbul_fiyat_aylik"])} · TCMB</span></div></div>'
+              f'<div class="tile"><div class="l">Türkiye fiyat, reel yıllık</div><div class="b">{sp(C["turkiye_fiyat_reel_yillik"])}</div><div class="n"><span>İstanbul kira {sp(C["istanbul_kira_yillik"])}</span></div></div>')
     return f'''<div class="card"><h2>Resmî veriler · {e(RESMI["donem"])}</h2>
 <p class="note">Satılan konut: tapuda el değiştiren konut adedi (yalnızca ilan bandı değil, tüm fiyatlar).</p>
 <div class="tiles" style="margin-bottom:3mm">{tiles}</div>
@@ -124,14 +127,14 @@ def sayfa(il):
 <h1>{e(il)} konut pazarı</h1>
 <p class="lede">{lede}</p>
 <div class="tiles">
- <div class="tile"><div class="l">Satılık daire ilanı</div><div class="b">{nf(o['ilan'])}</div><div class="n">{band} arası</div></div>
- <div class="tile"><div class="l">Ortanca brüt m² fiyatı</div><div class="b">{tl(o['m2_medyan'])}</div><div class="n">Ortanca daire: {mtl(o['fiyat_medyan'])}, {nf(o['brut_medyan'])} m² brüt</div></div>
- <div class="tile"><div class="l">Sıfır daire ilanı</div><div class="b">{nf(o['sifir_ilan'])}</div><div class="n">{nf(o['yapimda_ilan'])} yapım aşamasında · {pct(bos)} boş (satılmamış)</div></div>
- <div class="tile"><div class="l">Yeni binanın m² farkı</div><div class="b">{('+' if prim >= 0 else '−') + pct(abs(prim))}</div><div class="n">0–5 yaş {tl(o['yeni_m2'])} / m², 6 yaş ve üstü {tl(o['eski_m2'])} / m²</div></div>
+ <div class="tile"><div class="l">Satılık daire ilanı</div><div class="b">{nf(o['ilan'])}</div><div class="n"><span>{band} arası</span></div></div>
+ <div class="tile"><div class="l">Ortanca brüt m² fiyatı</div><div class="b">{tl(o['m2_medyan'])}</div><div class="n"><span>Ortanca daire {mtl(o['fiyat_medyan'])}</span><span>{nf(o['brut_medyan'])} m² brüt</span></div></div>
+ <div class="tile"><div class="l">Sıfır daire ilanı</div><div class="b">{nf(o['sifir_ilan'])}</div><div class="n"><span>{nf(o['yapimda_ilan'])} yapım aşamasında</span><span>{pct(bos)} boş (satılmamış)</span></div></div>
+ <div class="tile"><div class="l">Yeni binanın m² farkı</div><div class="b">{('+' if prim >= 0 else '−') + pct(abs(prim))}</div><div class="n"><span>0–5 yaş: {tl(o['yeni_m2'])}/m²</span><span>6+ yaş: {tl(o['eski_m2'])}/m²</span></div></div>
 </div>
 {resmi(il)}
 <div class="card"><h2>Müteahhit için okuma</h2><ul class="reads">{''.join(f'<li>{r}</li>' for r in reads)}</ul></div>
-<div class="card" style="break-inside:auto"><h2>Mahalleler</h2><p class="note">m² fiyatına göre sıralı. Yeni bina m²: mahallede en az 3 yeni (0–5 yaş) ilan varsa. Bekleme: ilan tarihinden tarama gününe geçen ortanca süre.</p>
+<div class="card" style="break-inside:auto;break-before:page"><h2>Mahalleler</h2><p class="note">m² fiyatına göre sıralı. Yeni bina m²: mahallede en az 3 yeni (0–5 yaş) ilan varsa. Bekleme: ilan tarihinden tarama gününe geçen ortanca süre.</p>
 <table><thead><tr><th>Mahalle</th><th>İlan</th><th>m² fiyatı</th><th>Yeni bina m²</th><th>Sıfır ilan</th><th>Yapımda</th><th>Site içi</th><th>Bekleme</th></tr></thead><tbody>{mrows}</tbody></table></div>
 <div class="two">
  <div class="card"><h3>Bina yaşına göre m² fiyatı</h3><p class="note">Ortanca brüt m² fiyatı · ilan adedi. Sıfır gruplar renkli.</p>

@@ -90,7 +90,7 @@
 .sheet .big{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .sheet .kv{border:1px solid #dfe6e9;border-radius:10px;padding:10px 12px}
 .sheet .kv span{display:block;font-size:12px;color:#7c8a91}
-.sheet .kv b{font:700 20px var(--f-display);font-variant-numeric:tabular-nums}
+.sheet .kv b{font:700 20px var(--f-display);font-variant-numeric:tabular-nums}.sheet.mut .kv b{white-space:nowrap}.sheet .kv small{display:block;font-size:11.5px;color:#7c8a91;margin-top:1px}.sheet .kv.hl small{color:#cfe9e4}.sheet .kv span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sheet .kv.hl{background:#0f7a6c;border-color:#0f7a6c;color:#fff}.sheet .kv.hl span{color:#cfe9e4}
 .sheet .tw{overflow-x:auto}
 .sheet table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
@@ -119,6 +119,8 @@
   .sheet .mhb{font-size:11.5px;gap:5px 6px}
   .sheet h2{font-size:21px}
 }
+@media (max-width:600px){.sheet table{font-size:12px}.sheet th,.sheet td{padding:6px 4px}.sheet th{font-size:10px}.sheet td{white-space:nowrap}.sheet td:first-child{white-space:normal}.sheet .m-hide{display:none}.sheet .big.rng .kv.hl{grid-column:1/-1}.sheet .big{grid-template-columns:repeat(2,minmax(0,1fr))}.sheet .kv span{font-size:11.5px}}
+@media print{.sheet .m-hide{display:table-cell!important}}
 @media (max-width:600px){.sheet{padding:20px 16px}.sheet .who{text-align:left}.sheet .big{grid-template-columns:1fr 1fr}.sheet .kv b{font-size:17px}}
 @media (max-width:900px){.panel.t-val .foot,.panel.t-mah .foot{display:none}}
 @media print{
@@ -724,22 +726,22 @@ function openReport(R){
   const rep = $('rep');
   rep.innerHTML = `<div class="rbar">${canPrint ? '<button class="btn" type="button" id="r-print"><span class="lg">Yazdır / PDF olarak kaydet</span><span class="sm">PDF kaydet</span></button>' : ''}<button class="btn sec" type="button" id="r-close" aria-label="Kapat"><span class="lg">Kapat</span><span class="sm">✕</span></button></div>
   <article class="sheet">
-    <header><div><div class="ey">Değerleme ön raporu · ${esc(today)}</div><h2>${esc(short(mahName(t.mk)))}, ${esc(t.b)}</h2>
-      <div style="color:#4f5f68;font-size:13px">${esc(t.oda)} · ${t.m2} m² brüt · ${esc(YAS.find(y => y[0] === t.yas)[1])} · ${t.site ? 'site içi' : 'site dışı'}</div></div>
+    <header><div><div class="ey">Değerleme ön raporu · ${esc(today)}</div><h2>${esc(short(mahName(t.mk)))}</h2>
+      <div style="color:#4f5f68;font-size:13px">${esc(t.b)} · ${esc(t.oda)} · ${t.m2} m² brüt · ${esc(YAS.find(y => y[0] === t.yas)[1])} · ${t.site ? 'site içi' : 'site dışı'}</div></div>
       <div class="who">Hazırlayan<br><span contenteditable="true" id="r-office" spellcheck="false">${esc(office)}</span></div></header>
     <h3>Tahmini ilan fiyatı</h3>
-    <div class="big"><div class="kv hl"><span>Aralık</span><b>${mtl(r5(R.lo))} – ${mtl(r5(R.hi))}</b></div>
+    <div class="big rng"><div class="kv hl"><span>Aralık</span><b>${mtl(r5(R.lo))} – ${mtl(r5(R.hi))}</b></div>
       <div class="kv"><span>Orta değer</span><b>${mtl(r5(R.mid))}</b></div>
-      <div class="kv"><span>Emsal m² fiyatı (medyan)</span><b>${Math.round(R.m2).toLocaleString('tr-TR')} TL</b></div></div>
+      <div class="kv"><span>Emsal m² fiyatı</span><b>${Math.round(R.m2).toLocaleString('tr-TR')} TL</b></div></div>
     <p class="fine" style="margin:8px 0 0">${R.comps.length} emsal ilan · ${R.scope === 'mahalle' ? 'aynı mahalleden' : 'ilçe genelinden'} · ${esc(R.conf[1])}</p>
     ${S ? `<h3>Mahalle göstergeleri</h3>
     <div class="big"><div class="kv"><span>Mahalle medyan m²</span><b>${Math.round(S.m2).toLocaleString('tr-TR')} TL</b></div>
-      <div class="kv"><span>${esc(t.b)} medyan m²</span><b>${Math.round(S.ilce).toLocaleString('tr-TR')} TL</b></div>
+      <div class="kv"><span>İlçe medyan m²</span><b>${Math.round(S.ilce).toLocaleString('tr-TR')} TL</b></div>
       <div class="kv"><span>İlçeye göre</span><b>${Math.abs(d) < .5 ? '%0' : (d > 0 ? '+' : '−') + '%' + Math.abs(d).toFixed(0)}</b></div>
-      <div class="kv"><span>Mahalledeki ilan · yeni bina</span><b>${S.n} · %${Math.round(S.yeni * 100)}</b></div></div>` : ''}
+      <div class="kv"><span>İlan · yeni bina</span><b>${S.n} · %${Math.round(S.yeni * 100)}</b></div></div>` : ''}
     <h3>Emsal ilanlar</h3>
-    <div class="tw"><table><thead><tr><th>Mahalle</th><th>Oda</th><th class="r">Brüt m²</th><th>Yaş</th><th>Site</th><th class="r">Fiyat</th><th class="r">TL/m²</th></tr></thead><tbody>
-    ${R.comps.map(x => `<tr><td>${esc(short(x.mh))}</td><td>${esc(x.oda || '')}</td><td class="r">${brutM2(x)}</td><td>${esc(yasT(x))}</td><td>${x.site ? 'Evet' : 'Hayır'}</td><td class="r">${tl(x.p)}</td><td class="r">${Math.round(x.p / brutM2(x)).toLocaleString('tr-TR')}</td></tr>`).join('')}
+    <div class="tw"><table><thead><tr><th>Mahalle</th><th>Oda</th><th class="r">Brüt m²</th><th>Yaş</th><th class="m-hide">Site</th><th class="r">Fiyat</th><th class="r">TL/m²</th></tr></thead><tbody>
+    ${R.comps.map(x => `<tr><td>${esc(short(x.mh))}</td><td>${esc(x.oda || '')}</td><td class="r">${brutM2(x)}</td><td>${esc(yasT(x).replace(' yaş', ''))}</td><td class="m-hide">${x.site ? 'Evet' : 'Hayır'}</td><td class="r">${mtl(x.p)}</td><td class="r">${Math.round(x.p / brutM2(x)).toLocaleString('tr-TR')}</td></tr>`).join('')}
     </tbody></table></div>
     <h3>Yöntem ve sınırlar</h3>
     <ul class="fine"><li>Tahmin, aynı mahalledeki en benzer ilanların (m², bina yaşı, site, oda sayısı) brüt m² fiyatlarından hesaplandı; aralık emsallerin orta yarısını gösterir.</li>
@@ -779,18 +781,18 @@ function openMahReport(k){
   const rep = $('rep');
   rep.innerHTML = `<div class="rbar">${canPrint ? '<button class="btn" type="button" id="r-print"><span class="lg">Yazdır / PDF olarak kaydet</span><span class="sm">PDF kaydet</span></button>' : ''}<button class="btn sec" type="button" id="r-close" aria-label="Kapat"><span class="lg">Kapat</span><span class="sm">✕</span></button></div>
   <article class="sheet">
-    <header><div><div class="ey">Mahalle raporu · ${esc(today)}</div><h2>${esc(short(f.n))}, ${esc(f.i)}</h2>
-      <div style="color:#4f5f68;font-size:13px">Satılık konut piyasası · ${S.n} ilan</div></div>
+    <header><div><div class="ey">Mahalle raporu · ${esc(today)}</div><h2>${esc(short(f.n))}</h2>
+      <div style="color:#4f5f68;font-size:13px">${esc(f.i)} · satılık konut piyasası · ${S.n} ilan</div></div>
       <div class="who">Hazırlayan<br><span contenteditable="true" id="r-office" spellcheck="false">${esc(office)}</span></div></header>
     ${few ? `<p class="fine" style="margin:12px 0 0;color:#7a5410">Bu mahallede ${S.n} ilan var; rakamlar tek başına güvenilir değil.</p>` : ''}
     <h3>Mahalle göstergeleri</h3>
     <div class="big"><div class="kv hl"><span>Medyan m² fiyatı</span><b>${Math.round(S.m2).toLocaleString('tr-TR')} TL</b></div>
-      <div class="kv"><span>${esc(f.i)} medyanı</span><b>${Math.round(S.ilce).toLocaleString('tr-TR')} TL</b></div>
+      <div class="kv"><span>İlçe medyanı</span><b>${Math.round(S.ilce).toLocaleString('tr-TR')} TL</b></div>
       <div class="kv"><span>İlçeye göre</span><b>${Math.abs(d) < .5 ? '%0' : (d > 0 ? '+' : '−') + '%' + Math.abs(d).toFixed(0)}</b></div>
-      <div class="kv"><span>İlçede sırası (pahalıdan)</span><b>${ri >= 0 ? `${ri + 1} / ${rl.length}` : '—'}</b></div>
+      <div class="kv"><span>İlçedeki sırası</span><b>${ri >= 0 ? `${ri + 1} / ${rl.length}` : '—'}</b></div>
       <div class="kv"><span>Medyan ilan fiyatı</span><b>${mtl(S.p)}</b></div>
-      <div class="kv"><span>m² fiyatı, ilanların orta yarısı</span><b>${k2(q(m2s, .25))} – ${k2(q(m2s, .75))}</b></div>
-      <div class="kv"><span>Yeni bina (0–5 yaş)</span><b>%${Math.round(S.yeni * 100)}</b></div>
+      <div class="kv"><span>m² aralığı (orta %50)</span><b>${k2(q(m2s, .25))} – ${k2(q(m2s, .75))}</b></div>
+      <div class="kv"><span>Yeni bina payı</span><b>%${Math.round(S.yeni * 100)}</b></div>
       <div class="kv"><span>Site içi</span><b>%${Math.round(S.site * 100)}</b></div></div>
     <h3>Oda sayısına göre</h3>
     <div class="tw"><table>${head}<tbody>${tr(byOda)}</tbody></table></div>
@@ -798,7 +800,7 @@ function openMahReport(k){
     <div class="tw"><table>${head}<tbody>${tr(byAge)}</tbody></table></div>
     <h3>Örnek ilanlar · ucuzdan pahalıya</h3>
     <div class="tw"><table><thead><tr><th>Oda</th><th class="r">Brüt m²</th><th>Yaş</th><th>Site</th><th class="r">Fiyat</th><th class="r">TL/m²</th></tr></thead><tbody>
-    ${pick.map(x => `<tr><td>${esc(x.oda || '')}</td><td class="r">${brutM2(x)}</td><td>${esc(yasT(x))}</td><td>${x.site ? 'Evet' : 'Hayır'}</td><td class="r">${tl(x.p)}</td><td class="r">${Math.round(x.p / brutM2(x)).toLocaleString('tr-TR')}</td></tr>`).join('')}
+    ${pick.map(x => `<tr><td>${esc(x.oda || '')}</td><td class="r">${brutM2(x)}</td><td>${esc(yasT(x).replace(' yaş', ''))}</td><td>${x.site ? 'Evet' : 'Hayır'}</td><td class="r">${mtl(x.p)}</td><td class="r">${Math.round(x.p / brutM2(x)).toLocaleString('tr-TR')}</td></tr>`).join('')}
     </tbody></table></div>
     <h3>Yöntem ve sınırlar</h3>
     <ul class="fine"><li>Rakamlar mahalledeki tüm ilanların brüt m² fiyatlarının medyanıdır; m² aralığı ilanların orta yarısını gösterir. Haritadaki filtreler bu raporu etkilemez.</li>
@@ -862,12 +864,12 @@ function resmiHtml(il){
   const T = D.tuik, C = D.tcmb, n = T.ilce[il];
   const rows = Object.entries(T.ilce).map(([b, v]) => ({b, v})).sort((a, b) => b.v - a.v);
   return `<h3>Resmî veriler · ${esc(D.donem)}</h3>
-    <div class="big">${n != null ? `<div class="kv hl"><span>${esc(loc(il))} satılan konut</span><b>${n.toLocaleString('tr-TR')}</b></div>
-      <div class="kv"><span>İstanbul satışları içindeki payı</span><b>%${(100 * n / T.istanbul.satis).toLocaleString('tr-TR', {maximumFractionDigits: 1})}</b></div>` : ''}
-      <div class="kv"><span>İstanbul'da satılan konut</span><b>${T.istanbul.satis.toLocaleString('tr-TR')}</b></div>
-      <div class="kv"><span>İstanbul'da ilk el · ipotekli payı</span><b>${pc(T.istanbul.ilk_el / T.istanbul.satis)} · ${pc(T.istanbul.ipotekli / T.istanbul.satis)}</b></div>
-      <div class="kv"><span>İstanbul konut fiyatı, yıllık</span><b>${sp(C.istanbul_fiyat_yillik)}</b></div>
-      <div class="kv"><span>Türkiye konut fiyatı, yıllık reel</span><b>${sp(C.turkiye_fiyat_reel_yillik)}</b></div></div>
+    <div class="big">${n != null ? `<div class="kv hl"><span>İlçede satılan konut</span><b>${n.toLocaleString('tr-TR')}</b></div>
+      <div class="kv"><span>İstanbul içindeki payı</span><b>%${(100 * n / T.istanbul.satis).toLocaleString('tr-TR', {maximumFractionDigits: 1})}</b></div>` : ''}
+      <div class="kv"><span>İstanbul satışı</span><b>${T.istanbul.satis.toLocaleString('tr-TR')}</b></div>
+      <div class="kv"><span>İlk el · ipotekli</span><b>${pc(T.istanbul.ilk_el / T.istanbul.satis)} · ${pc(T.istanbul.ipotekli / T.istanbul.satis)}</b></div>
+      <div class="kv"><span>İstanbul fiyat, yıllık</span><b>${sp(C.istanbul_fiyat_yillik)}</b></div>
+      <div class="kv"><span>Türkiye, reel yıllık</span><b>${sp(C.turkiye_fiyat_reel_yillik)}</b></div></div>
     <p class="fine" style="margin:8px 0 4px">Satılan konut: tapuda el değiştiren konut adedi (yalnızca ilan bandı değil, tüm fiyatlar). Komşu ilçelerde aynı ay:</p>
     ${mutHbars(rows, r => r.b, r => r.v, r => r.v.toLocaleString('tr-TR'), r => r.b === il)}
     <p class="fine" style="margin:6px 0 0">Kaynak: ${esc(T.kaynak)}; ${esc(C.kaynak)}. İstanbul'da yeni kiracı kiraları yıllık ${sp(C.istanbul_kira_yillik)} arttı.</p>`;
@@ -898,17 +900,17 @@ function openMutRapor(il){
       <div class="who">Hazırlayan<br><span contenteditable="true" id="r-office" spellcheck="false">${esc(office)}</span></div></header>
     <p style="margin:14px 0 0;font-size:15px">Fiyat bandındaki <b>${R.n}</b> ilanın <b>${R.s0}</b>'i sıfır daire. ${prim >= 0 ? `Yeni binalar m²'de eski binalardan <b>${pc(prim)}</b> pahalı` : `Yeni binalar m²'de eski binalardan <b>${pc(-prim)}</b> ucuz`}${R.oda.length ? `; yeni arzın <b>${pc(R.oda[0].n / toda)}</b>'i ${esc(R.oda[0].o)}.` : '.'}</p>
     <h3>Özet</h3>
-    <div class="big"><div class="kv hl"><span>Ortanca brüt m² fiyatı</span><b>${tlr(R.m2)}</b></div>
-      <div class="kv"><span>Ortanca daire · ${r0(R.b)} m² brüt</span><b>${mtl(R.p)}</b></div>
-      <div class="kv"><span>Sıfır daire ilanı</span><b>${R.s0}</b></div>
-      <div class="kv"><span>Yapımda · boş sıfır</span><b>${R.yp} · ${pc(bos)}</b></div>
-      <div class="kv"><span>Yeni bina (0–5 yaş) m²</span><b>${tlr(R.ym2)}</b></div>
-      <div class="kv"><span>Yeni binanın m² farkı</span><b>${(prim >= 0 ? '+' : '−') + pc(Math.abs(prim))}</b></div></div>
+    <div class="big"><div class="kv hl"><span>m² fiyatı (brüt)</span><b>${tlr(R.m2)}</b></div>
+      <div class="kv"><span>Ortanca daire</span><b>${mtl(R.p)}</b><small>${r0(R.b)} m² brüt</small></div>
+      <div class="kv"><span>Sıfır daire ilanı</span><b>${R.s0}</b><small>${R.n} ilan içinde</small></div>
+      <div class="kv"><span>Boş sıfır daire</span><b>${pc(bos)}</b><small>${R.yp} yapım aşamasında</small></div>
+      <div class="kv"><span>Yeni bina m²</span><b>${tlr(R.ym2)}</b><small>0–5 yaş</small></div>
+      <div class="kv"><span>Yeni bina farkı</span><b>${(prim >= 0 ? '+' : '−') + pc(Math.abs(prim))}</b><small>6+ yaşa göre m²</small></div></div>
     ${resmiHtml(il)}
     <h3>Müteahhit için okuma</h3>
     <ul class="reads">${reads.map(r => `<li>${r}</li>`).join('')}</ul>
     <h3>Mahalleler · m² fiyatına göre</h3>
-    <div class="tw"><table><thead><tr><th>Mahalle</th><th class="r">İlan</th><th class="r">TL/m²</th><th class="r">Yeni bina TL/m²</th><th class="r">Sıfır</th><th class="r opt">Yapımda</th><th class="r opt">Site içi</th><th class="r opt">Bekleme</th></tr></thead><tbody>
+    <div class="tw"><table><thead><tr><th>Mahalle</th><th class="r">İlan</th><th class="r">TL/m²</th><th class="r">Yeni TL/m²</th><th class="r">Sıfır</th><th class="r opt">Yapımda</th><th class="r opt">Site içi</th><th class="r opt">Bekleme</th></tr></thead><tbody>
     ${R.mah.map(r => `<tr><td>${esc(r.mh)}</td><td class="r">${r.n}</td><td class="r"><span class="mbar" style="width:${(44 * r.m2 / mx).toFixed(0)}px"></span>${n0(r.m2)}</td><td class="r">${n0(r.ym2)}</td><td class="r">${r.s0}</td><td class="r opt">${r.yp}</td><td class="r opt">%${r0(r.site * 100)}</td><td class="r opt">${r0(r.gun)} gün</td></tr>`).join('')}
     </tbody></table></div>
     <div class="mtwo">

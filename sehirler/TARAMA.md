@@ -92,5 +92,12 @@ Ardından `sehirler/index.json` içinde şehrin `durum` değeri `hazir` yapılı
 - **Samandağ** (Hatay kıyı): https://www.emlakjet.com/satilik-konut/hatay-samandag
 - **Defne** (Antakya): https://www.emlakjet.com/satilik-konut/hatay-defne
 - **Antakya** (Antakya): https://www.emlakjet.com/satilik-konut/hatay-antakya
+- **Yayladağı** (Suriye sınırı): https://www.emlakjet.com/satilik-konut/hatay-yayladagi
+- **Altınözü** (Suriye sınırı): https://www.emlakjet.com/satilik-konut/hatay-altinozu
+- **Reyhanlı** (Suriye sınırı): https://www.emlakjet.com/satilik-konut/hatay-reyhanli
+- **Kumlu** (Suriye sınırı): https://www.emlakjet.com/satilik-konut/hatay-kumlu
+- **Kırıkhan** (İç Hatay): https://www.emlakjet.com/satilik-konut/hatay-kirikhan
+- **Belen** (İç Hatay): https://www.emlakjet.com/satilik-konut/hatay-belen
+- **Hassa** (İç Hatay): https://www.emlakjet.com/satilik-konut/hatay-hassa
 
 Hatay'ın mahalle sınırları açık veri setinde yok: `python3 tools/sinir_indir.py hatay` (OpenStreetMap) ile eklenir.

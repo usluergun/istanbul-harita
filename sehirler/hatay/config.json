@@ -1,10 +1,10 @@
 {
  "id": "hatay",
  "ad": "Hatay",
- "baslik": "Hatay kıyı ve Antakya",
+ "baslik": "Hatay: tüm ilçeler",
  "merkez": [
-  36.55,
-  36.1
+  36.45,
+  36.25
  ],
  "zoom": 9,
  "il_lok": "Hatay'da",
@@ -118,11 +118,83 @@
    "grup": "Antakya",
    "emlakjet": "hatay-antakya",
    "etiket": "ust"
+  },
+  {
+   "ad": "Yayladağı",
+   "lok": "Yayladağı'nda",
+   "merkez": [
+    35.9025,
+    36.0608
+   ],
+   "grup": "Suriye sınırı",
+   "emlakjet": "hatay-yayladagi"
+  },
+  {
+   "ad": "Altınözü",
+   "lok": "Altınözü'nde",
+   "merkez": [
+    36.115,
+    36.245
+   ],
+   "grup": "Suriye sınırı",
+   "emlakjet": "hatay-altinozu"
+  },
+  {
+   "ad": "Reyhanlı",
+   "lok": "Reyhanlı'da",
+   "merkez": [
+    36.2678,
+    36.5675
+   ],
+   "grup": "Suriye sınırı",
+   "emlakjet": "hatay-reyhanli"
+  },
+  {
+   "ad": "Kumlu",
+   "lok": "Kumlu'da",
+   "merkez": [
+    36.3694,
+    36.4614
+   ],
+   "grup": "Suriye sınırı",
+   "emlakjet": "hatay-kumlu"
+  },
+  {
+   "ad": "Kırıkhan",
+   "lok": "Kırıkhan'da",
+   "merkez": [
+    36.4983,
+    36.3575
+   ],
+   "grup": "İç Hatay",
+   "emlakjet": "hatay-kirikhan"
+  },
+  {
+   "ad": "Belen",
+   "lok": "Belen'de",
+   "merkez": [
+    36.4917,
+    36.1931
+   ],
+   "grup": "İç Hatay",
+   "emlakjet": "hatay-belen"
+  },
+  {
+   "ad": "Hassa",
+   "lok": "Hassa'da",
+   "merkez": [
+    36.7997,
+    36.5175
+   ],
+   "grup": "İç Hatay",
+   "emlakjet": "hatay-hassa"
   }
  ],
  "gruplar": [
   "Hatay kıyı",
-  "Antakya"
+  "Antakya",
+  "Suriye sınırı",
+  "İç Hatay"
  ],
  "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR (OCHA) ilçe katmanı ve mahalle sınırları henüz yok (github.com/ttezer/turkiye-harita-verisi). Harita: © Esri, © OpenStreetMap katkıcıları."
 }

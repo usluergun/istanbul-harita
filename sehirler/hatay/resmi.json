@@ -30,7 +30,7 @@
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
   "bolge": "TR63 Hatay, Kahramanmaraş, Osmaniye",
-  "il_fiyat_yillik": null,
+  "il_fiyat_yillik": 0.221,
   "il_fiyat_aylik": null,
   "il_kira_yillik": null,
   "turkiye_fiyat_yillik": 0.23,
@@ -71,7 +71,8 @@
    "Reyhanlı": 105309,
    "Kırıkhan": 119854,
    "Belen": 34134,
-   "Hassa": 56952
+   "Hassa": 56952,
+   "Erzin": 41677
   }
  },
  "yapi_izin": {
@@ -85,7 +86,8 @@
  "notlar": [
   "Hatay Haziran 2026: 1.240 konut (308 ilk el, 932 ikinci el); asigazetesi.com (17 Temmuz 2026, TÜİK verisi). Ağustos 2026 Hatay rakamı bulunamadı.",
   "Nüfus (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı). Erzin 2021 değeri sayfada yok. 2021–2025 düşüşü büyük ölçüde Şubat 2023 depremlerinin etkisidir.",
-  "Mahalle sınırları açık veri setinde Hatay için yok; ilçe sınırları HDX COD-AB-TUR. Mahalle sınırları OpenStreetMap ile (tools/sinir_indir.py) eklenebilir."
+  "Mahalle sınırları açık veri setinde Hatay için yok; ilçe sınırları HDX COD-AB-TUR. Mahalle sınırları OpenStreetMap ile (tools/sinir_indir.py) eklenebilir.",
+  "TCMB bölge (TR63) yıllık %22,1: bülten grafiğindeki sıralamadan okundu; tek kaynak."
  ],
  "kaynaklar": {
   "hatay_tuik_2026-06": [

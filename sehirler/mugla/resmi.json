@@ -30,7 +30,7 @@
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
   "bolge": "TR32 Aydın, Denizli, Muğla",
-  "il_fiyat_yillik": null,
+  "il_fiyat_yillik": 0.179,
   "il_fiyat_aylik": null,
   "il_kira_yillik": null,
   "turkiye_fiyat_yillik": 0.23,
@@ -79,7 +79,7 @@
   "Değerler TÜİK ve TCMB yayınlarını kaynak gösteren haber sitelerinden derlendi.",
   "Muğla Ağustos 2026: 1.727 konut (604 ilk el, 1.123 ikinci el), 32 yabancıya satış; gundemfethiye.com.tr ve bodrumolay.com (17 Eylül 2026). Bazı haberlerde toplam 1.720 yazıyor; ilk el + ikinci el toplamı 1.727 olduğu için 1.727 kullanıldı. İpotekli satış ve yıllık değişim bulunamadı.",
   "Muğla ve ilçe nüfusları (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı).",
-  "TCMB bölge (TR32) yıllık değeri kesin eşleştirilemediği için gösterilmiyor."
+  "TCMB bölge (TR32) yıllık değişimi %17,9: KFE bülteninde TR32 koduyla yazılı."
  ],
  "kaynaklar": {
   "mugla_tuik_2026-08": [

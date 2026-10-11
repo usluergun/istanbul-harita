@@ -1,0 +1,84 @@
+{
+  "aydin": {
+    "agu2025": null,
+    "agu2026_kontrol": {"satis": 2174, "ilk_el": 625, "ikinci_el": 1549, "ipotekli": 289, "diger": 1885, "yabanci": 18, "aylik_degisim_temmuza_gore": -0.0414}
+  },
+  "gaziantep": {
+    "ipotekli_agu2026": null,
+    "agu2025": null,
+    "yillik_degisim_agu2026": 0.119,
+    "agu2026_kontrol": {"satis": 3646, "ilk_el": 1005, "ikinci_el": 2641}
+  },
+  "mugla": {
+    "ipotekli_agu2026": null,
+    "agu2025": null,
+    "agu2026_kontrol": {"satis": 1727, "ilk_el": 604, "ikinci_el": 1123, "yabanci": 32}
+  },
+  "hatay": {
+    "agu2026": {"satis": null, "ilk_el": null, "ipotekli": null},
+    "agu2025": null
+  },
+  "tcmb": {
+    "TR32": {"yillik": 0.179, "ay": "2026-08", "bolge": "Aydın, Denizli, Muğla"},
+    "TRC1": {"yillik": 0.248, "ay": "2026-08", "bolge": "Kilis, Adıyaman, Gaziantep, Diyarbakır, Şanlıurfa, Batman, Mardin, Siirt, Şırnak (TRC1+TRC2+TRC3 birleşik grup; TRC1 tek başına yayımlanmamış)"},
+    "TR63": {"yillik": 0.221, "ay": "2026-08", "bolge": "Hatay, Kahramanmaraş, Osmaniye"},
+    "referans": {"turkiye": 0.230, "istanbul": 0.263, "ankara": 0.248, "izmir": 0.233, "en_yuksek_TRB": 0.270, "en_dusuk_TR21": 0.130}
+  },
+  "erzin_2021": 41677,
+  "kaynaklar": {
+    "aydin_agu2026": [
+      "https://www.aydintimes.com/aydinda-konut-satislarinda-dusus",
+      "https://www.aydinkulis.com/aydinda-konut-satislari-dustu-1",
+      "https://www.aydindenge.com.tr/aydin/18/09/2026/aydinda-konut-satislari-yuzde-4-dustu",
+      "https://www.aksiyon.com.tr/aydin-da-konut-satislari-agustosta-geriledi-isyeri-satislari-yuzde-45-artti-356910"
+    ],
+    "gaziantep_agu2026_ve_yillik_degisim": [
+      "https://www.guncelgazete.com/gundem/konut-satisinda-gaziantep-farki-65933",
+      "https://www.olaymedya.com/ekonomi/17423484/gaziantepte-konut-piyasasi-alev-aldi",
+      "https://www.kenthaber27.com/haber/turkiye-genelinde-geriledi-gaziantep-te-konut-satislari-yukseldi-1281054.html",
+      "https://www.referansgazetesi.com.tr/turkiyede-azaldi-gaziantepte-artti-konut-satisinda-gaziantep-farki"
+    ],
+    "mugla_agu2026": [
+      "https://gundemfethiye.com.tr/muglada-agustos-ayinda-bin-727-konut-satildi-171167/",
+      "https://www.muglayenigun.com/muglada-agustos-ayinda-1-727-konut-satildi/",
+      "https://www.muglapostasi.com.tr/muglada-agustos-ayinda-bin-720-konut-satildi",
+      "https://www.gazetebirlik.com/ekonomi/muglada-agustos-ayinda-konut-satislari-yukseldi/1096297"
+    ],
+    "turkiye_agu2026_ve_revize_agu2025": [
+      "https://www.alomaliye.com/2026/09/17/konut-satislarinda-agustos-freni/",
+      "https://www.dha.com.tr/gundem/agustos-ayinda-127-bin-410-konut-satildi-2946185",
+      "https://www.asigazetesi.com/hatayda-konut-piyasasinda-sert-dusus-satislar-cakildi"
+    ],
+    "turkiye_agu2025_ilk_yayin": [
+      "https://www.alomaliye.com/2025/09/16/2025-agustos-ayinda-143-bin-319-konut-satildi/",
+      "https://www.bmd.com.tr/application/files/6717/5809/3105/Konut_Satis_Istatistikleri-Agustos_2025.pdf"
+    ],
+    "hatay_yillik_ve_temmuz_ipucu": [
+      "https://www.investhatay.com/veri-merkezi",
+      "https://blog.tapusor.com/verilerle-hatay-gayrimenkul-pazari/8046/"
+    ],
+    "tcmb_kfe_agu2026": [
+      "https://www.tcmb.gov.tr/wps/wcm/connect/8bbac42a-c854-4c58-8b0c-e7e55c35ec2d/KFE.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-8bbac42a-c854-4c58-8b0c-e7e55c35ec2d-n",
+      "https://www.cnbce.com/veriler/konut-fiyat-endeksi-aciklandi-agustosta-reel-dusus-surdu-h37329",
+      "https://www.yenibakishaber.com/tcmb-acikladi-izmirde-konut-fiyatlari-ne-kadar-artti",
+      "https://tasinmazhaber.com/konut-fiyat-endeksi-agustos-2026-verileri-aciklandi-konut-fiyatlari-yuzde-23-artti/",
+      "https://www.alomaliye.com/2026/09/16/konut-fiyatlarinda-reel-kayip-yuzde-6-5/"
+    ],
+    "erzin_2021": [
+      "https://www.nufusu.com/ilce/erzin_hatay-nufusu",
+      "https://www.nufusune.com/erzin-ilce-nufusu-hatay"
+    ]
+  },
+  "notlar": [
+    "Aydın agu2025: Ağustos 2026 haberlerinin hepsi (4 kaynak) yalnızca Temmuz'a göre aylık değişim (-%4,14) veriyor; yıllık karşılaştırma ve Ağustos 2025 il toplamı bulunamadı → null.",
+    "Gaziantep agu2025: Mutlak sayı bulunamadı → null. 3 kaynak (guncelgazete, olaymedya, kenthaber27) Ağustos 2026 satışlarının 'geçen yılın aynı dönemine göre %11,90 arttığını' yazıyor; Referans Gazetesi aynı oranı 'önceki aya göre' diye veriyor (muhtemelen hata). Yıllık %11,90 doğruysa Ağustos 2025 ≈ 3.258 olur; bu bir türetmedir, kaynakta geçmiyor ve 3.258/3.259 ikisi de tam %11,90 vermiyor. yillik_degisim_agu2026 = 0.119 ayrıca yazıldı.",
+    "Gaziantep ipotekli_agu2026: İncelenen 5 Gaziantep haberinin hiçbiri ipotekli satış vermiyor → null.",
+    "Muğla: Haberlerin bir kısmı (AA/İHA kaynaklı muglapostasi, gazetebirlik, aksiyon, haberler.com) toplamı 1.720 yazıyor, ancak 604 ilk el + 1.123 ikinci el = 1.727; 1.727 doğru, 1.720 yazım hatası. İpotekli satış ve Ağustos 2025 toplamı hiçbir kaynakta yok → null.",
+    "Hatay Ağustos 2026: Hatay'a özel ağustos haberi bulunamadı (asigazetesi 'Hatay' başlıklı haberi aslında Türkiye geneli rakamları veriyor). Tapusor blogu (25.08.2026) Hatay için ayı belirtilmemiş '1.189 adetlik aylık satış hacmi' veriyor; muhtemelen Temmuz 2026, ama doğrulanamadı, kullanılmadı. investhatay.com yıllık toplamlar: 2024 = 13.919, 2025 = 15.992.",
+    "ÖNEMLİ - revizyon: TÜİK Ağustos 2026 bülteninde Ağustos 2025 Türkiye toplamı 149.440 olarak geçiyor (127.410 / -%14,7); Eylül 2025'teki ilk yayında 143.319 idi. İzmir de ilk yayında 7.695, 2026 bülteninde 7.867. Yani Ağustos 2025 il rakamları 2025 haberlerinden alınırsa revize öncesi olur; yıllık değişim için 2026 bültenindeki revize değerler kullanılmalı.",
+    "TCMB KFE Ağustos 2026: Bülten bölgeleri İBBS-2'den farklı, birleştirilmiş 20 grup halinde veriyor (ör. TRB, TR9 gibi). TR32 = %17,9: bülten özet kutusunda TR koduyla açıkça geçiyor (kesin). TR63 = %22,1 ve Gaziantep grubu = %24,8: Grafik 4'teki etiket ve değerlerin sırasıyla eşleştirilmesinden çıktı. Grafik büyükten küçüğe sıralı; İstanbul 26,3, Ankara 24,8, İzmir 23,3, Türkiye 23,0, en yüksek 27,0 ve en düşük 13,0 haberlerle (cnbce, yenibakishaber, alomaliye) birebir uyuşuyor. Bu yüzden sıralama güvenilir, ama TR63 ve TRC değerlerini doğrudan veren ikinci bir kaynak bulunamadı.",
+    "TRC1: Gaziantep, Adıyaman ve Kilis bültende ayrı değil; Diyarbakır, Şanlıurfa, Batman, Mardin, Siirt ve Şırnak ile tek grup (TRC1+TRC2+TRC3). 0.248 bu birleşik grubun değeri, saf TRC1 değil. Grafikte 4. ve 5. sıra ikisi de 24,8 (Ankara ile eşit), yani grup içi sıralama değeri değiştirmiyor.",
+    "Erzin 2021 = 41.677 (erkek 20.964, kadın 20.713). nufusu.com ve nufusune.com aynı değeri veriyor; ikisi de TÜİK ADNKS'yi gayriresmi olarak yeniden yayımlıyor.",
+    "İzmir kontrol: 6.532 / 7.867 = -%16,97; yeniasir'deki '%17,0 azaldı' ile tutarlı (revize 2025 değeri)."
+  ]
+}

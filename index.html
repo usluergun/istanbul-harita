@@ -149,7 +149,7 @@
 .prep .note{background:#fff7e3;border:1px solid #efd9a0;border-radius:10px;padding:10px 12px;color:#5a4410}
 .prep h3{font:600 13px var(--f-body);color:var(--ink);margin:4px 0 0}
 .prep .kv3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.prep .kv3 div{background:var(--chip);border-radius:10px;padding:8px 10px}
-.prep .kv3 span{display:block;font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.prep .kv3 b{font:700 16px var(--f-display);color:var(--ink);font-variant-numeric:tabular-nums}
+.prep .kv3 small{display:block;font-size:10.5px;color:var(--ink-3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.prep .il-row td{font-weight:600;color:var(--ink)}.prep .kv3 span{display:block;font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.prep .kv3 b{font:700 16px var(--f-display);color:var(--ink);font-variant-numeric:tabular-nums}
 .prep table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}.prep th{font-weight:500;color:var(--ink-3);text-align:left;border-bottom:1px solid var(--line);padding:4px 4px}
 .prep td{padding:5px 4px;border-bottom:1px solid var(--line);vertical-align:top}.prep td small{display:block;font-size:10.5px;color:var(--ink-3);white-space:nowrap}.prep .r{text-align:right}.prep .grp-h td{font-weight:600;color:var(--ink);background:var(--chip)}
 .prep .fine{font-size:11px;color:var(--ink-3)}.prep ol{margin:0;padding-left:18px}
@@ -464,15 +464,20 @@ async function hazirlik(GEO){
     const T = D.tuik, C = D.tcmb, I = T.il, ilAy = Object.keys(T.il_aylik || {}).sort().slice(-3);
     const ilK = ilAy.length && NF[I.ad] ? ilAy.reduce((t, m) => t + T.il_aylik[m], 0) / ilAy.length * 12 / NF[I.ad] * 1000 : null;
     h += `<h3>${E(I.ad)} konut pazarı · ${E(D.donem)}</h3>`;
-    const tiles = [['Satılan konut', N0(I.satis)], ['İlk el payı', I.ilk_el != null ? P(I.ilk_el / I.satis) : null], ['İpotekli payı', I.ipotekli != null ? P(I.ipotekli / I.satis) : null],
-      I.yillik != null ? ['Yıllık değişim', SP(I.yillik)] : ['Aylık değişim', I.aylik_degisim != null ? SP(I.aylik_degisim) : null],
-      [C.bolge === I.ad ? 'Fiyat, yıllık' : 'Bölge fiyatı', C.il_fiyat_yillik != null ? SP(C.il_fiyat_yillik) : null],
-      ['Satış/1.000', ilK != null ? ilK.toLocaleString('tr-TR', {maximumFractionDigits: 1}) : null], ['Nüfus 2025', NF[I.ad] ? (NF[I.ad] / 1e6).toLocaleString('tr-TR', {maximumFractionDigits: 2}) + ' M' : null],
-      ['Kira, yıllık', C.il_kira_yillik != null ? SP(C.il_kira_yillik) : null]].filter(t => t[1] != null).slice(0, 6);
-    h += `<div class="kv3">${tiles.map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join('')}</div>`;
+    // her ilde aynı 6 kutucuk, aynı sırada; veri yoksa "bulunamadı"
+    const N21 = D.nufus['2021'] || {}, ilDn = NF[I.ad] && N21[I.ad] ? NF[I.ad] / N21[I.ad] - 1 : null;
+    const tiles = [
+      ['Satılan konut', N0(I.satis), ''],
+      ['İlk el payı', I.ilk_el != null ? P(I.ilk_el / I.satis) : null, ''],
+      ['İpotekli payı', I.ipotekli != null ? P(I.ipotekli / I.satis) : null, ''],
+      ['Satış, yıllık', I.yillik != null ? SP(I.yillik) : null, 'geçen yılın aynı ayına göre'],
+      ['Fiyat, yıllık', C.il_fiyat_yillik != null ? SP(C.il_fiyat_yillik) : null, C.bolge && C.bolge !== I.ad ? 'TCMB bölge endeksi' : 'TCMB'],
+      ['Nüfus 2025', NF[I.ad] ? (NF[I.ad] / 1e6).toLocaleString('tr-TR', {maximumFractionDigits: 2}) + ' M' : null, ilDn != null ? SP(ilDn) + " 2021'den" : '']];
+    h += `<div class="kv3">${tiles.map(([k, v, n]) => `<div><span>${k}</span><b>${v ?? '—'}</b>${v == null ? '<small>bulunamadı</small>' : n ? `<small>${E(n)}</small>` : ''}</div>`).join('')}</div>`;
     const R = rTalep(D, IL.map(c => c.ad)), byG = {};
     IL.forEach((c, i) => (byG[c.grup || ''] = byG[c.grup || ''] || []).push(R[i]));
     h += `<h3>İlçeler</h3><table><thead><tr><th>İlçe</th><th class="r">Satış</th><th class="r">Nüfus</th><th class="r">/1.000</th></tr></thead><tbody>
+    <tr class="il-row"><td>${E(I.ad)} geneli</td><td class="r">${N0(I.satis)}<small>${E(rAy(Object.keys(T.il_aylik || {}).sort().pop() || '2026-08', true))}</small></td><td class="r">${N0(NF[I.ad])}${ilDn != null ? `<small>${SP(ilDn)} 2021'den</small>` : ''}</td><td class="r">${ilK != null ? ilK.toLocaleString('tr-TR', {maximumFractionDigits: 1}) : '—'}</td></tr>
     ${Object.entries(byG).map(([g, rows]) => (g && Object.keys(byG).length > 1 ? `<tr class="grp-h"><td colspan="4">${E(g)}</td></tr>` : '') + rows.map(r => `<tr><td>${E(r.b)}</td><td class="r">${r.s ? `${N0(r.s.son.n)}<small>${E(r.s.son.ay ? rAy(r.s.son.ay, true) : '2026 Oca–Mar')}</small>` : '—'}</td><td class="r">${N0(r.nf)}${r.dn != null ? `<small>${SP(r.dn)} 2021'den</small>` : ''}</td><td class="r">${r.k != null ? r.k.toLocaleString('tr-TR', {maximumFractionDigits: 1}) : '—'}</td></tr>`).join('')).join('')}
     </tbody></table>
     <p class="fine">${T.aylik_not ? E(T.aylik_not) + ' ' : ''}Satış: tapuda satılan konut, en son bulunan ay. "/1.000": 1.000 kişiye düşen yıllık konut satışı (son ayların ortalaması × 12 ÷ 2025 nüfusu).${C.il_kira_yillik != null ? ` Yeni kiracı kiraları yıllık ${SP(C.il_kira_yillik)}.` : ''}</p>

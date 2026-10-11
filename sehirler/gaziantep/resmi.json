@@ -43,8 +43,8 @@
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
-  "bolge": "TRC1 Gaziantep, Adıyaman, Kilis",
-  "il_fiyat_yillik": null,
+  "bolge": "Güneydoğu grubu (Gaziantep, Adıyaman, Kilis, Diyarbakır, Şanlıurfa, Batman, Mardin, Siirt, Şırnak)",
+  "il_fiyat_yillik": 0.248,
   "il_fiyat_aylik": null,
   "il_kira_yillik": null,
   "turkiye_fiyat_yillik": 0.23,
@@ -78,9 +78,8 @@
   "Gaziantep 2026-08 ipotekli satış sayısı bulunamadı. Haziran 2026 ipotekli = 668 (557 ikinci el + 111 ilk el; Referans Gazetesi).",
   "Gaziantep Mayıs ve Ocak 2026 il toplamları bulunamadı.",
   "Şahinbey ve Şehitkamil için aylık ilçe satışı bulunamadı. Yalnızca 2026 Ocak-Mart toplamı var: Şehitkamil 4.386 (Türkiye'de 4.), Şahinbey 3.531 (9.) (olaymedya, tek kaynak).",
-  "TCMB TRC1 (Gaziantep, Adıyaman, Kilis): bülten grafiğinde Gaziantep tek başına değil, Kilis-Adıyaman-Gaziantep-Diyarbakır-Şanlıurfa-Batman-Mardin-Siirt-Şırnak birleşik etiketiyle geçiyor ve değer eşleştirilemedi (aday değer %24,8, doğrulanamadı). EVDS (evds3.tcmb.gov.tr) JavaScript gerektirdiği için okunamadı. Bu yüzden null.",
-  "TR32 ve TRC1 için yeni kiracı kira endeksi bulunamadı.",
-  "Nüfus: 2025 ADNKS sonuçları Şubat 2026'da yayımlandı. Değerler nufusu.com/nufusum.com sayfalarından alındı (bu siteler gayriresmidir ve TÜİK'i kaynak gösterir). İzmir 2025 = 4.504.185 alomaliye'de de aynı. Şahinbey ve Şehitkamil 2025 değerleri alomaliye'de de aynı."
+  "Nüfus: 2025 ADNKS sonuçları Şubat 2026'da yayımlandı. Değerler nufusu.com/nufusum.com sayfalarından alındı (bu siteler gayriresmidir ve TÜİK'i kaynak gösterir). İzmir 2025 = 4.504.185 alomaliye'de de aynı. Şahinbey ve Şehitkamil 2025 değerleri alomaliye'de de aynı.",
+  "TCMB yıllık %24,8: bülten bölgeleri birleşik gruplar halinde veriyor; bu değer Gaziantep'in dahil olduğu Güneydoğu grubuna ait (grafik sıralamasından, tek kaynak)."
  ],
  "kaynaklar": {
   "turkiye_tuik": [

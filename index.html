@@ -291,6 +291,18 @@ h1{font-family:var(--f-display);font-size:22px;line-height:1.05;margin:0}
 }
 @media (prefers-reduced-motion: reduce){ .panel,.scrim{transition:none} }
 .close-menu{display:none;position:absolute;top:10px;right:10px;font:500 20px var(--f-body);width:36px;height:36px;align-items:center;justify-content:center;border:0;background:var(--chip);border-radius:8px;color:var(--ink);cursor:pointer}
+/* menü uzun olunca tüm panel kayar (başlık ve şehir düğmeleri listeyi sıkıştırmasın) */
+.panel{overflow-y:auto;overscroll-behavior:contain}
+.panel>.ph,.panel>.tabs,.panel>.foot{flex:none}
+.panel>.list{min-height:240px}
+@media (max-width:900px){
+  .panel{-webkit-overflow-scrolling:touch}
+  .panel>.list{flex:none;min-height:0;overflow:visible}
+  .panel>.tabs{position:sticky;top:0;z-index:3;background:var(--panel)}
+  .sehirler{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -14px;padding:0 14px}
+  .sehirler::-webkit-scrollbar{display:none}
+  .sehirler a.tog{flex:none}
+}
 </style>
 </head>
 <body>

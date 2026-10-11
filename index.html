@@ -144,7 +144,7 @@
 .pf span::after{content:"";position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:#f2b84b}
 .pfban{background:#fdf1d8;color:#5e4200;font:600 12px var(--f-body);padding:6px 10px;border-radius:8px;margin-bottom:6px}
 #loading{position:absolute;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font:500 15px var(--f-body,system-ui);color:#1c2830;background:#e9eef0;line-height:1.5}
-.sehirler{display:flex;flex-wrap:wrap;gap:6px}.sehirler a.tog{text-decoration:none;display:inline-flex;align-items:center;gap:5px}.sehirler a.tog small{opacity:.65;font-size:11px}
+.sehirler{display:flex;flex-wrap:wrap;gap:6px}.sehir-sec{display:flex;align-items:center;gap:8px;width:100%;font:500 12.5px var(--f-body);color:var(--ink-3)}.sehir-sec select{flex:1;min-width:0;font:600 15px var(--f-body);color:var(--ink);padding:8px 34px 8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%231c2830' stroke-width='1.8'/></svg>") no-repeat right 12px center;-webkit-appearance:none;appearance:none;cursor:pointer}.sehir-sec select:focus-visible{outline:2px solid var(--pin);outline-offset:2px}.sehirler a.tog{text-decoration:none;display:inline-flex;align-items:center;gap:5px}.sehirler a.tog small{opacity:.65;font-size:11px}
 .prep{padding:12px 16px 16px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;font-size:13px;color:var(--ink-2);line-height:1.45}
 .prep .note{background:#fff7e3;border:1px solid #efd9a0;border-radius:10px;padding:10px 12px;color:#5a4410}
 .prep h3{font:600 13px var(--f-body);color:var(--ink);margin:4px 0 0}
@@ -299,9 +299,7 @@ h1{font-family:var(--f-display);font-size:22px;line-height:1.05;margin:0}
   .panel{-webkit-overflow-scrolling:touch}
   .panel>.list{flex:none;min-height:0;overflow:visible}
   .panel>.tabs{position:sticky;top:0;z-index:3;background:var(--panel)}
-  .sehirler{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -14px;padding:0 14px}
-  .sehirler::-webkit-scrollbar{display:none}
-  .sehirler a.tog{flex:none}
+  .sehir-sec select{font-size:16px}
 }
 </style>
 </head>
@@ -391,7 +389,9 @@ if (loadEl) loadEl.remove();
 document.title = `${CFG.ad} · Mahalle Fiyat Haritası`;
 document.getElementById('eyebrow').textContent = CFG.baslik + ' · satılık konut';
 document.getElementById('foot').textContent = CFG.kaynak_notu || '';
-document.getElementById('sehirler').innerHTML = IDX.sehirler.map(c => `<a class="tog" href="?sehir=${c.id}" aria-pressed="${c.id === SEHIR}"${c.id === SEHIR ? ' aria-current="page"' : ''}>${c.ad}${c.durum !== 'hazir' ? ' <small>hazırlanıyor</small>' : ''}</a>`).join('');
+{ const nav = document.getElementById('sehirler');
+  nav.innerHTML = `<label class="sehir-sec"><span>Şehir</span><select id="sehir-sec" aria-label="Şehir seçin">${IDX.sehirler.map(c => `<option value="${c.id}"${c.id === SEHIR ? ' selected' : ''}>${c.ad}${c.durum !== 'hazir' ? ' (hazırlanıyor)' : ''}</option>`).join('')}</select></label>`;
+  document.getElementById('sehir-sec').onchange = e => { location.search = '?sehir=' + e.target.value; }; }
 if (!ILAN || !ILAN.length || !GEO) { hazirlik(GEO); return; }
 
 // --- resmî veri yardımcıları (tüm şehirler; yalnızca verilen veriye bakar)

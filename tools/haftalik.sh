@@ -18,5 +18,5 @@ done
 git add sehirler/*/ilan.json sehirler/*/config.json sehirler/index.json
 git commit -q -m "Haftalık ilan yenileme $(date +%Y-%m-%d)" && git push -q origin cok-sehir && echo "gönderildi" || echo "gönderilecek değişiklik yok veya push başarısız"
 # eski tarama klasörlerinden yalnızca son 4 haftayı tut
-for s in $SEHIRLER; do ls -d sehirler/$s/_tarama_* 2>/dev/null | sort | head -n -4 | while read d; do mkdir -p _arsiv && mv "$d" _arsiv/; done; done
+for s in $SEHIRLER; do ls -d sehirler/$s/_tarama_* 2>/dev/null | sort -r | tail -n +5 | while read d; do mkdir -p _arsiv && mv "$d" _arsiv/; done; done
 echo "== $(date) bitti"

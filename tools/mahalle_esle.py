@@ -18,11 +18,8 @@ def nfc(s): return unicodedata.normalize('NFC', s or '')
 def anahtar(s): return nfc(s).replace(' Mahallesi', '').replace(' Mah.', '').strip().casefold()
 
 
-def main():
-    sehir = sys.argv[1]; kontrol = '--kontrol' in sys.argv
-    kok = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sehirler', sehir)
-    I = json.load(open(os.path.join(kok, 'ilan.json'), encoding='utf-8'))
-    G = json.load(open(os.path.join(kok, 'geo.json'), encoding='utf-8'))
+def esle(I, G):
+    """İlan listesine yerinde mk yazar; özet sayıları döndürür."""
     F = G['mah']['features']
     kutu = []
     for f in F:
@@ -43,6 +40,15 @@ def main():
             say['ad' if mk >= 0 else 'yok'] += 1
         if eski is not None and eski != mk: say['degisen'] += 1
         x['mk'] = mk
+    return say
+
+
+def main():
+    sehir = sys.argv[1]; kontrol = '--kontrol' in sys.argv
+    kok = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sehirler', sehir)
+    I = json.load(open(os.path.join(kok, 'ilan.json'), encoding='utf-8'))
+    G = json.load(open(os.path.join(kok, 'geo.json'), encoding='utf-8'))
+    say = esle(I, G)
     print(f'{len(I)} ilan · konumdan {say["konum"]} · mahalle adından {say["ad"]} · eşleşmeyen {say["yok"]} · önceki değerden farklı {say["degisen"]}')
     if not kontrol:
         json.dump(I, open(os.path.join(kok, 'ilan.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))

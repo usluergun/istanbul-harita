@@ -809,7 +809,9 @@ panes.val.innerHTML = `<form class="vf" id="vform" novalidate>
 </form><div class="vr" id="vres"><p class="mnote" style="padding:0">Dairenin bilgilerini gir. Aynı mahalledeki en benzer ilanlardan tahmini fiyat aralığı ve emsal listesi çıkar.</p></div>`;
 const $ = id => document.getElementById(id);
 function fillMah(){ const b = $('v-ilce').value; const ks = [...(mahByIlce[b] || [])].sort((a, c) => short(mahName(a)).localeCompare(short(mahName(c)), 'tr'));
-  $('v-mah').innerHTML = ks.map(k => `<option value="${k}">${esc(short(mahName(k)))} (${ILAN.filter(x => x.mk === k).length})</option>`).join(''); }
+  const say = k => ILAN.filter(x => x.mk === k).length;
+  $('v-mah').innerHTML = ks.map(k => `<option value="${k}">${esc(short(mahName(k)))} (${say(k)})</option>`).join('');
+  if (ks.length) $('v-mah').value = ks.reduce((a, c) => say(c) > say(a) ? c : a); } // varsayılan: en çok ilanı olan mahalle
 $('v-ilce').onchange = fillMah; fillMah();
 let lastVal = null;
 function estimate(t){
@@ -968,7 +970,7 @@ const mutYas = y => y.startsWith('0 (Yap') ? 'Yapım aşamasında' : y.startsWit
 const MUT_YAS = ['Yapım aşamasında', 'Sıfır (oturuma hazır)', '1–5 yaş', '6–10 yaş', '11+ yaş'];
 const mutM2 = x => x.p / brutM2(x);
 const r0 = v => Math.round(v);
-const tlr = v => v == null ? '—' : r0(v).toLocaleString('tr-TR') + ' TL';
+const tlr = v => !v ? '—' : r0(v).toLocaleString('tr-TR') + ' TL';
 const n0 = v => v == null ? '—' : r0(v).toLocaleString('tr-TR');
 const pc = v => '%' + r0(v * 100);
 const k1 = v => (v / 1000).toLocaleString('tr-TR', {maximumFractionDigits: 1}) + 'B';
@@ -1038,7 +1040,7 @@ function talepHtml(il){
     ${Y ? `<p class="fine" style="margin:6px 0 0"><b>Gelecek arz (Türkiye geneli):</b> Yapı ruhsatı alan daire sayısı 2026'nın 1. çeyreğinde yıllık ${sp(Y.ruhsat_daire_2026c1_yillik)} artışla ${Y.ruhsat_daire_2026c1.toLocaleString('tr-TR')} oldu, 2. çeyrekte ${sp(Y.ruhsat_daire_2026c2_yillik)} değişti. İskân alan daire sayısı 2. çeyrekte ${sp(Y.iskan_daire_2026c2_yillik)} arttı; yani tamamlanıp piyasaya giren yeni konut artıyor. ${esc(IL.ad)} ve ilçe kırılımı bulunamadı.</p>` : ''}`;
 }
 function openMutRapor(il){
-  const R = mutStats(il), prim = R.ym2 / R.em2 - 1, bos = R.s0 ? R.bos / R.s0 : 0, toda = R.oda.reduce((s, r) => s + r.n, 0) || 1;
+  const R = mutStats(il), prim = R.ym2 && R.em2 ? R.ym2 / R.em2 - 1 : null, bos = R.s0 ? R.bos / R.s0 : 0, toda = R.oda.reduce((s, r) => s + r.n, 0) || 1;
   const lst = (rows, f) => rows.map((r, i) => (i ? (i === rows.length - 1 ? ' ve ' : ', ') : '') + `${esc(r.mh)} (<b>${f(r)}</b>)`).join('');
   const reads = [];
   const rk = R.mah.filter(r => r.s0 > 0).sort((a, b) => b.s0 - a.s0).slice(0, 4);
@@ -1064,14 +1066,14 @@ function openMutRapor(il){
     <header><div><div class="ey">Müteahhit pazar raporu · ${esc(today)}</div><h2>${esc(il)} konut pazarı</h2>
       <div style="color:#4f5f68;font-size:13px">${esc(CFG.ilan_etiket || 'Satılık daire')} · ${CFG.tum_fiyatlar ? 'tüm fiyatlar' : BANT + ' fiyat bandı'} · ${R.n} ilan</div></div>
       <div class="who">Hazırlayan<br><span contenteditable="true" id="r-office" spellcheck="false">${esc(office)}</span></div></header>
-    <p style="margin:14px 0 0;font-size:15px">${CFG.tum_fiyatlar ? 'Taranan' : 'Fiyat bandındaki'} <b>${R.n}</b> ilanın <b>${R.s0}</b>'i sıfır daire. ${prim >= 0 ? `Yeni binalar m²'de eski binalardan <b>${pc(prim)}</b> pahalı` : `Yeni binalar m²'de eski binalardan <b>${pc(-prim)}</b> ucuz`}${R.oda.length ? `; yeni arzın <b>${pc(R.oda[0].n / toda)}</b>'i ${esc(R.oda[0].o)}.` : '.'}</p>
+    <p style="margin:14px 0 0;font-size:15px">${CFG.tum_fiyatlar ? 'Taranan' : 'Fiyat bandındaki'} <b>${R.n}</b> ilanın <b>${R.s0}</b>'i sıfır daire. ${prim == null ? 'Yeni ve eski binayı karşılaştıracak kadar ilan yok' : prim >= 0 ? `Yeni binalar m²'de eski binalardan <b>${pc(prim)}</b> pahalı` : `Yeni binalar m²'de eski binalardan <b>${pc(-prim)}</b> ucuz`}${R.oda.length ? `; yeni arzın <b>${pc(R.oda[0].n / toda)}</b>'i ${esc(R.oda[0].o)}.` : '.'}</p>
     <h3>Özet</h3>
     <div class="big"><div class="kv hl"><span>m² fiyatı (brüt)</span><b>${tlr(R.m2)}</b></div>
       <div class="kv"><span>Ortanca daire</span><b>${mtl(R.p)}</b><small>${r0(R.b)} m² brüt</small></div>
       <div class="kv"><span>Sıfır daire ilanı</span><b>${R.s0}</b><small>${R.n} ilan içinde</small></div>
       <div class="kv"><span>Boş sıfır daire</span><b>${pc(bos)}</b><small>${R.yp} yapım aşamasında</small></div>
       <div class="kv"><span>Yeni bina m²</span><b>${tlr(R.ym2)}</b><small>0–5 yaş</small></div>
-      <div class="kv"><span>Yeni bina farkı</span><b>${(prim >= 0 ? '+' : '−') + pc(Math.abs(prim))}</b><small>6+ yaşa göre m²</small></div></div>
+      <div class="kv"><span>Yeni bina farkı</span><b>${prim == null ? '—' : (prim >= 0 ? '+' : '−') + pc(Math.abs(prim))}</b><small>6+ yaşa göre m²</small></div></div>
     ${resmiHtml(il)}
     <h3>Müteahhit için okuma</h3>
     <ul class="reads">${reads.map(r => `<li>${r}</li>`).join('')}</ul>
@@ -1085,10 +1087,10 @@ function openMutRapor(il){
     </div>
     <h3>Yeni binalarda daire tipi (0–5 yaş)</h3>
     <div class="tw"><table><thead><tr><th>Tip</th><th class="r">İlan</th><th class="r">Pay</th><th class="r">Fiyat</th><th class="r">Brüt m²</th><th class="r opt">Net m²</th><th class="r">TL/m²</th></tr></thead><tbody>
-    ${R.oda.map(r => `<tr><td>${esc(r.o)}</td><td class="r">${r.n}</td><td class="r">${pc(r.n / toda)}</td><td class="r">${mtl(r.p)}</td><td class="r">${r0(r.b)}</td><td class="r opt">${r.net ? r0(r.net) : '—'}</td><td class="r">${n0(r.m2)}</td></tr>`).join('')}
+    ${R.oda.length ? '' : '<tr><td colspan="7" style="color:#6b7a82">Bu ilçede tip başına en az 3 yeni bina ilanı yok.</td></tr>'}${R.oda.map(r => `<tr><td>${esc(r.o)}</td><td class="r">${r.n}</td><td class="r">${pc(r.n / toda)}</td><td class="r">${mtl(r.p)}</td><td class="r">${r0(r.b)}</td><td class="r opt">${r.net ? r0(r.net) : '—'}</td><td class="r">${n0(r.m2)}</td></tr>`).join('')}
     </tbody></table></div>
     <h3>İlanda bekleme süresi</h3>
-    <p class="fine" style="margin:0 0 6px">Yeni binalarda ortanca ${r0(R.gy)} gün, eski binalarda ${r0(R.ge)} gün.</p>
+    <p class="fine" style="margin:0 0 6px">Yeni binalarda ortanca ${R.gy ? r0(R.gy) + ' gün' : '—'}, eski binalarda ${R.ge ? r0(R.ge) + ' gün' : '—'}.</p>
     <div class="mvb">${R.bek.map(r => `<div><span>${r.n}</span><i style="height:${(70 * r.n / bmx).toFixed(0)}px"></i></div>`).join('')}</div><div class="mvl">${R.bek.map(r => `<span>${esc(r.g)}</span>`).join('')}</div>
     <h3>Yöntem ve sınırlar</h3>
     <ul class="fine"><li>${CFG.tum_fiyatlar ? `Kaynak: emlakjet.com satılık konut ilanları (daire, villa, müstakil ev), ${TARAMA_METNI} taraması. Fiyat sınırı yok; her ilçede fiyat dağılımına eşit yayılmış en çok 400 ilanın detayı alındı, en ucuz ve en pahalı %1 ayıklandı.` : `Kaynak: emlakjet.com satılık daire ilanları, ${TARAMA_METNI} taraması. Yalnızca ${BANT} arası ilanlar tarandı; bu bandın dışındaki daireler (küçük 1+1'ler, büyük daireler) eksik temsil edilir.`}</li>
@@ -1107,14 +1109,14 @@ window.__mutRap = openMutRapor;
 
 // --- 4) örnek ofis portföyü (demo; gerçek bir ofisin ilanları değildir)
 // --- 17) ofis portföyü: Ofis Paneli'ne girilen portföy (bu cihazda saklanır); yoksa örnek gösterilir
-let CRM = null; try { CRM = JSON.parse(localStorage.getItem('mfh_crm_v1') || 'null'); } catch (e) {}
+let CRM = null; try { CRM = JSON.parse(localStorage.getItem(SEHIR === 'istanbul' ? 'mfh_crm_v1' : 'mfh_crm_v1_' + SEHIR) || 'null'); } catch (e) {}
 const myPF = (CRM && CRM.portfoy || []).filter(p => p.lat && p.durum !== 'kapandi');
 const pfTL = p => p.tur === 'kiralik' ? Math.round(p.fiyat / 1000) + 'K/ay' : (p.fiyat / 1e6).toLocaleString('tr-TR', {maximumFractionDigits: 2}) + ' M';
 const pfPopup = p => `<div class="pp"><div class="b"><div class="pfban">${p.ornek ? 'Ofis portföyü · örnek kayıt' : 'Ofis portföyü'}</div>
   <div class="price">${p.tur === 'kiralik' ? tl(p.fiyat) + '/ay' : tl(p.fiyat)}${p.m2 && p.tur !== 'kiralik' ? `<small>${Math.round(p.fiyat / p.m2).toLocaleString('tr-TR')} TL/m²</small>` : ''}</div>
   <div class="t">${esc(p.oda)} · ${p.m2} m² · ${p.tur === 'kiralik' ? 'Kiralık' : 'Satılık'}${p.site ? ' · site içi' : ''}</div>
   <div class="sub">${esc(short(p.mahalle))}, ${esc(p.ilce)} · konum mahalle merkezine yakın gösterilir</div>
-  <a class="cta" href="crm.html">Ofis Paneli'nde aç</a></div></div>`;
+  <a class="cta" href="crm.html${SEHIR === 'istanbul' ? '' : '?sehir=' + SEHIR}">Ofis Paneli'nde aç</a></div></div>`;
 const pfIlce0 = BOLGELER.includes(CFG.ornek_portfoy_ilce) ? CFG.ornek_portfoy_ilce : BOLGELER[0];
 const PF = myPF.length ? myPF : ILAN.filter(x => x.b === pfIlce0 && x.mk >= 0).sort((a, b) => a.id.localeCompare(b.id)).filter((x, i) => i % 18 === 3).slice(0, 12);
 const pfLayer = L.layerGroup(PF.map(x => myPF.length
@@ -1139,7 +1141,10 @@ if (hb) { const btn = [...bEl.querySelectorAll('.bolge')].find(x => x.dataset.b 
 document.getElementById('t-heat').click();
 if (!hb) { const d = vis(), bb = L.latLngBounds(d.map(x => [x.lat, x.lng]));
   if (SEHIR === 'istanbul') map.setView(bb.getCenter(), 12, {animate:false});
-  else map.fitBounds(bb.pad(0.05), {paddingTopLeft: innerWidth > 900 ? [340, 0] : [0, 40], paddingBottomRight: [0, 80], maxZoom: 12, animate:false}); }
+  else { // İstanbul'daki gibi zoom 12: en çok ilanı olan ilçenin ilanlarının ortancası merkezde
+    const say = {}; d.forEach(x => say[x.b] = (say[x.b] || 0) + 1); const top = Object.keys(say).sort((a, c) => say[c] - say[a])[0];
+    const v = d.filter(x => x.b === top), m = a => { const s = a.slice().sort((p, q) => p - q); return s[s.length >> 1]; };
+    map.setView([m(v.map(x => x.lat)), m(v.map(x => x.lng))], 12, {animate:false}); } }
 // yol / semt verisi olmayan şehirlerde boş kalan düğmeleri gizle
 if (!(RAW || []).some(r => r.length)) document.getElementById('t-yol').style.display = 'none';
 if (!(LAB.semt || []).length) ['t-semt', 't-semtlb'].forEach(id => document.getElementById(id).style.display = 'none');

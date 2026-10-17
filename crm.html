@@ -120,7 +120,7 @@ form.f .multi label,.multi label{display:inline-flex;align-items:center;gap:4px;
 <body>
 <header class="top">
   <h1><span class="ey">Mahalle Fiyat Haritası</span>Ofis Paneli</h1>
-  <a class="map" href="index.html">← Harita</a>
+  <a class="map" id="harita-geri" href="index.html">← Harita</a>
   <button class="more" id="b-more" type="button">Yedek / Ayarlar</button>
 </header>
 <nav class="nav" role="tablist" aria-label="Bölümler">
@@ -136,7 +136,9 @@ form.f .multi label,.multi label{display:inline-flex;align-items:center;gap:4px;
 <script>
 (function(){
 // ================= veri katmanı (bu cihazda saklanır) =================
-const KEY = 'mfh_crm_v1';
+const SEHIR = (new URLSearchParams(location.search).get('sehir') || 'istanbul').replace(/[^a-z]/g, '') || 'istanbul';
+const SQ = SEHIR === 'istanbul' ? '' : '?sehir=' + SEHIR;
+const KEY = SEHIR === 'istanbul' ? 'mfh_crm_v1' : 'mfh_crm_v1_' + SEHIR; // her şehrin ofis kayıtları ayrı
 const today = () => new Date().toISOString().slice(0, 10);
 const addDays = (d, n) => { const t = new Date(d + 'T12:00:00'); t.setDate(t.getDate() + n); return t.toISOString().slice(0, 10); };
 const uid = () => Math.random().toString(36).slice(2, 9);
@@ -145,12 +147,13 @@ let DB = blank(), storeOK = true;
 function load(){ try { const s = localStorage.getItem(KEY); if (s) DB = Object.assign(blank(), JSON.parse(s)); } catch (e) { storeOK = false; } }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch (e) { storeOK = false; } }
 load();
+document.addEventListener('DOMContentLoaded', () => { const g = document.getElementById('harita-geri'); if (g) g.href = 'index.html' + SQ; });
 
 // piyasa verisi (haritayla aynı dosya)
 let ILAN = null, MAHSTAT = {}, ILCESTAT = {}, MAHS = {}, MAHPOS = {};
 const brut = x => { const n = parseInt(String(x.brut || x.m2 || '').replace(/\D/g, '')) || 0; return n >= 30 && n <= 1000 ? n : 0; };
 const med = a => { if (!a.length) return 0; const b = a.slice().sort((p, q) => p - q), h = b.length >> 1; return b.length % 2 ? b[h] : (b[h - 1] + b[h]) / 2; };
-fetch(`sehirler/${(new URLSearchParams(location.search).get('sehir') || 'istanbul').replace(/[^a-z]/g, '')}/ilan.json`).then(r => r.ok ? r.json() : Promise.reject()).then(d => {
+fetch(`sehirler/${SEHIR}/ilan.json`).then(r => r.ok ? r.json() : Promise.reject()).then(d => {
   ILAN = d;
   const g = {}, gi = {}, pos = {};
   d.forEach(x => {
@@ -164,7 +167,8 @@ fetch(`sehirler/${(new URLSearchParams(location.search).get('sehir') || 'istanbu
   Object.entries(pos).forEach(([k, v]) => MAHPOS[k] = [med(v.map(p => p[0])), med(v.map(p => p[1]))]);
   render();
 }).catch(() => {});
-const ILCELER = ['Avcılar', 'Bağcılar', 'Başakşehir', 'Beylikdüzü', 'Esenyurt', 'Güngören', 'Küçükçekmece'];
+let ILCELER = ['Avcılar', 'Bağcılar', 'Başakşehir', 'Beylikdüzü', 'Esenyurt', 'Güngören', 'Küçükçekmece'];
+fetch(`sehirler/${SEHIR}/config.json`).then(r => r.ok ? r.json() : null).then(c => { if (c && c.ilceler) { ILCELER = c.ilceler.map(x => x.ad).sort((a, b) => a.localeCompare(b, 'tr')); render(); } }).catch(() => {});
 const ODALAR = ['1+1', '2+1', '3+1', '3+2', '4+1', '4+2', '5+2'];
 
 // ================= yardımcılar =================
@@ -350,7 +354,7 @@ function openPf(id){
     ${mk}
     <div class="box"><h4>Uygun alıcı / kiracılar (${al.length})</h4><div class="list">${al.map(o => `<div class="card" data-a="ac-kisi" data-id="${o.k.id}"><div class="row"><b>${esc(o.k.ad)}</b><span class="mono">%${o.s}</span></div><div class="sub">${tip[o.k.tip]}${gonderildi(o.k.id, p.id) ? ' · önerildi' : ''}</div>
       <div class="acts">${waLink(o.k, '') ? `<a class="btn wa sm" href="${esc(waLink(o.k, msgEslesme(o.k, p)))}" target="_blank" rel="noopener" data-a="wa-eslesme" data-k="${o.k.id}" data-p="${p.id}">WhatsApp ile öner</a>` : ''}</div></div>`).join('') || '<div class="sub">Kayıtlı talep içinde uygun kişi yok.</div>'}</div></div>
-    <div class="acts">${s ? `<button class="btn sec" data-a="ac-kisi" data-id="${s.id}">Sahibi aç</button>` : ''}<button class="btn sec" data-a="duzen-pf" data-id="${id}">Düzenle</button><a class="btn sec" href="index.html#${esc(slug(p.ilce))}">Haritada bölge</a></div>`);
+    <div class="acts">${s ? `<button class="btn sec" data-a="ac-kisi" data-id="${s.id}">Sahibi aç</button>` : ''}<button class="btn sec" data-a="duzen-pf" data-id="${id}">Düzenle</button><a class="btn sec" href="index.html${SQ}#${esc(slug(p.ilce))}">Haritada bölge</a></div>`);
 }
 
 // ================= formlar =================
@@ -440,7 +444,21 @@ function ayarlar(){
 $('b-more').onclick = ayarlar;
 
 // ================= örnek veriler (açıkça "örnek" etiketli) =================
+// İstanbul dışı şehirlerde örnek kayıtlar o şehrin en çok ilanlı ilçe ve mahallelerinden, fiyatlar mahalle m² ortancasından
+function ornekYer(){
+  if (SEHIR === 'istanbul' || !ILAN) return null;
+  const say = {}; ILAN.forEach(x => say[x.b] = (say[x.b] || 0) + 1);
+  const il = Object.keys(say).sort((a, b) => say[b] - say[a]);
+  const mah = (b, sira) => Object.entries(MAHSTAT).filter(([k, v]) => k.startsWith(b + '|') && v.n >= 3).sort((a, c) => c[1].n - a[1].n).map(([k, v]) => ({mh: k.split('|')[1], m2: v.m2}))[sira] || null;
+  const i1 = il[0], i2 = il[1] || il[0], i3 = il[2] || il[0];
+  const a = mah(i1, 0), b = mah(i2, i2 === i1 ? 1 : 0) || a, c = mah(i3, i3 === i1 ? 2 : 0) || a, d = mah(i1, 1) || a;
+  if (!a) return null;
+  const r = v => Math.round(v / 1e5) * 1e5;
+  const p1 = r(a.m2 * 125 * 1.05), p2 = r(b.m2 * 120 * 1.15), p3 = r(c.m2 * 90 * .97);
+  return {i1, m1: a.mh, p1, i2, m2: b.mh, p2, i3, m3: c.mh, p3, mk: d.mh, k: Math.round(d.m2 * 85 * .0045 / 500) * 500, r};
+}
 function ornek(){
+  if (SEHIR !== 'istanbul' && !ILAN) { toast('Piyasa verisi yükleniyor, birkaç saniye sonra tekrar deneyin'); return; }
   if (DB.kisiler.some(k => k.ornek)) { toast('Örnek veriler zaten yüklü'); return; }
   const t = today(), K = (o) => Object.assign({id: uid(), olus: t, ornek: true, kvkk: true}, o);
   const s1 = K({ad: 'Hatice Yılmaz', hitap: 'Hanım', tel: '0532 000 00 01', tip: 'sahip', kaynak: 'Tabela', takip: addDays(t, 5)});
@@ -449,22 +467,30 @@ function ornek(){
   const a2 = K({ad: 'Can Öztürk', hitap: 'Bey', tel: '0532 000 00 04', tip: 'alici', kaynak: 'Instagram', takip: addDays(t, -2), talep: {ilceler: ['Küçükçekmece'], min: 8000000, max: 10000000, odalar: ['3+1'], m2: 110, site: true}});
   const a3 = K({ad: 'Elif Arslan', hitap: 'Hanım', tel: '0532 000 00 05', tip: 'alici', kaynak: 'Telefon', takip: addDays(t, 4), talep: {ilceler: ['Beylikdüzü', 'Esenyurt'], max: 6500000, odalar: ['2+1'], m2: 80}});
   const k1 = K({ad: 'Burak Şahin', hitap: 'Bey', tel: '0532 000 00 06', tip: 'kiraci', kaynak: 'Emlakjet', takip: t, talep: {ilceler: ['Avcılar'], max: 30000, odalar: ['2+1'], m2: 80}});
+  const Y = ornekYer();
+  if (Y) { a1.talep.ilceler = [Y.i1, Y.i2].filter((v, i, a) => a.indexOf(v) === i); a1.talep.min = Y.r(Y.p1 * .75); a1.talep.max = Y.r(Y.p1 * 1.08);
+    a2.talep.ilceler = [Y.i2]; a2.talep.min = Y.r(Y.p2 * .7); a2.talep.max = Y.r(Y.p2 * .9);
+    a3.talep.ilceler = [Y.i3, Y.i1].filter((v, i, a) => a.indexOf(v) === i); a3.talep.max = Y.r(Y.p3 * 1.1);
+    k1.talep.ilceler = [Y.i1]; k1.talep.max = Y.k * 1.1; }
   DB.kisiler.push(s1, s2, a1, a2, a3, k1);
   const P = (o) => { const c = MAHPOS[o.ilce + '|' + o.mahalle]; return Object.assign({id: uid(), olus: t, ornek: true, durum: 'aktif'}, c ? {lat: c[0] + (Math.random() - .5) * .004, lng: c[1] + (Math.random() - .5) * .005} : {}, o); };
+  const L = Y || {i1: 'Avcılar', m1: 'Ambarlı Mahallesi', p1: 7900000, i2: 'Küçükçekmece', m2: 'Atakent Mahallesi', p2: 11500000,
+    i3: 'Beylikdüzü', m3: 'Yakuplu Mahallesi', p3: 5900000, mk: 'Cihangir Mahallesi', k: 27000};
   DB.portfoy.push(
-    P({tur: 'satilik', ilce: 'Avcılar', mahalle: 'Ambarlı Mahallesi', oda: '3+1', m2: 125, yas: '8', fiyat: 7900000, site: false, sahipId: s1.id, yetki: addDays(t, 20)}),
-    P({tur: 'satilik', ilce: 'Küçükçekmece', mahalle: 'Atakent Mahallesi', oda: '3+1', m2: 120, yas: '12', fiyat: 11500000, site: true, sahipId: s2.id, yetki: addDays(t, 75)}),
-    P({tur: 'satilik', ilce: 'Beylikdüzü', mahalle: 'Yakuplu Mahallesi', oda: '2+1', m2: 90, yas: '4', fiyat: 5900000, site: true, sahipId: s1.id, yetki: addDays(t, 120)}),
-    P({tur: 'kiralik', ilce: 'Avcılar', mahalle: 'Cihangir Mahallesi', oda: '2+1', m2: 85, yas: '15', fiyat: 27000, site: false, sahipId: s2.id, yetki: addDays(t, 40)}));
+    P({tur: 'satilik', ilce: L.i1, mahalle: L.m1, oda: '3+1', m2: 125, yas: '8', fiyat: L.p1, site: false, sahipId: s1.id, yetki: addDays(t, 20)}),
+    P({tur: 'satilik', ilce: L.i2, mahalle: L.m2, oda: '3+1', m2: 120, yas: '12', fiyat: L.p2, site: true, sahipId: s2.id, yetki: addDays(t, 75)}),
+    P({tur: 'satilik', ilce: L.i3, mahalle: L.m3, oda: '2+1', m2: 90, yas: '4', fiyat: L.p3, site: true, sahipId: s1.id, yetki: addDays(t, 120)}),
+    P({tur: 'kiralik', ilce: L.i1, mahalle: L.mk, oda: '2+1', m2: 85, yas: '15', fiyat: L.k, site: false, sahipId: s2.id, yetki: addDays(t, 40)}));
+  const n1 = short(L.m1), n2 = short(L.m2), nk = short(L.mk);
   log(a1.id, 'görüşme', 'Telefonda görüşüldü; okula yakın, asansörlü daire istiyor.');
   log(a2.id, 'görüşme', 'Ofise geldi; site içi ve otopark şart.');
-  log(s2.id, 'görüşme', 'Atakent dairesi için fiyatı yüksek buluyoruz; rapor gösterilecek.');
+  log(s2.id, 'görüşme', `${n2} dairesi için fiyatı yüksek buluyoruz; rapor gösterilecek.`);
   const ts = (d, h) => addDays(t, d) + 'T' + h + ':00';
   DB.mesajlar.push(
-    {kisiId: a1.id, yon: 'in', metin: 'Merhaba, Ambarlı\'daki 3+1 hâlâ satılık mı? Hafta sonu görebilir miyiz?', ts: ts(0, '09:41'), ornek: true},
-    {kisiId: k1.id, yon: 'in', metin: 'Selam, 2+1 kiralık arıyorum Avcılar\'da, 30 bine kadar.', ts: ts(-1, '18:12'), ornek: true, okundu: true},
-    {kisiId: k1.id, yon: 'out', metin: 'Merhaba Burak Bey, Cihangir\'de 27.000 TL\'ye 2+1 var. Görmek ister misiniz?', ts: ts(-1, '18:30'), ornek: true},
-    {kisiId: s2.id, yon: 'in', metin: 'Atakent\'teki daireyle ilgilenen oldu mu?', ts: ts(0, '11:05'), ornek: true});
+    {kisiId: a1.id, yon: 'in', metin: `Merhaba, ${n1}'daki 3+1 hâlâ satılık mı? Hafta sonu görebilir miyiz?`, ts: ts(0, '09:41'), ornek: true},
+    {kisiId: k1.id, yon: 'in', metin: `Selam, 2+1 kiralık arıyorum ${L.i1}'da, ${Math.round(L.k * 1.1 / 1000)} bine kadar.`, ts: ts(-1, '18:12'), ornek: true, okundu: true},
+    {kisiId: k1.id, yon: 'out', metin: `Merhaba Burak Bey, ${nk}'de ${L.k.toLocaleString('tr-TR')} TL'ye 2+1 var. Görmek ister misiniz?`, ts: ts(-1, '18:30'), ornek: true},
+    {kisiId: s2.id, yon: 'in', metin: `${n2}'deki daireyle ilgilenen oldu mu?`, ts: ts(0, '11:05'), ornek: true});
   save(); render(); close(); toast('Örnek veriler yüklendi');
 }
 function ornekSil(){

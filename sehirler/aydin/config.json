@@ -8,24 +8,31 @@
  "zoom": 10,
  "fiyat": {
   "adimlar": [
+   1.75,
    2,
+   2.5,
    3,
+   3.5,
    4,
+   4.5,
    5,
    6,
    7,
    8,
+   9,
    10,
    12,
-   15,
+   14,
+   16,
+   18,
    20,
    25,
    30,
-   40,
-   50
+   35,
+   40
   ],
-  "min": 2,
-  "max": 50
+  "min": 1.75,
+  "max": 40
  },
  "ilan_tipleri": [
   "satilik-daire",
@@ -68,8 +75,18 @@
   "Aydın kıyı"
  ],
  "rapor_ilce": "Kuşadası",
- "tarama": null,
- "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR (OCHA) ilçe katmanı ve il açık verilerinden mahalle sınırları (github.com/ttezer/turkiye-harita-verisi). Harita: © Esri, © OpenStreetMap katkıcıları.",
+ "tarama": {
+  "varsayilan": "2026-10-17",
+  "ilce": {
+   "Didim": "2026-10-17",
+   "Kuşadası": "2026-10-17",
+   "Söke": "2026-10-17"
+  },
+  "metin": "17 Ekim 2026"
+ },
+ "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "aydin",
- "il_lok": "Aydın'da"
+ "il_lok": "Aydın'da",
+ "ilan_etiket": "Satılık konut",
+ "tum_fiyatlar": true
 }

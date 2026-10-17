@@ -391,6 +391,7 @@ if (loadEl) loadEl.remove();
 document.title = `${CFG.ad} · Mahalle Fiyat Haritası · Bross Global Invest`;
 document.getElementById('eyebrow').textContent = CFG.baslik + ' · satılık konut';
 document.getElementById('foot').textContent = CFG.kaynak_notu || '';
+{ const cl = document.querySelector('a.crm-link[href="crm.html"]'); if (cl && SEHIR !== 'istanbul') cl.href = 'crm.html?sehir=' + SEHIR; }
 { const nav = document.getElementById('sehirler');
   nav.innerHTML = `<label class="sehir-sec"><span>Şehir</span><select id="sehir-sec" aria-label="Şehir seçin">${IDX.sehirler.map(c => `<option value="${c.id}"${c.id === SEHIR ? ' selected' : ''}>${c.ad}${c.durum !== 'hazir' ? ' (hazırlanıyor)' : ''}</option>`).join('')}</select></label>`;
   document.getElementById('sehir-sec').onchange = e => { location.search = '?sehir=' + e.target.value; }; }
@@ -881,7 +882,7 @@ function openReport(R){
     </tbody></table></div>
     <h3>Yöntem ve sınırlar</h3>
     <ul class="fine"><li>Tahmin, aynı mahalledeki en benzer ilanların (m², bina yaşı, site, oda sayısı) brüt m² fiyatlarından hesaplandı; aralık emsallerin orta yarısını gösterir.</li>
-    <li>Kaynak: emlakjet.com satılık konut ilanları, ${TARAMA_METNI} taraması. Veri ${BANT} arasındaki ilanları kapsar.</li>
+    <li>Kaynak: emlakjet.com satılık konut ilanları, ${TARAMA_METNI} taraması. ${CFG.tum_fiyatlar ? 'Fiyat sınırı olmadan tarandı; daire, villa ve müstakil ev birlikte.' : `Veri ${BANT} arasındaki ilanları kapsar.`}</li>
     <li>İlan fiyatları pazarlık payı içerir; gerçekleşen satış fiyatı genellikle daha düşüktür. Bu rapor resmî ekspertiz değildir.</li></ul>
   </article>`;
   rep.hidden = false; document.body.style.overflow = 'hidden';
@@ -940,7 +941,7 @@ function openMahReport(k){
     </tbody></table></div>
     <h3>Yöntem ve sınırlar</h3>
     <ul class="fine"><li>Rakamlar mahalledeki tüm ilanların brüt m² fiyatlarının medyanıdır; m² aralığı ilanların orta yarısını gösterir. Haritadaki filtreler bu raporu etkilemez.</li>
-    <li>Kaynak: emlakjet.com satılık konut ilanları, ${TARAMA_METNI} taraması. Veri ${BANT} arasındaki ilanları kapsar.</li>
+    <li>Kaynak: emlakjet.com satılık konut ilanları, ${TARAMA_METNI} taraması. ${CFG.tum_fiyatlar ? 'Fiyat sınırı olmadan tarandı; daire, villa ve müstakil ev birlikte.' : `Veri ${BANT} arasındaki ilanları kapsar.`}</li>
     <li>İlan fiyatları pazarlık payı içerir; gerçekleşen satış fiyatı genellikle daha düşüktür. Bu rapor resmî ekspertiz değildir.</li></ul>
   </article>`;
   rep.hidden = false; document.body.style.overflow = 'hidden';
@@ -1061,9 +1062,9 @@ function openMutRapor(il){
   rep.innerHTML = `<div class="rbar"><select id="r-ilce" aria-label="İlçe">${ilceOpts}</select>${canPrint ? '<button class="btn" type="button" id="r-print"><span class="lg">Yazdır / PDF olarak kaydet</span><span class="sm">PDF kaydet</span></button>' : ''}<button class="btn sec" type="button" id="r-close" aria-label="Kapat"><span class="lg">Kapat</span><span class="sm">✕</span></button></div>
   <article class="sheet mut">
     <header><div><div class="ey">Müteahhit pazar raporu · ${esc(today)}</div><h2>${esc(il)} konut pazarı</h2>
-      <div style="color:#4f5f68;font-size:13px">Satılık daire · ${BANT} fiyat bandı · ${R.n} ilan</div></div>
+      <div style="color:#4f5f68;font-size:13px">${esc(CFG.ilan_etiket || 'Satılık daire')} · ${CFG.tum_fiyatlar ? 'tüm fiyatlar' : BANT + ' fiyat bandı'} · ${R.n} ilan</div></div>
       <div class="who">Hazırlayan<br><span contenteditable="true" id="r-office" spellcheck="false">${esc(office)}</span></div></header>
-    <p style="margin:14px 0 0;font-size:15px">Fiyat bandındaki <b>${R.n}</b> ilanın <b>${R.s0}</b>'i sıfır daire. ${prim >= 0 ? `Yeni binalar m²'de eski binalardan <b>${pc(prim)}</b> pahalı` : `Yeni binalar m²'de eski binalardan <b>${pc(-prim)}</b> ucuz`}${R.oda.length ? `; yeni arzın <b>${pc(R.oda[0].n / toda)}</b>'i ${esc(R.oda[0].o)}.` : '.'}</p>
+    <p style="margin:14px 0 0;font-size:15px">${CFG.tum_fiyatlar ? 'Taranan' : 'Fiyat bandındaki'} <b>${R.n}</b> ilanın <b>${R.s0}</b>'i sıfır daire. ${prim >= 0 ? `Yeni binalar m²'de eski binalardan <b>${pc(prim)}</b> pahalı` : `Yeni binalar m²'de eski binalardan <b>${pc(-prim)}</b> ucuz`}${R.oda.length ? `; yeni arzın <b>${pc(R.oda[0].n / toda)}</b>'i ${esc(R.oda[0].o)}.` : '.'}</p>
     <h3>Özet</h3>
     <div class="big"><div class="kv hl"><span>m² fiyatı (brüt)</span><b>${tlr(R.m2)}</b></div>
       <div class="kv"><span>Ortanca daire</span><b>${mtl(R.p)}</b><small>${r0(R.b)} m² brüt</small></div>
@@ -1090,7 +1091,7 @@ function openMutRapor(il){
     <p class="fine" style="margin:0 0 6px">Yeni binalarda ortanca ${r0(R.gy)} gün, eski binalarda ${r0(R.ge)} gün.</p>
     <div class="mvb">${R.bek.map(r => `<div><span>${r.n}</span><i style="height:${(70 * r.n / bmx).toFixed(0)}px"></i></div>`).join('')}</div><div class="mvl">${R.bek.map(r => `<span>${esc(r.g)}</span>`).join('')}</div>
     <h3>Yöntem ve sınırlar</h3>
-    <ul class="fine"><li>Kaynak: emlakjet.com satılık daire ilanları, ${TARAMA_METNI} taraması. Yalnızca ${BANT} arası ilanlar tarandı; bu bandın dışındaki daireler (küçük 1+1'ler, büyük daireler) eksik temsil edilir.</li>
+    <ul class="fine"><li>${CFG.tum_fiyatlar ? `Kaynak: emlakjet.com satılık konut ilanları (daire, villa, müstakil ev), ${TARAMA_METNI} taraması. Fiyat sınırı yok; her ilçede fiyat dağılımına eşit yayılmış en çok 400 ilanın detayı alındı, en ucuz ve en pahalı %1 ayıklandı.` : `Kaynak: emlakjet.com satılık daire ilanları, ${TARAMA_METNI} taraması. Yalnızca ${BANT} arası ilanlar tarandı; bu bandın dışındaki daireler (küçük 1+1'ler, büyük daireler) eksik temsil edilir.`}</li>
     <li>m² fiyatı = ilan fiyatı ÷ brüt m². Değerler ortancadır (medyan). Sıfır: 0 yaş (yapımda veya oturuma hazır). Yeni bina: 0–5 yaş. Haritadaki filtreler bu raporu etkilemez.</li>
     <li>Resmî veriler: satış adetleri TÜİK'in tapu kayıtlarından, fiyat değişimi TCMB'nin banka değerleme raporlarına dayanan endeksinden, nüfus TÜİK Adrese Dayalı Nüfus Kayıt Sistemi'nden, yapı izinleri TÜİK Yapı İzin İstatistikleri'nden alınmıştır.</li>
     <li>Bunlar ilan (istenen) fiyatlarıdır, satış fiyatı değildir. Bekleme süresi yayında kalan ilanlardan hesaplandı; satılıp yayından kalkanlar görünmez. Gerçek satış hızı için düzenli tarama gerekir.</li></ul>
@@ -1136,7 +1137,12 @@ const h = decodeURIComponent((location.hash || '').slice(1));
 const hb = h && BOLGELER.find(b => slug(b) === slug(h));
 if (hb) { const btn = [...bEl.querySelectorAll('.bolge')].find(x => x.dataset.b === hb); if (btn) btn.click(); }
 document.getElementById('t-heat').click();
-if (!hb) { const d = vis(); map.setView(L.latLngBounds(d.map(x => [x.lat, x.lng])).getCenter(), 12, {animate:false}); }
+if (!hb) { const d = vis(), bb = L.latLngBounds(d.map(x => [x.lat, x.lng]));
+  if (SEHIR === 'istanbul') map.setView(bb.getCenter(), 12, {animate:false});
+  else map.fitBounds(bb.pad(0.05), {paddingTopLeft: innerWidth > 900 ? [340, 0] : [0, 40], paddingBottomRight: [0, 80], maxZoom: 12, animate:false}); }
+// yol / semt verisi olmayan şehirlerde boş kalan düğmeleri gizle
+if (!(RAW || []).some(r => r.length)) document.getElementById('t-yol').style.display = 'none';
+if (!(LAB.semt || []).length) ['t-semt', 't-semtlb'].forEach(id => document.getElementById(id).style.display = 'none');
 })();
 </script>
 </body>

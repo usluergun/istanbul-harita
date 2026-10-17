@@ -60,5 +60,7 @@
  "tarama": null,
  "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR (OCHA) ilçe katmanı ve il açık verilerinden mahalle sınırları (github.com/ttezer/turkiye-harita-verisi). Harita: © Esri, © OpenStreetMap katkıcıları.",
  "id": "gaziantep",
- "il_lok": "Gaziantep'te"
+ "il_lok": "Gaziantep'te",
+ "ilan_etiket": "Satılık konut",
+ "tum_fiyatlar": true
 }

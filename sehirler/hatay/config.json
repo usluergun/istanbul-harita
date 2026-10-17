@@ -196,5 +196,7 @@
   "Suriye sınırı",
   "İç Hatay"
  ],
- "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar, semtler ve yollar: © OpenStreetMap katkıcıları (mahalle sınırı OSM'de olmayan ilçelerde yalnızca ilçe sınırı). Harita: © Esri."
+ "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar, semtler ve yollar: © OpenStreetMap katkıcıları (mahalle sınırı OSM'de olmayan ilçelerde yalnızca ilçe sınırı). Harita: © Esri.",
+ "ilan_etiket": "Satılık konut",
+ "tum_fiyatlar": true
 }

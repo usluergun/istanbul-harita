@@ -172,7 +172,7 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const mtl = n => n ? (n / 1e6).toLocaleString('tr-TR', {maximumFractionDigits: 2}) + ' M₺' : '—';
 const ktl = n => n ? Math.round(n).toLocaleString('tr-TR') + ' TL' : '—';
-const short = s => String(s || '').replace(' Mahallesi', '');
+const short = s => String(s || '').replace(' Mahallesi', '').replace(/ Mah\.?$/, '');
 const fmtD = d => d ? new Date(d + 'T12:00:00').toLocaleDateString('tr-TR', {day: 'numeric', month: 'short'}) : '';
 const daysTo = d => Math.round((new Date(d + 'T12:00:00') - new Date(today() + 'T12:00:00')) / 864e5);
 const tip = {alici: 'Alıcı', kiraci: 'Kiracı', sahip: 'Mülk sahibi'};

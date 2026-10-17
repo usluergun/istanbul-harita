@@ -746,7 +746,7 @@ const q = (a, p) => { if (!a.length) return 0; const b = a.slice().sort((x, y) =
 const yasN = x => { const t = String(x.yas || ''); if (/^0/.test(t)) return 0; if (/Ve Üzeri/.test(t)) return parseInt(t) + 4; const m = t.match(/^(\d+)-(\d+)/); if (m) return (+m[1] + +m[2]) / 2; const n = parseInt(t); return isNaN(n) ? null : n; };
 const yasT = x => { const t = String(x.yas || '?'); return t.startsWith('0 (Yapım') ? 'inşaatta' : t.startsWith('0') ? '0 yaş' : t.replace(' Ve Üzeri', '+') + ' yaş'; };
 const mahName = k => MAH.features[k].properties.n;
-const short = n => n.replace(' Mahallesi', '');
+const short = n => n.replace(' Mahallesi', '').replace(/ Mah\.?$/, '');
 const today = new Date().toLocaleDateString('tr-TR', {day:'numeric', month:'long', year:'numeric'});
 
 // --- sekmeler

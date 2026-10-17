@@ -1,3 +1,6 @@
 __pycache__/
 sehirler/*/_tarama/
 pdf/
+tools/test/ekran/
+tools/test/karsi/
+tools/test/sonuc.json

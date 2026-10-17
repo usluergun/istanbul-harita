@@ -8,23 +8,32 @@
  "zoom": 12,
  "fiyat": {
   "adimlar": [
+   0.75,
    1,
+   1.25,
    1.5,
+   1.75,
    2,
    2.5,
    3,
    3.5,
    4,
+   4.5,
    5,
    6,
    7,
    8,
+   9,
    10,
    12,
-   15
+   14,
+   16,
+   18,
+   20,
+   25
   ],
-  "min": 1,
-  "max": 15
+  "min": 0.75,
+  "max": 25
  },
  "ilan_tipleri": [
   "satilik-daire"
@@ -57,8 +66,15 @@
   "Gaziantep merkez"
  ],
  "rapor_ilce": "Şahinbey",
- "tarama": null,
- "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR (OCHA) ilçe katmanı ve il açık verilerinden mahalle sınırları (github.com/ttezer/turkiye-harita-verisi). Harita: © Esri, © OpenStreetMap katkıcıları.",
+ "tarama": {
+  "varsayilan": "2026-10-17",
+  "ilce": {
+   "Şahinbey": "2026-10-17",
+   "Şehitkamil": "2026-10-17"
+  },
+  "metin": "17 Ekim 2026"
+ },
+ "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "gaziantep",
  "il_lok": "Gaziantep'te",
  "ilan_etiket": "Satılık konut",

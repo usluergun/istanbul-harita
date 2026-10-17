@@ -78,8 +78,10 @@ def main():
     json.dump(out, open(os.path.join(kok, 'ilan.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     # fiyat adımları: verinin tamamını kapsasın
     pmin, pmax = min(o['p'] for o in out) / 1e6, max(o['p'] for o in out) / 1e6
-    a = [v for v in ADIM if v <= pmin][-1:] or [ADIM[0]]
-    steps = a + [v for v in ADIM if pmin < v < pmax] + ([v for v in ADIM if v >= pmax][:1] or [ADIM[-1]])
+    # uçlar verinin kendisi: en ucuz ilan aşağı, en pahalı ilan yukarı yuvarlanır (0,05 M₺ adım)
+    lo_, hi_ = math.floor(pmin * 20) / 20, math.ceil(pmax * 20) / 20
+    ara = [v for v in ADIM if lo_ * 1.08 < v < hi_ / 1.08]
+    steps = [round(lo_, 2)] + ara + [round(hi_, 2)]
     cfg['fiyat'] = {'adimlar': steps, 'min': steps[0], 'max': steps[-1]}
     gun = sorted({d for s in tarih.values() for d in s})
     if gun:

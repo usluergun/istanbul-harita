@@ -45,31 +45,38 @@
  "ilceler": [
   {
    "ad": "Avcılar",
-   "lok": "Avcılar'da"
+   "lok": "Avcılar'da",
+   "emlakjet": "istanbul-avcilar"
   },
   {
    "ad": "Bağcılar",
-   "lok": "Bağcılar'da"
+   "lok": "Bağcılar'da",
+   "emlakjet": "istanbul-bagcilar"
   },
   {
    "ad": "Başakşehir",
-   "lok": "Başakşehir'de"
+   "lok": "Başakşehir'de",
+   "emlakjet": "istanbul-basaksehir"
   },
   {
    "ad": "Beylikdüzü",
-   "lok": "Beylikdüzü'nde"
+   "lok": "Beylikdüzü'nde",
+   "emlakjet": "istanbul-beylikduzu"
   },
   {
    "ad": "Esenyurt",
-   "lok": "Esenyurt'ta"
+   "lok": "Esenyurt'ta",
+   "emlakjet": "istanbul-esenyurt"
   },
   {
    "ad": "Güngören",
-   "lok": "Güngören'de"
+   "lok": "Güngören'de",
+   "emlakjet": "istanbul-gungoren"
   },
   {
    "ad": "Küçükçekmece",
-   "lok": "Küçükçekmece'de"
+   "lok": "Küçükçekmece'de",
+   "emlakjet": "istanbul-kucukcekmece"
   }
  ],
  "ilan_tipleri": [

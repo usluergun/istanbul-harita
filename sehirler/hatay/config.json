@@ -10,7 +10,7 @@
  "il_lok": "Hatay'da",
  "fiyat": {
   "adimlar": [
-   1,
+   1.15,
    1.25,
    1.5,
    1.75,
@@ -34,10 +34,10 @@
    25,
    30,
    35,
-   40
+   38.0
   ],
-  "min": 1,
-  "max": 40
+  "min": 1.15,
+  "max": 38.0
  },
  "ilan_tipleri": [
   "satilik-daire",

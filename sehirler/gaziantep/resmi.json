@@ -1,20 +1,20 @@
 {
- "donem": "Ağustos 2026",
+ "donem": "Eylül 2026",
  "tuik": {
-  "kaynak": "TÜİK Konut Satış İstatistikleri, Ağustos 2026 (yayın: Eylül 2026)",
+  "kaynak": "TÜİK Konut ve İş Yeri Satış İstatistikleri, Eylül 2026 (yayın: 16 Ekim 2026; TÜİK Veri Portalı)",
   "turkiye": {
-   "satis": 127410,
-   "yillik": -0.147,
-   "ilk_el": 44378,
-   "ipotekli": 22131
+   "satis": 142390,
+   "yillik": -0.093,
+   "ilk_el": 51519,
+   "ipotekli": 23397
   },
   "il": {
    "ad": "Gaziantep",
-   "satis": 3646,
-   "ilk_el": 1005,
-   "ipotekli": null,
-   "yillik": null,
-   "aylik_degisim": 0.119
+   "satis": 4096,
+   "ilk_el": 1371,
+   "ipotekli": 722,
+   "yillik": -0.0092,
+   "aylik_degisim": 0.1234
   },
   "ilce": {},
   "aylik": {
@@ -26,12 +26,33 @@
    },
    "2026-06": {
     "Gaziantep": 3282
+   },
+   "2026-09": {
+    "Gaziantep": 4096
    }
   },
   "il_aylik": {
-   "2026-08": 3646,
+   "2025-01": 2883,
+   "2025-02": 2805,
+   "2025-03": 2770,
+   "2025-04": 3191,
+   "2025-05": 3766,
+   "2025-06": 3093,
+   "2025-07": 4127,
+   "2025-08": 4117,
+   "2025-09": 4134,
+   "2025-10": 4849,
+   "2025-11": 3720,
+   "2025-12": 6390,
+   "2026-01": 2965,
+   "2026-02": 3079,
+   "2026-03": 2825,
+   "2026-04": 3527,
+   "2026-05": 2906,
+   "2026-06": 3282,
    "2026-07": 3258,
-   "2026-06": 3282
+   "2026-08": 3646,
+   "2026-09": 4096
   },
   "ilce_donemsel": {
    "2026-Q1 (Ocak-Mart toplam)": {
@@ -39,7 +60,114 @@
     "Şahinbey": 3531
    }
   },
-  "aylik_not": "Şahinbey ve Şehitkamil için aylık ilçe satışı bulunamadı; 2026 Ocak–Mart toplamı gösterilir."
+  "aylik_not": "Şahinbey ve Şehitkamil için aylık ilçe satışı bulunamadı; 2026 Ocak–Mart toplamı gösterilir.",
+  "il_aylik_detay": {
+   "2025-01": {
+    "t": 2883,
+    "m": 339,
+    "i": 906
+   },
+   "2025-02": {
+    "t": 2805,
+    "m": 338,
+    "i": 856
+   },
+   "2025-03": {
+    "t": 2770,
+    "m": 437,
+    "i": 962
+   },
+   "2025-04": {
+    "t": 3191,
+    "m": 477,
+    "i": 881
+   },
+   "2025-05": {
+    "t": 3766,
+    "m": 604,
+    "i": 1215
+   },
+   "2025-06": {
+    "t": 3093,
+    "m": 406,
+    "i": 942
+   },
+   "2025-07": {
+    "t": 4127,
+    "m": 498,
+    "i": 1292
+   },
+   "2025-08": {
+    "t": 4117,
+    "m": 493,
+    "i": 1150
+   },
+   "2025-09": {
+    "t": 4134,
+    "m": 533,
+    "i": 1132
+   },
+   "2025-10": {
+    "t": 4849,
+    "m": 667,
+    "i": 1667
+   },
+   "2025-11": {
+    "t": 3720,
+    "m": 542,
+    "i": 1142
+   },
+   "2025-12": {
+    "t": 6390,
+    "m": 686,
+    "i": 2244
+   },
+   "2026-01": {
+    "t": 2965,
+    "m": 567,
+    "i": 775
+   },
+   "2026-02": {
+    "t": 3079,
+    "m": 567,
+    "i": 830
+   },
+   "2026-03": {
+    "t": 2825,
+    "m": 617,
+    "i": 758
+   },
+   "2026-04": {
+    "t": 3527,
+    "m": 703,
+    "i": 1004
+   },
+   "2026-05": {
+    "t": 2906,
+    "m": 525,
+    "i": 893
+   },
+   "2026-06": {
+    "t": 3282,
+    "m": 668,
+    "i": 917
+   },
+   "2026-07": {
+    "t": 3258,
+    "m": 618,
+    "i": 952
+   },
+   "2026-08": {
+    "t": 3646,
+    "m": 625,
+    "i": 1005
+   },
+   "2026-09": {
+    "t": 4096,
+    "m": 722,
+    "i": 1371
+   }
+  }
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
@@ -72,11 +200,10 @@
   "not": "İstanbul ve ilçe kırılımı bulunamadı; Türkiye geneli eğilim olarak verilir."
  },
  "notlar": [
+  "İl toplamları (Ocak 2025–Eylül 2026; toplam, ilk el, ipotekli) TÜİK Veri Portalı'ndan doğrudan alındı. İlçe satışları TÜİK portalında yayımlanmıyor; ilçe değerleri TÜİK'i kaynak gösteren haberlerden derlendi.",
   "Değerler TÜİK ve TCMB yayınlarını kaynak gösteren haber sitelerinden derlendi; TÜİK veri portalı otomatik okunamadı.",
   "Gaziantep 2026-08: '%11,90 artış'ı kenthaber27, guncelgazete ve olaymedya yıllık, Referans Gazetesi aylık olarak yazdı. Temmuz 2026 = 3.258 alındığında 3.646/3.258 = +%11,9 çıkıyor, Türkiye geneli ise yıllık -%14,7. Bu yüzden oran aylık değişim kabul edildi (aylik_degisim = 0.119) ve yillik null bırakıldı.",
   "Gaziantep 2026-07 = 3.258: Telgraf Gazetesi'nin 'Gaziantep'te 3 bin 258 evin anahtarı değişti' başlığından (yayın Ağustos 2026 ortası). Sayfa açılamadı, ay ifadesi metinden doğrulanamadı. Değerin Ağustos'taki %11,90 aylık artışla birebir uyuşması dolaylı doğrulamadır.",
-  "Gaziantep 2026-08 ipotekli satış sayısı bulunamadı. Haziran 2026 ipotekli = 668 (557 ikinci el + 111 ilk el; Referans Gazetesi).",
-  "Gaziantep Mayıs ve Ocak 2026 il toplamları bulunamadı.",
   "Şahinbey ve Şehitkamil için aylık ilçe satışı bulunamadı. Yalnızca 2026 Ocak-Mart toplamı var: Şehitkamil 4.386 (Türkiye'de 4.), Şahinbey 3.531 (9.) (olaymedya, tek kaynak).",
   "Nüfus: 2025 ADNKS sonuçları Şubat 2026'da yayımlandı. Değerler nufusu.com/nufusum.com sayfalarından alındı (bu siteler gayriresmidir ve TÜİK'i kaynak gösterir). İzmir 2025 = 4.504.185 alomaliye'de de aynı. Şahinbey ve Şehitkamil 2025 değerleri alomaliye'de de aynı.",
   "TCMB yıllık %24,8: bülten bölgeleri birleşik gruplar halinde veriyor; bu değer Gaziantep'in dahil olduğu Güneydoğu grubuna ait (grafik sıralamasından, tek kaynak)."

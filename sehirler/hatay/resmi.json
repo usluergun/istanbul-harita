@@ -1,31 +1,161 @@
 {
- "donem": "Haziran 2026",
+ "donem": "Eylül 2026",
  "tuik": {
-  "kaynak": "TÜİK Konut Satış İstatistikleri, Haziran 2026 (yayın: Temmuz 2026)",
+  "kaynak": "TÜİK Konut ve İş Yeri Satış İstatistikleri, Eylül 2026 (yayın: 16 Ekim 2026; TÜİK Veri Portalı)",
   "turkiye": {
-   "satis": 127410,
-   "yillik": -0.147,
-   "ilk_el": 44378,
-   "ipotekli": 22131
+   "satis": 142390,
+   "yillik": -0.093,
+   "ilk_el": 51519,
+   "ipotekli": 23397
   },
   "il": {
    "ad": "Hatay",
-   "satis": 1240,
-   "ilk_el": 308,
-   "ipotekli": null,
-   "yillik": null,
-   "aylik_degisim": null
+   "satis": 1506,
+   "ilk_el": 342,
+   "ipotekli": 190,
+   "yillik": 0.1264,
+   "aylik_degisim": 0.1756
   },
   "ilce": {},
   "aylik": {
    "2026-06": {
     "Hatay": 1240
+   },
+   "2026-09": {
+    "Hatay": 1506
    }
   },
   "il_aylik": {
-   "2026-06": 1240
+   "2025-01": 1045,
+   "2025-02": 1120,
+   "2025-03": 1173,
+   "2025-04": 1349,
+   "2025-05": 1548,
+   "2025-06": 1402,
+   "2025-07": 1485,
+   "2025-08": 1340,
+   "2025-09": 1337,
+   "2025-10": 1477,
+   "2025-11": 1197,
+   "2025-12": 2059,
+   "2026-01": 968,
+   "2026-02": 1007,
+   "2026-03": 1014,
+   "2026-04": 1211,
+   "2026-05": 1007,
+   "2026-06": 1240,
+   "2026-07": 1189,
+   "2026-08": 1281,
+   "2026-09": 1506
   },
-  "aylik_not": "Hatay için Ağustos 2026 il verisi ve ilçe bazında satış bulunamadı; il özeti Haziran 2026."
+  "aylik_not": "Hatay için Ağustos 2026 il verisi ve ilçe bazında satış bulunamadı; il özeti Haziran 2026.",
+  "il_aylik_detay": {
+   "2025-01": {
+    "t": 1045,
+    "m": 76,
+    "i": 223
+   },
+   "2025-02": {
+    "t": 1120,
+    "m": 96,
+    "i": 248
+   },
+   "2025-03": {
+    "t": 1173,
+    "m": 93,
+    "i": 282
+   },
+   "2025-04": {
+    "t": 1349,
+    "m": 87,
+    "i": 374
+   },
+   "2025-05": {
+    "t": 1548,
+    "m": 108,
+    "i": 384
+   },
+   "2025-06": {
+    "t": 1402,
+    "m": 67,
+    "i": 275
+   },
+   "2025-07": {
+    "t": 1485,
+    "m": 102,
+    "i": 358
+   },
+   "2025-08": {
+    "t": 1340,
+    "m": 119,
+    "i": 319
+   },
+   "2025-09": {
+    "t": 1337,
+    "m": 112,
+    "i": 335
+   },
+   "2025-10": {
+    "t": 1477,
+    "m": 140,
+    "i": 411
+   },
+   "2025-11": {
+    "t": 1197,
+    "m": 106,
+    "i": 287
+   },
+   "2025-12": {
+    "t": 2059,
+    "m": 154,
+    "i": 665
+   },
+   "2026-01": {
+    "t": 968,
+    "m": 90,
+    "i": 213
+   },
+   "2026-02": {
+    "t": 1007,
+    "m": 144,
+    "i": 225
+   },
+   "2026-03": {
+    "t": 1014,
+    "m": 167,
+    "i": 258
+   },
+   "2026-04": {
+    "t": 1211,
+    "m": 160,
+    "i": 313
+   },
+   "2026-05": {
+    "t": 1007,
+    "m": 140,
+    "i": 288
+   },
+   "2026-06": {
+    "t": 1240,
+    "m": 172,
+    "i": 308
+   },
+   "2026-07": {
+    "t": 1189,
+    "m": 204,
+    "i": 266
+   },
+   "2026-08": {
+    "t": 1281,
+    "m": 170,
+    "i": 321
+   },
+   "2026-09": {
+    "t": 1506,
+    "m": 190,
+    "i": 342
+   }
+  }
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
@@ -84,7 +214,7 @@
   "not": "İstanbul ve ilçe kırılımı bulunamadı; Türkiye geneli eğilim olarak verilir."
  },
  "notlar": [
-  "Hatay Haziran 2026: 1.240 konut (308 ilk el, 932 ikinci el); asigazetesi.com (17 Temmuz 2026, TÜİK verisi). Ağustos 2026 Hatay rakamı bulunamadı.",
+  "İl toplamları (Ocak 2025–Eylül 2026; toplam, ilk el, ipotekli) TÜİK Veri Portalı'ndan doğrudan alındı. İlçe satışları TÜİK portalında yayımlanmıyor; ilçe değerleri TÜİK'i kaynak gösteren haberlerden derlendi.",
   "Nüfus (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı). Erzin 2021 değeri sayfada yok. 2021–2025 düşüşü büyük ölçüde Şubat 2023 depremlerinin etkisidir.",
   "Mahalle sınırları açık veri setinde Hatay için yok; ilçe sınırları HDX COD-AB-TUR. Mahalle sınırları OpenStreetMap ile (tools/sinir_indir.py) eklenebilir.",
   "TCMB bölge (TR63) yıllık %22,1: bülten grafiğindeki sıralamadan okundu; tek kaynak."

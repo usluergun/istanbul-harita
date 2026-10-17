@@ -1000,6 +1000,7 @@ function resmiHtml(il){
   const T = D.tuik, C = D.tcmb, IL = T.il, S = rIlceSeri(D, il), n = S ? S.son.n : null;
   const ayAyni = S && S.son.ay && T.aylik[S.son.ay] && T.aylik[S.son.ay][IL.ad] != null && S.son.ay === Object.keys(T.aylik).sort().pop();
   const rows = Object.entries(T.ilce).map(([b, v]) => ({b, v})).sort((a, b) => b.v - a.v);
+  const ilceAy = Object.keys(T.aylik).sort().filter(m => Object.keys(T.aylik[m]).some(k => k in T.ilce)).pop(), ilceAyEt = ilceAy ? rAy(ilceAy) : 'aynı ay';
   return `<h3>Resmî veriler · ${esc(D.donem)}</h3>
     <div class="big">${n != null ? `<div class="kv hl"><span>İlçede satılan konut</span><b>${n.toLocaleString('tr-TR')}</b>${ayAyni ? '' : `<small>${esc(S.son.ay ? rAy(S.son.ay) : S.son.donem)}</small>`}</div>
       ${ayAyni ? `<div class="kv"><span>${esc(IL.ad)} içindeki payı</span><b>%${(100 * n / IL.satis).toLocaleString('tr-TR', {maximumFractionDigits: 1})}</b></div>` : ''}` : ''}
@@ -1007,7 +1008,7 @@ function resmiHtml(il){
       ${IL.ilk_el != null && IL.ipotekli != null ? `<div class="kv"><span>İlk el · ipotekli</span><b>${pc(IL.ilk_el / IL.satis)} · ${pc(IL.ipotekli / IL.satis)}</b></div>` : IL.ilk_el != null ? `<div class="kv"><span>İlk el payı</span><b>${pc(IL.ilk_el / IL.satis)}</b></div>` : ''}
       ${C.il_fiyat_yillik != null ? `<div class="kv"><span>${C.bolge === IL.ad ? esc(IL.ad) : 'Bölge'} fiyat, yıllık</span><b>${sp(C.il_fiyat_yillik)}</b></div>` : ''}
       <div class="kv"><span>Türkiye, reel yıllık</span><b>${sp(C.turkiye_fiyat_reel_yillik)}</b></div></div>
-    ${rows.length > 1 ? `<p class="fine" style="margin:8px 0 4px">Satılan konut: tapuda el değiştiren konut adedi (yalnızca ilan bandı değil, tüm fiyatlar). Komşu ilçelerde aynı ay:</p>
+    ${rows.length > 1 ? `<p class="fine" style="margin:8px 0 4px">Satılan konut: tapuda el değiştiren konut adedi (yalnızca ilan bandı değil, tüm fiyatlar). Komşu ilçelerde ${esc(ilceAyEt)}:</p>
     ${mutHbars(rows, r => r.b, r => r.v, r => r.v.toLocaleString('tr-TR'), r => r.b === il)}` : ''}
     ${talepHtml(il)}
     <p class="fine" style="margin:6px 0 0">Kaynak: ${esc(T.kaynak)}; ${esc(C.kaynak)}${D.nufus ? '; ' + esc(D.nufus.kaynak) : ''}${D.yapi_izin ? '; ' + esc(D.yapi_izin.kaynak) : ''}.${C.il_kira_yillik != null ? ` ${esc(CFG.il_lok || IL.ad)} yeni kiracı kiraları yıllık ${sp(C.il_kira_yillik)} arttı.` : ''}</p>`;

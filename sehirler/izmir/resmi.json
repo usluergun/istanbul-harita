@@ -1,20 +1,20 @@
 {
- "donem": "Ağustos 2026",
+ "donem": "Eylül 2026",
  "tuik": {
-  "kaynak": "TÜİK Konut Satış İstatistikleri, Ağustos 2026 (yayın: Eylül 2026)",
+  "kaynak": "TÜİK Konut ve İş Yeri Satış İstatistikleri, Eylül 2026 (yayın: 16 Ekim 2026; TÜİK Veri Portalı)",
   "turkiye": {
-   "satis": 127410,
-   "yillik": -0.147,
-   "ilk_el": 44378,
-   "ipotekli": 22131
+   "satis": 142390,
+   "yillik": -0.093,
+   "ilk_el": 51519,
+   "ipotekli": 23397
   },
   "il": {
    "ad": "İzmir",
-   "satis": 6532,
-   "ilk_el": 1995,
-   "ipotekli": 1210,
-   "yillik": -0.17,
-   "aylik_degisim": null
+   "satis": 7535,
+   "ilk_el": 2224,
+   "ipotekli": 1392,
+   "yillik": -0.1493,
+   "aylik_degisim": 0.1536
   },
   "ilce": {
    "Konak": 345,
@@ -73,16 +73,142 @@
     "Konak": 385,
     "Bayraklı": 549,
     "Çiğli": 361
+   },
+   "2026-09": {
+    "İzmir": 7535
    }
   },
   "il_aylik": {
-   "2026-08": 6532,
-   "2026-07": 6547,
-   "2026-06": 7865,
+   "2025-01": 6843,
+   "2025-02": 7125,
+   "2025-03": 7794,
+   "2025-04": 7257,
+   "2025-05": 8060,
+   "2025-06": 6144,
+   "2025-07": 8064,
+   "2025-08": 7867,
+   "2025-09": 8857,
+   "2025-10": 8986,
+   "2025-11": 8779,
+   "2025-12": 14308,
+   "2026-01": 6618,
+   "2026-02": 7250,
+   "2026-03": 7278,
+   "2026-04": 7215,
    "2026-05": 5624,
-   "2026-01": 6618
+   "2026-06": 7865,
+   "2026-07": 6547,
+   "2026-08": 6532,
+   "2026-09": 7535
   },
-  "aylik_not": "Balçova, Güzelbahçe, Urla, Çeşme, Karaburun, Seferihisar, Menderes ve Selçuk için en son ilçe verisi Haziran 2026; Temmuz–Ağustos haberlerinde yalnızca ilk 9 ilçe yayımlandı. Narlıdere için 2026 ilçe verisi bulunamadı."
+  "aylik_not": "Balçova, Güzelbahçe, Urla, Çeşme, Karaburun, Seferihisar, Menderes ve Selçuk için en son ilçe verisi Haziran 2026; Temmuz–Ağustos haberlerinde yalnızca ilk 9 ilçe yayımlandı. Narlıdere için 2026 ilçe verisi bulunamadı.",
+  "il_aylik_detay": {
+   "2025-01": {
+    "t": 6843,
+    "m": 1216,
+    "i": 1751
+   },
+   "2025-02": {
+    "t": 7125,
+    "m": 1302,
+    "i": 1945
+   },
+   "2025-03": {
+    "t": 7794,
+    "m": 1389,
+    "i": 2202
+   },
+   "2025-04": {
+    "t": 7257,
+    "m": 1204,
+    "i": 1822
+   },
+   "2025-05": {
+    "t": 8060,
+    "m": 1243,
+    "i": 2213
+   },
+   "2025-06": {
+    "t": 6144,
+    "m": 978,
+    "i": 1695
+   },
+   "2025-07": {
+    "t": 8064,
+    "m": 1215,
+    "i": 2387
+   },
+   "2025-08": {
+    "t": 7867,
+    "m": 1316,
+    "i": 2096
+   },
+   "2025-09": {
+    "t": 8857,
+    "m": 1449,
+    "i": 2454
+   },
+   "2025-10": {
+    "t": 8986,
+    "m": 1559,
+    "i": 2458
+   },
+   "2025-11": {
+    "t": 8779,
+    "m": 1521,
+    "i": 2574
+   },
+   "2025-12": {
+    "t": 14308,
+    "m": 1987,
+    "i": 4506
+   },
+   "2026-01": {
+    "t": 6618,
+    "m": 1265,
+    "i": 1613
+   },
+   "2026-02": {
+    "t": 7250,
+    "m": 1570,
+    "i": 1993
+   },
+   "2026-03": {
+    "t": 7278,
+    "m": 1797,
+    "i": 2046
+   },
+   "2026-04": {
+    "t": 7215,
+    "m": 1694,
+    "i": 2086
+   },
+   "2026-05": {
+    "t": 5624,
+    "m": 1286,
+    "i": 1787
+   },
+   "2026-06": {
+    "t": 7865,
+    "m": 1578,
+    "i": 2755
+   },
+   "2026-07": {
+    "t": 6547,
+    "m": 1305,
+    "i": 1934
+   },
+   "2026-08": {
+    "t": 6532,
+    "m": 1210,
+    "i": 1995
+   },
+   "2026-09": {
+    "t": 7535,
+    "m": 1392,
+    "i": 2224
+   }
+  }
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
@@ -137,6 +263,7 @@
   "not": "İstanbul ve ilçe kırılımı bulunamadı; Türkiye geneli eğilim olarak verilir."
  },
  "notlar": [
+  "İl toplamları (Ocak 2025–Eylül 2026; toplam, ilk el, ipotekli) TÜİK Veri Portalı'ndan doğrudan alındı. İlçe satışları TÜİK portalında yayımlanmıyor; ilçe değerleri TÜİK'i kaynak gösteren haberlerden derlendi.",
   "Değerler TÜİK ve TCMB yayınlarını kaynak gösteren haber sitelerinden derlendi; TÜİK veri portalı otomatik okunamadı.",
   "İzmir 2026-08 ilçe tablosu: haberlerde yalnızca ilk 9 ilçe yayımlandı. Güzelbahçe, Urla, Çeşme, Karaburun ve Seferihisar için Ağustos 2026 sayısı bulunamadı (null). Bu ilçelerin Haziran 2026 ve Mayıs 2026 değerleri gayrimenkulhaber.com'un tam ilçe tablosundan alındı (tek kaynak).",
   "İzmir 2026-06: gayrimenkulhaber tablosunda Narlıdere yok ve toplam 7.791. TÜİK il toplamı 7.865 (DHA, medyaege). Aradaki 74'ün Narlıdere olması muhtemel ama doğrulanmadı, bu yüzden Narlıdere null bırakıldı.",

@@ -1,31 +1,161 @@
 {
- "donem": "Ağustos 2026",
+ "donem": "Eylül 2026",
  "tuik": {
-  "kaynak": "TÜİK Konut Satış İstatistikleri, Ağustos 2026 (yayın: Eylül 2026)",
+  "kaynak": "TÜİK Konut ve İş Yeri Satış İstatistikleri, Eylül 2026 (yayın: 16 Ekim 2026; TÜİK Veri Portalı)",
   "turkiye": {
-   "satis": 127410,
-   "yillik": -0.147,
-   "ilk_el": 44378,
-   "ipotekli": 22131
+   "satis": 142390,
+   "yillik": -0.093,
+   "ilk_el": 51519,
+   "ipotekli": 23397
   },
   "il": {
    "ad": "Muğla",
-   "satis": 1727,
-   "ilk_el": 604,
-   "ipotekli": null,
-   "yillik": null,
-   "aylik_degisim": null
+   "satis": 1952,
+   "ilk_el": 616,
+   "ipotekli": 239,
+   "yillik": -0.0259,
+   "aylik_degisim": 0.1303
   },
   "ilce": {},
   "aylik": {
    "2026-08": {
     "Muğla": 1727
+   },
+   "2026-09": {
+    "Muğla": 1952
    }
   },
   "il_aylik": {
-   "2026-08": 1727
+   "2025-01": 1620,
+   "2025-02": 1698,
+   "2025-03": 2111,
+   "2025-04": 1893,
+   "2025-05": 1838,
+   "2025-06": 1477,
+   "2025-07": 1873,
+   "2025-08": 2001,
+   "2025-09": 2004,
+   "2025-10": 2387,
+   "2025-11": 1913,
+   "2025-12": 3432,
+   "2026-01": 1442,
+   "2026-02": 1641,
+   "2026-03": 1710,
+   "2026-04": 1745,
+   "2026-05": 1344,
+   "2026-06": 1723,
+   "2026-07": 1662,
+   "2026-08": 1727,
+   "2026-09": 1952
   },
-  "aylik_not": "Muğla kıyı ilçeleri için 2026 aylık ilçe satışı yayımlanmış bir kaynakta bulunamadı."
+  "aylik_not": "Muğla kıyı ilçeleri için 2026 aylık ilçe satışı yayımlanmış bir kaynakta bulunamadı.",
+  "il_aylik_detay": {
+   "2025-01": {
+    "t": 1620,
+    "m": 205,
+    "i": 479
+   },
+   "2025-02": {
+    "t": 1698,
+    "m": 224,
+    "i": 478
+   },
+   "2025-03": {
+    "t": 2111,
+    "m": 292,
+    "i": 691
+   },
+   "2025-04": {
+    "t": 1893,
+    "m": 212,
+    "i": 642
+   },
+   "2025-05": {
+    "t": 1838,
+    "m": 189,
+    "i": 562
+   },
+   "2025-06": {
+    "t": 1477,
+    "m": 143,
+    "i": 495
+   },
+   "2025-07": {
+    "t": 1873,
+    "m": 182,
+    "i": 615
+   },
+   "2025-08": {
+    "t": 2001,
+    "m": 222,
+    "i": 611
+   },
+   "2025-09": {
+    "t": 2004,
+    "m": 273,
+    "i": 574
+   },
+   "2025-10": {
+    "t": 2387,
+    "m": 295,
+    "i": 683
+   },
+   "2025-11": {
+    "t": 1913,
+    "m": 247,
+    "i": 593
+   },
+   "2025-12": {
+    "t": 3432,
+    "m": 392,
+    "i": 1177
+   },
+   "2026-01": {
+    "t": 1442,
+    "m": 209,
+    "i": 456
+   },
+   "2026-02": {
+    "t": 1641,
+    "m": 265,
+    "i": 481
+   },
+   "2026-03": {
+    "t": 1710,
+    "m": 327,
+    "i": 538
+   },
+   "2026-04": {
+    "t": 1745,
+    "m": 288,
+    "i": 481
+   },
+   "2026-05": {
+    "t": 1344,
+    "m": 191,
+    "i": 388
+   },
+   "2026-06": {
+    "t": 1723,
+    "m": 216,
+    "i": 554
+   },
+   "2026-07": {
+    "t": 1662,
+    "m": 224,
+    "i": 528
+   },
+   "2026-08": {
+    "t": 1727,
+    "m": 200,
+    "i": 604
+   },
+   "2026-09": {
+    "t": 1952,
+    "m": 239,
+    "i": 616
+   }
+  }
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
@@ -76,8 +206,8 @@
   "not": "İstanbul ve ilçe kırılımı bulunamadı; Türkiye geneli eğilim olarak verilir."
  },
  "notlar": [
+  "İl toplamları (Ocak 2025–Eylül 2026; toplam, ilk el, ipotekli) TÜİK Veri Portalı'ndan doğrudan alındı. İlçe satışları TÜİK portalında yayımlanmıyor; ilçe değerleri TÜİK'i kaynak gösteren haberlerden derlendi.",
   "Değerler TÜİK ve TCMB yayınlarını kaynak gösteren haber sitelerinden derlendi.",
-  "Muğla Ağustos 2026: 1.727 konut (604 ilk el, 1.123 ikinci el), 32 yabancıya satış; gundemfethiye.com.tr ve bodrumolay.com (17 Eylül 2026). Bazı haberlerde toplam 1.720 yazıyor; ilk el + ikinci el toplamı 1.727 olduğu için 1.727 kullanıldı. İpotekli satış ve yıllık değişim bulunamadı.",
   "Muğla ve ilçe nüfusları (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı).",
   "TCMB bölge (TR32) yıllık değişimi %17,9: KFE bülteninde TR32 koduyla yazılı."
  ],

@@ -1,20 +1,20 @@
 {
- "donem": "Ağustos 2026",
+ "donem": "Eylül 2026",
  "tuik": {
-  "kaynak": "TÜİK Konut Satış İstatistikleri, Ağustos 2026 (yayın: Eylül 2026)",
+  "kaynak": "TÜİK Konut ve İş Yeri Satış İstatistikleri, Eylül 2026 (yayın: 16 Ekim 2026; TÜİK Veri Portalı)",
   "turkiye": {
-   "satis": 127410,
-   "yillik": -0.147,
-   "ilk_el": 44378,
-   "ipotekli": 22131
+   "satis": 142390,
+   "yillik": -0.093,
+   "ilk_el": 51519,
+   "ipotekli": 23397
   },
   "il": {
    "ad": "Aydın",
-   "satis": 2174,
-   "ilk_el": 625,
-   "ipotekli": 289,
-   "yillik": null,
-   "aylik_degisim": -0.0414
+   "satis": 2702,
+   "ilk_el": 836,
+   "ipotekli": 312,
+   "yillik": -0.0533,
+   "aylik_degisim": 0.2429
   },
   "ilce": {},
   "aylik": {
@@ -32,17 +32,142 @@
    },
    "2026-01": {
     "Aydın": 2076
+   },
+   "2026-09": {
+    "Aydın": 2702
    }
   },
   "il_aylik": {
-   "2026-08": 2174,
-   "2026-07": 2268,
-   "2026-06": 2185,
-   "2026-05": 1575,
+   "2025-01": 2246,
+   "2025-02": 2106,
+   "2025-03": 2256,
+   "2025-04": 2383,
+   "2025-05": 2539,
+   "2025-06": 2091,
+   "2025-07": 2677,
+   "2025-08": 2773,
+   "2025-09": 2854,
+   "2025-10": 2866,
+   "2025-11": 2557,
+   "2025-12": 4110,
    "2026-01": 2076,
-   "2026-04": 2175
+   "2026-02": 2251,
+   "2026-03": 2248,
+   "2026-04": 2175,
+   "2026-05": 1575,
+   "2026-06": 2185,
+   "2026-07": 2268,
+   "2026-08": 2174,
+   "2026-09": 2702
   },
-  "aylik_not": "Kuşadası, Söke ve Didim için 2026 aylık ilçe satışı yayımlanmış bir kaynakta bulunamadı."
+  "aylik_not": "Kuşadası, Söke ve Didim için 2026 aylık ilçe satışı yayımlanmış bir kaynakta bulunamadı.",
+  "il_aylik_detay": {
+   "2025-01": {
+    "t": 2246,
+    "m": 292,
+    "i": 526
+   },
+   "2025-02": {
+    "t": 2106,
+    "m": 292,
+    "i": 409
+   },
+   "2025-03": {
+    "t": 2256,
+    "m": 340,
+    "i": 508
+   },
+   "2025-04": {
+    "t": 2383,
+    "m": 300,
+    "i": 489
+   },
+   "2025-05": {
+    "t": 2539,
+    "m": 339,
+    "i": 653
+   },
+   "2025-06": {
+    "t": 2091,
+    "m": 238,
+    "i": 555
+   },
+   "2025-07": {
+    "t": 2677,
+    "m": 277,
+    "i": 581
+   },
+   "2025-08": {
+    "t": 2773,
+    "m": 305,
+    "i": 671
+   },
+   "2025-09": {
+    "t": 2854,
+    "m": 341,
+    "i": 712
+   },
+   "2025-10": {
+    "t": 2866,
+    "m": 368,
+    "i": 719
+   },
+   "2025-11": {
+    "t": 2557,
+    "m": 322,
+    "i": 685
+   },
+   "2025-12": {
+    "t": 4110,
+    "m": 481,
+    "i": 1147
+   },
+   "2026-01": {
+    "t": 2076,
+    "m": 341,
+    "i": 506
+   },
+   "2026-02": {
+    "t": 2251,
+    "m": 413,
+    "i": 540
+   },
+   "2026-03": {
+    "t": 2248,
+    "m": 429,
+    "i": 569
+   },
+   "2026-04": {
+    "t": 2175,
+    "m": 396,
+    "i": 604
+   },
+   "2026-05": {
+    "t": 1575,
+    "m": 284,
+    "i": 434
+   },
+   "2026-06": {
+    "t": 2185,
+    "m": 365,
+    "i": 516
+   },
+   "2026-07": {
+    "t": 2268,
+    "m": 365,
+    "i": 682
+   },
+   "2026-08": {
+    "t": 2174,
+    "m": 289,
+    "i": 625
+   },
+   "2026-09": {
+    "t": 2702,
+    "m": 312,
+    "i": 836
+   }
+  }
  },
  "tcmb": {
   "kaynak": "TCMB Konut Fiyat Endeksi ve Yeni Kiracı Kira Endeksi, Ağustos 2026",
@@ -77,11 +202,10 @@
   "not": "İstanbul ve ilçe kırılımı bulunamadı; Türkiye geneli eğilim olarak verilir."
  },
  "notlar": [
+  "İl toplamları (Ocak 2025–Eylül 2026; toplam, ilk el, ipotekli) TÜİK Veri Portalı'ndan doğrudan alındı. İlçe satışları TÜİK portalında yayımlanmıyor; ilçe değerleri TÜİK'i kaynak gösteren haberlerden derlendi.",
   "Değerler TÜİK ve TCMB yayınlarını kaynak gösteren haber sitelerinden derlendi; TÜİK veri portalı otomatik okunamadı.",
-  "Aydın 2026-08 yıllık değişim bulunamadı. Yerel haberler yalnızca aylık değişimi verdi (Temmuz'a göre -%4,14). Aydın Ağustos 2025 il toplamı bulunamadı. aksiyon.com.tr'nin Ağustos 2016 karşılaştırmasına göre Ağustos 2016 = 3.075.",
   "Aydın ilçe bazında (Kuşadası, Didim) 2026 aylık konut satışı bulunamadı. Bulunan ilçe tabloları 2024 yılı toplamı (Kuşadası 8.888, Didim 5.320; marmarisyenisayfa/İHA) ve 'Mart 2025' etiketli ama il toplamıyla tutarsız bir tablo (Kuşadası 7.959, Didim 7.414; aydinpost, sesgazetesi). İkisi de istenen döneme ait değil, bu yüzden JSON'a konmadı.",
   "Aydın 2026-07 ve 2026-06 ipotekli değerlerinin ikisi de 365. Bu iki ayrı haber kaynağında böyle geçiyor, tesadüf olabilir.",
-  "TCMB TR32 (Aydın, Denizli, Muğla) yıllık %17,9: TCMB Ağustos 2026 KFE bülteninin (KFE.pdf) bölge grafiğinden metin çıkarımıyla alındı. Grafik etiketleri karışık çıktığı için bölge-değer eşleşmesi kesin değil ve ikinci kaynakla doğrulanamadı. Aylık değer bulunamadı.",
   "Söke, Milas, Bodrum nüfusu (2021, 2025): nufusu.com (TÜİK ADNKS kaynaklı). Aydın Nisan 2026 satışı 2.175 (gazetebirlik, 15 Mayıs 2026).",
   "TCMB bölge (TR32) yıllık değişimi %17,9: KFE bülteninde TR32 koduyla yazılı."
  ],

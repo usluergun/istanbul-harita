@@ -8,23 +8,34 @@
  "zoom": 9,
  "fiyat": {
   "adimlar": [
+   1.75,
+   2,
+   2.5,
    3,
+   3.5,
    4,
+   4.5,
    5,
    6,
+   7,
    8,
+   9,
    10,
    12,
-   15,
+   14,
+   16,
+   18,
    20,
    25,
    30,
+   35,
    40,
    50,
+   60,
    75,
    100
   ],
-  "min": 3,
+  "min": 1.75,
   "max": 100
  },
  "ilan_tipleri": [
@@ -148,8 +159,24 @@
   "Muğla kıyı"
  ],
  "rapor_ilce": "Bodrum",
- "tarama": null,
- "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR (OCHA) ilçe katmanı ve il açık verilerinden mahalle sınırları (github.com/ttezer/turkiye-harita-verisi). Harita: © Esri, © OpenStreetMap katkıcıları.",
+ "tarama": {
+  "varsayilan": "2026-10-17",
+  "ilce": {
+   "Bodrum": "2026-10-17",
+   "Dalaman": "2026-10-17",
+   "Datça": "2026-10-17",
+   "Fethiye": "2026-10-17",
+   "Köyceğiz": "2026-10-17",
+   "Marmaris": "2026-10-17",
+   "Menteşe": "2026-10-17",
+   "Milas": "2026-10-17",
+   "Ortaca": "2026-10-17",
+   "Seydikemer": "2026-10-17",
+   "Ula": "2026-10-17"
+  },
+  "metin": "17 Ekim 2026"
+ },
+ "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "mugla",
  "il_lok": "Muğla'da",
  "ilan_etiket": "Satılık konut",

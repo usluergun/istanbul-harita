@@ -9,8 +9,11 @@
  "fiyat": {
   "adimlar": [
    2,
+   2.5,
    3,
+   3.5,
    4,
+   4.5,
    5,
    6,
    7,
@@ -24,11 +27,15 @@
    20,
    25,
    30,
+   35,
    40,
-   50
+   50,
+   60,
+   75,
+   100
   ],
   "min": 2,
-  "max": 50
+  "max": 100
  },
  "ilan_tipleri": [
   "satilik-daire",
@@ -175,8 +182,26 @@
   "İzmir kıyı"
  ],
  "rapor_ilce": "Konak",
- "tarama": null,
- "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR (OCHA) ilçe katmanı ve il açık verilerinden mahalle sınırları (github.com/ttezer/turkiye-harita-verisi). Harita: © Esri, © OpenStreetMap katkıcıları.",
+ "tarama": {
+  "varsayilan": "2026-10-17",
+  "ilce": {
+   "Balçova": "2026-10-17",
+   "Bayraklı": "2026-10-17",
+   "Çeşme": "2026-10-17",
+   "Çiğli": "2026-10-17",
+   "Güzelbahçe": "2026-10-17",
+   "Karaburun": "2026-10-17",
+   "Karşıyaka": "2026-10-17",
+   "Konak": "2026-10-17",
+   "Menderes": "2026-10-17",
+   "Narlıdere": "2026-10-17",
+   "Seferihisar": "2026-10-17",
+   "Selçuk": "2026-10-17",
+   "Urla": "2026-10-17"
+  },
+  "metin": "17 Ekim 2026"
+ },
+ "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "izmir",
  "il_lok": "İzmir'de",
  "ilan_etiket": "Satılık konut",

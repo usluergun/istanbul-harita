@@ -11,30 +11,56 @@
  "fiyat": {
   "adimlar": [
    1,
+   1.25,
    1.5,
+   1.75,
    2,
    2.5,
    3,
    3.5,
    4,
+   4.5,
    5,
    6,
    7,
    8,
+   9,
    10,
    12,
-   15,
-   20
+   14,
+   16,
+   18,
+   20,
+   25,
+   30,
+   35,
+   40
   ],
   "min": 1,
-  "max": 20
+  "max": 40
  },
  "ilan_tipleri": [
   "satilik-daire",
   "satilik-villa",
   "satilik-mustakil-ev"
  ],
- "tarama": null,
+ "tarama": {
+  "varsayilan": "2026-10-17",
+  "ilce": {
+   "Antakya": "2026-10-17",
+   "Arsuz": "2026-10-17",
+   "Belen": "2026-10-17",
+   "Defne": "2026-10-17",
+   "Dörtyol": "2026-10-17",
+   "Erzin": "2026-10-17",
+   "İskenderun": "2026-10-17",
+   "Kırıkhan": "2026-10-17",
+   "Payas": "2026-10-17",
+   "Reyhanlı": "2026-10-17",
+   "Yayladağı": "2026-10-17"
+  },
+  "metin": "17 Ekim 2026"
+ },
  "rapor_ilce": "İskenderun",
  "ilceler": [
   {
@@ -196,7 +222,7 @@
   "Suriye sınırı",
   "İç Hatay"
  ],
- "kaynak_notu": "İlan verisi henüz taranmadı. Resmî veriler: TÜİK, TCMB. Sınırlar, semtler ve yollar: © OpenStreetMap katkıcıları (mahalle sınırı OSM'de olmayan ilçelerde yalnızca ilçe sınırı). Harita: © Esri.",
+ "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "ilan_etiket": "Satılık konut",
  "tum_fiyatlar": true
 }

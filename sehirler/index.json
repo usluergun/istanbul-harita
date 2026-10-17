@@ -10,7 +10,7 @@
    "id": "izmir",
    "ad": "İzmir",
    "baslik": "İzmir körfezden Selçuk'a kıyı",
-   "durum": "hazirlaniyor"
+   "durum": "hazir"
   },
   {
    "id": "aydin",
@@ -22,7 +22,7 @@
    "id": "mugla",
    "ad": "Muğla",
    "baslik": "Muğla kıyı: Milas'tan Fethiye'ye",
-   "durum": "hazirlaniyor"
+   "durum": "hazir"
   },
   {
    "id": "gaziantep",
@@ -34,7 +34,7 @@
    "id": "hatay",
    "ad": "Hatay",
    "baslik": "Hatay: tüm ilçeler",
-   "durum": "hazirlaniyor"
+   "durum": "hazir"
   }
  ],
  "varsayilan": "istanbul"

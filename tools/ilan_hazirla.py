@@ -83,6 +83,7 @@ def main():
     ara = [v for v in ADIM if lo_ * 1.08 < v < hi_ / 1.08]
     steps = [round(lo_, 2)] + ara + [round(hi_, 2)]
     cfg['fiyat'] = {'adimlar': steps, 'min': steps[0], 'max': steps[-1]}
+    cfg['tum_fiyatlar'] = True; cfg['ilan_etiket'] = 'Satılık konut'; cfg.pop('ilan_tipleri', None)
     gun = sorted({d for s in tarih.values() for d in s})
     if gun:
         cfg['tarama'] = {'varsayilan': gun[-1], 'ilce': {b: max(s) for b, s in tarih.items()}}

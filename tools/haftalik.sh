@@ -7,7 +7,7 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 LOG="log/haftalik-$(date +%Y%m%d).log"; mkdir -p log
 exec >>"$LOG" 2>&1
 echo "== $(date) başladı"
-git pull -q --rebase origin cok-sehir || echo "git pull başarısız, yerel kopya ile devam"
+git pull -q --rebase origin main || echo "git pull başarısız, yerel kopya ile devam"
 SEHIRLER=(${=HAFTALIK_SEHIRLER:-istanbul izmir aydin mugla gaziantep hatay})
 for s in $SEHIRLER; do
   [ -f "sehirler/$s/config.json" ] || continue
@@ -16,7 +16,7 @@ for s in $SEHIRLER; do
   caffeinate -i python3 tools/tara_sehir.py "$s" --detay "${HAFTALIK_DETAY:-400}" && python3 tools/ilan_hazirla.py "$s"
 done
 git add sehirler/*/ilan.json sehirler/*/config.json sehirler/index.json
-git commit -q -m "Haftalık ilan yenileme $(date +%Y-%m-%d)" && git push -q origin cok-sehir && echo "gönderildi" || echo "gönderilecek değişiklik yok veya push başarısız"
+git commit -q -m "Haftalık ilan yenileme $(date +%Y-%m-%d)" && git push -q origin main && echo "gönderildi" || echo "gönderilecek değişiklik yok veya push başarısız"
 # eski tarama klasörlerinden yalnızca son 4 haftayı tut
 for s in $SEHIRLER; do ls -d sehirler/$s/_tarama_* 2>/dev/null | sort -r | tail -n +5 | while read d; do mkdir -p _arsiv && mv "$d" _arsiv/; done; done
 echo "== $(date) bitti"

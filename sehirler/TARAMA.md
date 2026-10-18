@@ -1,7 +1,7 @@
 # Yeni şehir: Mac'te yapılacaklar
 
 Bu bulut ortamı emlakjet ve OpenStreetMap'e erişemiyor. Aşağıdaki iki adım internet erişimi olan bilgisayarda (Mac) çalışır.
-Her adımdan sonra değişiklikleri `cok-sehir` dalına gönderin; harita yeni veriyi kendiliğinden kullanır.
+Her adımdan sonra değişiklikleri `main` dalına gönderin; harita yeni veriyi kendiliğinden kullanır.
 
 ## 1. Mahalle sınırları — İzmir, Aydın, Gaziantep için TAMAM
 
@@ -10,8 +10,8 @@ Sınırlar açık veri setinden alındı (`tools/sinir_acik_veri.py`, kaynak: gi
 ### OpenStreetMap ile (isteğe bağlı, her şehir için 5–15 dk)
 
 ```bash
-cd ~/Istanbul_Emlak_Harita   # bu deponun Mac'teki kopyası
-git checkout cok-sehir && git pull
+cd ~/"Emlak Haritası_Web Tabanlı"   # bu deponun Mac'teki kopyası
+git checkout main && git pull
 python3 tools/sinir_indir.py izmir
 python3 tools/sinir_indir.py aydin
 python3 tools/sinir_indir.py mugla

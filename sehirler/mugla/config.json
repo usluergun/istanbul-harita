@@ -38,11 +38,6 @@
   "min": 1.85,
   "max": 99.5
  },
- "ilan_tipleri": [
-  "satilik-daire",
-  "satilik-villa",
-  "satilik-mustakil-ev"
- ],
  "ilceler": [
   {
    "ad": "Milas",
@@ -160,23 +155,23 @@
  ],
  "rapor_ilce": "Bodrum",
  "tarama": {
-  "varsayilan": "2026-10-17",
+  "varsayilan": "2026-10-18",
   "ilce": {
-   "Bodrum": "2026-10-17",
-   "Dalaman": "2026-10-17",
-   "Datça": "2026-10-17",
-   "Fethiye": "2026-10-17",
-   "Köyceğiz": "2026-10-17",
-   "Marmaris": "2026-10-17",
-   "Menteşe": "2026-10-17",
-   "Milas": "2026-10-17",
-   "Ortaca": "2026-10-17",
-   "Seydikemer": "2026-10-17",
-   "Ula": "2026-10-17"
+   "Bodrum": "2026-10-18",
+   "Dalaman": "2026-10-18",
+   "Datça": "2026-10-18",
+   "Fethiye": "2026-10-18",
+   "Köyceğiz": "2026-10-18",
+   "Marmaris": "2026-10-18",
+   "Menteşe": "2026-10-18",
+   "Milas": "2026-10-18",
+   "Ortaca": "2026-10-18",
+   "Seydikemer": "2026-10-18",
+   "Ula": "2026-10-18"
   },
-  "metin": "17 Ekim 2026"
+  "metin": "18 Ekim 2026"
  },
- "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
+ "kaynak_notu": "Kaynak: emlakjet.com, 18 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "mugla",
  "il_lok": "Muğla'da",
  "ilan_etiket": "Satılık konut",

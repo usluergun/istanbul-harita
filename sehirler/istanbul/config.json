@@ -37,19 +37,19 @@
   "max": 40.0
  },
  "tarama": {
-  "varsayilan": "2026-10-17",
+  "varsayilan": "2026-10-18",
   "ilce": {
-   "Avcılar": "2026-10-17",
-   "Bağcılar": "2026-10-17",
-   "Başakşehir": "2026-10-17",
-   "Beylikdüzü": "2026-10-17",
-   "Esenyurt": "2026-10-17",
-   "Güngören": "2026-10-17",
-   "Küçükçekmece": "2026-10-17"
+   "Avcılar": "2026-10-18",
+   "Bağcılar": "2026-10-18",
+   "Başakşehir": "2026-10-18",
+   "Beylikdüzü": "2026-10-18",
+   "Esenyurt": "2026-10-18",
+   "Güngören": "2026-10-18",
+   "Küçükçekmece": "2026-10-18"
   },
-  "metin": "17 Ekim 2026"
+  "metin": "18 Ekim 2026"
  },
- "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
+ "kaynak_notu": "Kaynak: emlakjet.com, 18 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "rapor_ilce": "Küçükçekmece",
  "ornek_portfoy_ilce": "Avcılar",
  "ilceler": [

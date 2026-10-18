@@ -30,14 +30,11 @@
    16,
    18,
    20,
-   23.75
+   25.0
   ],
   "min": 0.85,
-  "max": 23.75
+  "max": 25.0
  },
- "ilan_tipleri": [
-  "satilik-daire"
- ],
  "ilceler": [
   {
    "ad": "Şahinbey",
@@ -67,14 +64,14 @@
  ],
  "rapor_ilce": "Şahinbey",
  "tarama": {
-  "varsayilan": "2026-10-17",
+  "varsayilan": "2026-10-18",
   "ilce": {
-   "Şahinbey": "2026-10-17",
-   "Şehitkamil": "2026-10-17"
+   "Şahinbey": "2026-10-18",
+   "Şehitkamil": "2026-10-18"
   },
-  "metin": "17 Ekim 2026"
+  "metin": "18 Ekim 2026"
  },
- "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
+ "kaynak_notu": "Kaynak: emlakjet.com, 18 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "gaziantep",
  "il_lok": "Gaziantep'te",
  "ilan_etiket": "Satılık konut",

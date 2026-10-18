@@ -34,11 +34,6 @@
   "min": 1.75,
   "max": 39.5
  },
- "ilan_tipleri": [
-  "satilik-daire",
-  "satilik-villa",
-  "satilik-mustakil-ev"
- ],
  "ilceler": [
   {
    "ad": "Kuşadası",
@@ -76,15 +71,15 @@
  ],
  "rapor_ilce": "Kuşadası",
  "tarama": {
-  "varsayilan": "2026-10-17",
+  "varsayilan": "2026-10-18",
   "ilce": {
-   "Didim": "2026-10-17",
-   "Kuşadası": "2026-10-17",
-   "Söke": "2026-10-17"
+   "Didim": "2026-10-18",
+   "Kuşadası": "2026-10-18",
+   "Söke": "2026-10-18"
   },
-  "metin": "17 Ekim 2026"
+  "metin": "18 Ekim 2026"
  },
- "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
+ "kaynak_notu": "Kaynak: emlakjet.com, 18 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "aydin",
  "il_lok": "Aydın'da",
  "ilan_etiket": "Satılık konut",

@@ -31,16 +31,11 @@
    50,
    60,
    75,
-   86.0
+   85.0
   ],
   "min": 2.35,
-  "max": 86.0
+  "max": 85.0
  },
- "ilan_tipleri": [
-  "satilik-daire",
-  "satilik-villa",
-  "satilik-mustakil-ev"
- ],
  "ilceler": [
   {
    "ad": "Çiğli",
@@ -182,25 +177,25 @@
  ],
  "rapor_ilce": "Konak",
  "tarama": {
-  "varsayilan": "2026-10-17",
+  "varsayilan": "2026-10-18",
   "ilce": {
-   "Balçova": "2026-10-17",
-   "Bayraklı": "2026-10-17",
-   "Çeşme": "2026-10-17",
-   "Çiğli": "2026-10-17",
-   "Güzelbahçe": "2026-10-17",
-   "Karaburun": "2026-10-17",
-   "Karşıyaka": "2026-10-17",
-   "Konak": "2026-10-17",
-   "Menderes": "2026-10-17",
-   "Narlıdere": "2026-10-17",
-   "Seferihisar": "2026-10-17",
-   "Selçuk": "2026-10-17",
-   "Urla": "2026-10-17"
+   "Balçova": "2026-10-18",
+   "Bayraklı": "2026-10-18",
+   "Çeşme": "2026-10-18",
+   "Çiğli": "2026-10-18",
+   "Güzelbahçe": "2026-10-18",
+   "Karaburun": "2026-10-18",
+   "Karşıyaka": "2026-10-18",
+   "Konak": "2026-10-18",
+   "Menderes": "2026-10-18",
+   "Narlıdere": "2026-10-18",
+   "Seferihisar": "2026-10-18",
+   "Selçuk": "2026-10-18",
+   "Urla": "2026-10-18"
   },
-  "metin": "17 Ekim 2026"
+  "metin": "18 Ekim 2026"
  },
- "kaynak_notu": "Kaynak: emlakjet.com, 17 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
+ "kaynak_notu": "Kaynak: emlakjet.com, 18 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "izmir",
  "il_lok": "İzmir'de",
  "ilan_etiket": "Satılık konut",

@@ -35,26 +35,28 @@
    25,
    30,
    35,
-   38.0
+   40.25
   ],
   "min": 0.9,
-  "max": 38.0
+  "max": 40.25
  },
  "tarama": {
-  "varsayilan": "2026-10-25",
+  "varsayilan": "2026-11-08",
   "ilce": {
-   "Antakya": "2026-10-25",
-   "Arsuz": "2026-10-25",
-   "Belen": "2026-10-25",
-   "Defne": "2026-10-25",
-   "Dörtyol": "2026-10-25",
-   "Erzin": "2026-10-25",
-   "İskenderun": "2026-10-25",
-   "Kırıkhan": "2026-10-25",
-   "Payas": "2026-10-25",
-   "Yayladağı": "2026-10-25"
+   "Antakya": "2026-11-08",
+   "Arsuz": "2026-11-08",
+   "Belen": "2026-11-08",
+   "Defne": "2026-11-08",
+   "Dörtyol": "2026-11-08",
+   "Erzin": "2026-11-08",
+   "İskenderun": "2026-11-08",
+   "Kırıkhan": "2026-11-08",
+   "Payas": "2026-11-08",
+   "Reyhanlı": "2026-11-08",
+   "Samandağ": "2026-11-08",
+   "Yayladağı": "2026-11-08"
   },
-  "metin": "25 Ekim 2026"
+  "metin": "8 Kasım 2026"
  },
  "rapor_ilce": "İskenderun",
  "ilceler": [
@@ -217,7 +219,7 @@
   "Suriye sınırı",
   "İç Hatay"
  ],
- "kaynak_notu": "Kaynak: emlakjet.com, 25 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
+ "kaynak_notu": "Kaynak: emlakjet.com, 8 Kasım 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "ilan_etiket": "Satılık konut",
  "tum_fiyatlar": true
 }

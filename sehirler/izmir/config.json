@@ -8,7 +8,7 @@
  "zoom": 10,
  "fiyat": {
   "adimlar": [
-   3.0,
+   3.15,
    3.5,
    4,
    4.5,
@@ -32,7 +32,7 @@
    75,
    95.0
   ],
-  "min": 3.0,
+  "min": 3.15,
   "max": 95.0
  },
  "ilceler": [
@@ -176,17 +176,20 @@
  ],
  "rapor_ilce": "Konak",
  "tarama": {
-  "varsayilan": "2026-10-25",
+  "varsayilan": "2026-11-08",
   "ilce": {
-   "Çeşme": "2026-10-25",
-   "Karaburun": "2026-10-25",
-   "Menderes": "2026-10-25",
-   "Seferihisar": "2026-10-25",
-   "Selçuk": "2026-10-25"
+   "Çeşme": "2026-11-08",
+   "Güzelbahçe": "2026-11-08",
+   "Karaburun": "2026-11-08",
+   "Menderes": "2026-11-08",
+   "Narlıdere": "2026-11-08",
+   "Seferihisar": "2026-11-08",
+   "Selçuk": "2026-11-08",
+   "Urla": "2026-11-08"
   },
-  "metin": "25 Ekim 2026"
+  "metin": "8 Kasım 2026"
  },
- "kaynak_notu": "Kaynak: emlakjet.com, 25 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
+ "kaynak_notu": "Kaynak: emlakjet.com, 8 Kasım 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "izmir",
  "il_lok": "İzmir'de",
  "ilan_etiket": "Satılık konut",

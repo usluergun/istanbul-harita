@@ -8,7 +8,7 @@
  "zoom": 10,
  "fiyat": {
   "adimlar": [
-   1.75,
+   1.7,
    2,
    2.5,
    3,
@@ -29,10 +29,10 @@
    25,
    30,
    35,
-   39.0
+   39.5
   ],
-  "min": 1.75,
-  "max": 39.0
+  "min": 1.7,
+  "max": 39.5
  },
  "ilceler": [
   {
@@ -71,15 +71,15 @@
  ],
  "rapor_ilce": "Kuşadası",
  "tarama": {
-  "varsayilan": "2026-10-25",
+  "varsayilan": "2026-11-08",
   "ilce": {
-   "Didim": "2026-10-25",
-   "Kuşadası": "2026-10-25",
-   "Söke": "2026-10-25"
+   "Didim": "2026-11-08",
+   "Kuşadası": "2026-11-08",
+   "Söke": "2026-11-08"
   },
-  "metin": "25 Ekim 2026"
+  "metin": "8 Kasım 2026"
  },
- "kaynak_notu": "Kaynak: emlakjet.com, 25 Ekim 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
+ "kaynak_notu": "Kaynak: emlakjet.com, 8 Kasım 2026; her ilçenin satılık konut ilanlarından fiyat dağılımına yayılmış örnek alındı, aynı dairenin tekrar ilanları birleştirildi. Konumlar ilan sahibinin girdiği noktadır. Resmî veriler: TÜİK, TCMB. Sınırlar: HDX COD-AB-TUR, il açık verileri ve © OpenStreetMap katkıcıları. Harita: © Esri.",
  "id": "aydin",
  "il_lok": "Aydın'da",
  "ilan_etiket": "Satılık konut",
